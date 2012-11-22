@@ -1,26 +1,32 @@
 -- ============================================================
---   Nom de la base   :  bASKETBALL                                
+--   Nom de la base   :  CINEMA                                
 --   Nom de SGBD      :  ORACLE Version 7.0                    
---   Date de creation :  20/11/2012                       
+--   Date de creation :  30/10/96  12:09                       
 -- ============================================================
 
+drop table CLUB cascade constraints;
 drop table BUREAU cascade constraints;
 
-drop table CLUB cascade constraints;
-
 drop table EQUIPE cascade constraints;
-
 drop table CATEGORIE cascade constraints;
 
-drop table ENTRAINE cascade constraints;
-
 drop table ENTRAINEUR cascade constraints;
-
+drop table JOUEUR cascade constraints;
 drop table RENCONTRE cascade constraints;
 
 drop table PARTICIPE cascade constraints;
+drop table ENTRAINE cascade constraints;
 
-drop table JOUEUR cascade constraints;
+-- ============================================================
+--   Table : CLUB                                            
+-- ============================================================
+create table CLUB
+(
+    NUMERO_CLUB                   NUMBER(3)              not null,
+    NOM_CLUB                      CHAR(20)               not null,
+    NUMERO_BUREAU                 NUMBER(3)  		 not null,	 
+    constraint pk_club primary key (NUMERO_CLUB)
+);
 
 -- ============================================================
 --   Table : BUREAU                                            
@@ -33,21 +39,8 @@ create table BUREAU
     TRESORIER                       CHAR(20)               not null,
     SECRETAIRE                      CHAR(20)               not null,
     NUMERO_CLUB                     NUMBER(3)              not null,	
-    constraint pk_bureau primary key (NUMERO_BUREAUX)
+    constraint pk_bureau primary key (NUMERO_BUREAU)
 );
-
-
--- ============================================================
---   Table : CLUB                                            
--- ============================================================
-create table CLUB
-(
-    NUMERO_CLUB                   NUMBER(3)              not null,
-    NOM_CLUB                      CHAR(20)               not null,
-    NUMERO_BUREAU                 NUMBER(3)  		 not null,		   
-    constraint pk_club primary key (NUMERO_CLUB)
-);
-
 
 -- ============================================================
 --   Table : EQUIPE                                            
@@ -56,11 +49,10 @@ create table EQUIPE
 (
     NUMERO_EQUIPE                   NUMBER(3)              not null,
     NOM_EQUIPE                      CHAR(20)               not null,
-    NUMERO_CLUB                     NUMBER(3)   	   not null,		    NUMERO_CATEGORIE                NUMBER(3)              not null,
-
+    NUMERO_CLUB                     NUMBER(3)   	   not null,
+    NUMERO_CATEGORIE                NUMBER(3)              not null,
     constraint pk_equipe primary key (NUMERO_EQUIPE)
 );
-
 
 -- ============================================================
 --   Table : CATEGORIE                                            
@@ -69,7 +61,6 @@ create table CATEGORIE
 (
     NUMERO_CATEGORIE                   NUMBER(3)              not null,
     NOM_CATEGORIE                      CHAR(20)               not null,
-
     constraint pk_categorie primary key (NUMERO_CATEGORIE)
 );
 
@@ -81,7 +72,6 @@ create table ENTRAINEUR
     NUMERO_ENTRAINEUR                   NUMBER(3)              not null,
     NOM_ENTRAINEUR                      CHAR(20)               not null,
     PRENOM_ENTRAINEUR                   CHAR(20) 	       not null,
-
     constraint pk_entraineur primary key (NUMERO_ENTRAINEUR)
 );
 
@@ -99,8 +89,7 @@ create table JOUEUR
     CUMUL_POINTS_MARQUES_JOUEUR      NUMBER(3)              not null,       
     CUMUL_FAUTES_JOUEUR              NUMBER(3)              not null, 
     NUMERO_EQUIPE                    NUMBER(3)              not null,
-
-    constraint pk_entraineur primary key (NUMERO_ENTRAINEUR)
+    constraint pk_joueur primary key (NUMERO_LICENCE)
 );
 
 -- ============================================================
@@ -113,7 +102,6 @@ create table RENCONTRE
     SCORE_RENCONTRE                     CHAR(10) 	       not null,
     NUMERO_EQUIPE1   		        NUMBER(3)              not null, 
     NUMERO_EQUIPE2                      NUMBER(3)              not null,
- 
     constraint pk_rencontre primary key (NUMERO_RENCONTRE)
 );
 
@@ -124,7 +112,7 @@ create table PARTICIPE
 (
     NUMERO_LICENCE                    NUMBER(3)              not null,
     NUMERO_RENCONTRE                  NUMBER(3)              not null,
-  
+    constraint pk_participe primary key (NUMERO_LICENCE, NUMERO_RENCONTRE)
 );
 
 -- ============================================================
@@ -134,7 +122,7 @@ create table ENTRAINE
 (
     NUMERO_EQUIPE                      NUMBER(3)              not null,
     NUMERO_ENTRAINEUR                  NUMBER(3)              not null,
-  
+    constraint pk_entraine primary key (NUMERO_EQUIPE, NUMERO_ENTRAINEUR)
 );
 
 alter table BUREAU
@@ -157,10 +145,11 @@ alter table JOUEUR
     add constraint fk1_joueur foreign key (NUMERO_EQUIPE)
        references EQUIPE (NUMERO_EQUIPE);
 
-alter table PARTICIE
+alter table PARTICIPE
     add constraint fk1_participe foreign key (NUMERO_LICENCE)
        references JOUEUR (NUMERO_LICENCE);
-alter table PARTICIE
+
+alter table PARTICIPE
     add constraint fk2_participe foreign key (NUMERO_RENCONTRE)
        references RENCONTRE (NUMERO_RENCONTRE);
 
@@ -178,4 +167,4 @@ alter table ENTRAINE
 
 alter table ENTRAINE
     add constraint fk2_entraine foreign key (NUMERO_ENTRAINEUR)
-       references ENTERAINEUR (NUMERO_ENTRAINEUR);
+       references ENTRAINEUR (NUMERO_ENTRAINEUR);

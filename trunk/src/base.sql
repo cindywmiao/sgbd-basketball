@@ -1,20 +1,24 @@
 -- ============================================================
---   Nom de la base   :  CINEMA                                
+--   Nom de la base   :  Basketball                                
 --   Nom de SGBD      :  ORACLE Version 7.0                    
 --   Date de creation :  30/10/96  12:09                       
 -- ============================================================
-
 drop table CLUB cascade constraints;
+
 drop table BUREAU cascade constraints;
 
 drop table EQUIPE cascade constraints;
+
 drop table CATEGORIE cascade constraints;
 
 drop table ENTRAINEUR cascade constraints;
+
 drop table JOUEUR cascade constraints;
+
 drop table RENCONTRE cascade constraints;
 
 drop table PARTICIPE cascade constraints;
+
 drop table ENTRAINE cascade constraints;
 
 -- ============================================================

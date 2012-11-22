@@ -4,16 +4,13 @@ import java.sql.*;
 import oracle.jdbc.pool.OracleDataSource;
 
 public class RequestSQL {
-    private String requestText;
-    private String name;
+    String requestText;
     
-    RequestSQL(String requete, String rName){
+    RequestSQL(String requete){
 	requestText = requete;
-	name = rName;
     }
     
-
-    ResultSet execRequest(Statement stmt) throws SQLException, ClassNotFoundException, java.io.IOException {
+    void execRequest(Statement stmt) throws SQLException, ClassNotFoundException, java.io.IOException {
 	// Execution de la requete.
 	ResultSet rset = stmt.executeQuery(requestText);
 	ResultSetMetaData data = rset.getMetaData();
@@ -23,12 +20,6 @@ public class RequestSQL {
 	    System.out.print(data.getColumnName(i) + " ");
 	System.out.print("\n");
 
-	this.affichageTerminal(rset);
-	return rset;
-    }
-
-    //TODO : Déplacer cette fonction dans la GUI
-    private void affichageTerminal(ResultSet rset){
 	while (rset.next()) {
 	    // Affichage du resultat.
 	    

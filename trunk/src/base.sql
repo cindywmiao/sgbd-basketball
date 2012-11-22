@@ -96,8 +96,9 @@ create table JOUEUR
     DATE_DE_NAISSANCE_JOUREUR        DATE                           , 
     ADRESSE_JOUEUR                   CHAR(30)               not null,
     DATE_ENTREE_CLUB_JOUEUR          DATE                           ,
-
-
+    CUMUL_POINTS_MARQUES_JOUEUR      NUMBER(3)              not null,       
+    CUMUL_FAUTES_JOUEUR              NUMBER(3)              not null, 
+    NUMERO_EQUIPE                    NUMBER(3)              not null,
 
     constraint pk_entraineur primary key (NUMERO_ENTRAINEUR)
 );

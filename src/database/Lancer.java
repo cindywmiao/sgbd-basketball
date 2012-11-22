@@ -7,7 +7,7 @@ public class Lancer {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException, java.io.IOException {
 
-	RequestSQL exempleReq = new RequestSQL("select * from ENTRAINEUR ", "Entraineur");
+	RequestSQL exempleReq = new RequestSQL("select * from ENTRAINEUR ");
 
       	// Preparation de la connexion.
 	OracleDataSource ods = new OracleDataSource();

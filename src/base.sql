@@ -41,8 +41,7 @@ create table BUREAU
     PRESIDENT                       CHAR(20)               not null,
     VICE_PRESIDENT                  CHAR(20)               not null,
     TRESORIER                       CHAR(20)               not null,
-    SECRETAIRE                      CHAR(20)               not null,
-    NUMERO_CLUB                     NUMBER(3)              not null,	
+    SECRETAIRE                      CHAR(20)               not null,	
     constraint pk_bureau primary key (NUMERO_BUREAU)
 );
 
@@ -76,6 +75,7 @@ create table ENTRAINEUR
     NUMERO_ENTRAINEUR                   NUMBER(3)              not null,
     NOM_ENTRAINEUR                      CHAR(20)               not null,
     PRENOM_ENTRAINEUR                   CHAR(20) 	       not null,
+    DATE_ENTREE_CLUB_ENTRAINTEUR        DATE                   not null,
     constraint pk_entraineur primary key (NUMERO_ENTRAINEUR)
 );
 
@@ -129,9 +129,9 @@ create table ENTRAINE
     constraint pk_entraine primary key (NUMERO_EQUIPE, NUMERO_ENTRAINEUR)
 );
 
-alter table BUREAU
-    add constraint fk1_bureau foreign key (NUMERO_CLUB)
-       references CLUB (NUMERO_CLUB);
+-- alter table BUREAU
+--     add constraint fk1_bureau foreign key (NUMERO_CLUB)
+--        references CLUB (NUMERO_CLUB);
 
 alter table CLUB
     add constraint fk1_club foreign key (NUMERO_BUREAU)

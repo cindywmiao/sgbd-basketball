@@ -85,9 +85,9 @@ create table ENTRAINEUR
 create table JOUEUR
 (
     NUMERO_LICENCE                   NUMBER(3)              not null,
-    NOM_JOUEUER                      CHAR(20)               not null,
+    NOM_JOUEUR                       CHAR(20)               not null,
     PRENOM_JOUEUR                    CHAR(20) 	            not null,
-    DATE_DE_NAISSANCE_JOUREUR        DATE                           , 
+    DATE_DE_NAISSANCE_JOUEUR        DATE                           , 
     ADRESSE_JOUEUR                   CHAR(30)               not null,
     DATE_ENTREE_CLUB_JOUEUR          DATE                           ,
     CUMUL_POINTS_MARQUES_JOUEUR      NUMBER(3)              not null,       

@@ -23,12 +23,14 @@ public class RequestSQL {
 	    System.out.print(data.getColumnName(i) + " ");
 	System.out.print("\n");
 
-	this.affichageTerminal(rset);
+	this.affichageTerminal(rset, data);
 	return rset;
     }
 
-    //TODO : Déplacer cette fonction dans la GUI
-    private void affichageTerminal(ResultSet rset){
+    //TODO : Deplacer cette fonction dans la GUI
+    private void affichageTerminal(ResultSet rset, ResultSetMetaData data) throws SQLException, ClassNotFoundException, java.io.IOException{
+	int i;
+
 	while (rset.next()) {
 	    // Affichage du resultat.
 	    

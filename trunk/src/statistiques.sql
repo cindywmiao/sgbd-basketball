@@ -12,7 +12,7 @@ where rencontre.date_rencontre = '21-FEB-87'
 -- Input : date de début de la saison
 
 select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS
-from participe, rencontre
+from joueur, participe, rencontre
 where rencontre.date_rencontre > '21-FEB-87'
       and rencontre.numero_rencontre = participe.numero_rencontre;
 
@@ -21,7 +21,7 @@ where rencontre.date_rencontre > '21-FEB-87'
 -- Input : numero_categorie (type int)
 -- Input : date_rencontre (type date)
 
-select joueur.numero_licence, sum(rencontre.score_rencontre) as SCORE
+select joueur.numero_licence, sum(participe.cumul_points_marques_joueur) as SCORE
 from joueur, participe, rencontre, equipe
 where equipe.numero_categorie = 1
       and rencontre.date_rencontre = '21-FEB-87'
@@ -34,11 +34,12 @@ order by score DESC;
 -- Commande 4 --
 -- Classement des équipes --
 
-select t.numero_equipe,(sum(t.score_rencontre) + sum(rencontre.score_rencontre)) as score
-from rencontre,
-(select *
-from equipe,rencontre
-where equipe.numero_equipe = rencontre.numero_equipe1 ) t
-where t.numero_equipe = rencontre.numero_equipe2
-group by t.numero_equipe
-order by score DESC;
+select numero, sum(score) as S
+from(
+(select rencontre.numero_equipe1 as NUMERO , rencontre.score_equipe1_rencontre as SCORE
+from rencontre)
+union
+(select rencontre.numero_equipe2 as NUMERO , rencontre.score_equipe2_rencontre as SCORE
+from rencontre))
+group by NUMERO
+order by S DESC;

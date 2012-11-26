@@ -252,7 +252,7 @@ insert into PARTICIPE values ( 20 ,  20  ,1 , 0) ;
 insert into PARTICIPE values ( 20 ,  8   ,1 , 2) ;
 insert into PARTICIPE values ( 20 ,  7   ,2 , 0) ;
 insert into PARTICIPE values ( 20 ,  6   ,0 , 0) ;
-insert into PARTICIPE values ( 20 ,  8   ,2 , 1) ;
+insert into PARTICIPE values ( 20 ,  9   ,2 , 1) ;
 
 commit;
 

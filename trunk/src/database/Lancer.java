@@ -9,6 +9,13 @@ public class Lancer {
 
 	RequestSQL exempleReq = new RequestSQL("select * from ENTRAINEUR ", "Entraineur");
 
+	try{
+	ParseSQL.parse(args[0]);
+	}
+	catch(java.lang.ArrayIndexOutOfBoundsException e) {
+	    System.out.println("Vous devez passer au moins un nom de fichier.sql en argument lorsque vous lancer le programme.");	    
+	}
+
       	// Preparation de la connexion.
 	OracleDataSource ods = new OracleDataSource();
 	ods.setUser("bmeunier");
@@ -20,7 +27,7 @@ public class Lancer {
 	Statement stmt = null;
 	try {
 	    conn = ods.getConnection();
-	    stmt = conn.createStatement();   
+	    stmt = conn.createStatement();
 
 	exempleReq.execRequest(stmt);
 	} 
@@ -31,6 +38,6 @@ public class Lancer {
 	    if (conn != null) {
 		conn.close();
 	    }
-	}	
+	}
     }
 }

@@ -12,7 +12,7 @@ public class RequestSQL {
 	name = rName;
     }
     
-
+    //execute la commande passee en parametre
     ResultSet execRequest(Statement stmt) throws SQLException, ClassNotFoundException, java.io.IOException {
 	// Execution de la requete.
 	ResultSet rset = stmt.executeQuery(requestText);
@@ -27,6 +27,7 @@ public class RequestSQL {
 	return rset;
     }
 
+    //Affiche dans le terminal le resultat de la commande
     //TODO : Deplacer cette fonction dans la GUI
     private void affichageTerminal(ResultSet rset, ResultSetMetaData data) throws SQLException, ClassNotFoundException, java.io.IOException{
 	int i;

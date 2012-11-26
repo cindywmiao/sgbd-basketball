@@ -2,7 +2,7 @@
 -- Input : numero_categorie (type int)
 -- Input : date_rencontre (type date)
 
-select joueur.numero_licence, sum(rencontre.score_rencontre) as SCORE
+select joueur.numero_licence, sum(participe.cumul_points_marques_joueur) as SCORE
 from joueur, participe, rencontre, equipe
 where equipe.numero_categorie = 1
       and rencontre.date_rencontre = '21-FEB-87'

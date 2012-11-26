@@ -101,7 +101,8 @@ create table RENCONTRE
 (
     NUMERO_RENCONTRE                    NUMBER(3)              not null,
     DATE_RENCONTRE                      DATE                           ,
-    SCORE_RENCONTRE                     CHAR(10) 	       not null,
+    SCORE_EQUIPE1_RENCONTRE             NUMBER(3)                      ,
+    SCORE_EQUIPE2_RENCONTRE		NUMBER(3)		       ,  
     NUMERO_EQUIPE1   		        NUMBER(3)              not null, 
     NUMERO_EQUIPE2                      NUMBER(3)              not null,
     constraint pk_rencontre primary key (NUMERO_RENCONTRE)

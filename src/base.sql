@@ -90,8 +90,6 @@ create table JOUEUR
     DATE_DE_NAISSANCE_JOUEUR        DATE                           , 
     ADRESSE_JOUEUR                   CHAR(30)               not null,
     DATE_ENTREE_CLUB_JOUEUR          DATE                           ,
-    CUMUL_POINTS_MARQUES_JOUEUR      NUMBER(3)              not null,       
-    CUMUL_FAUTES_JOUEUR              NUMBER(3)              not null, 
     NUMERO_EQUIPE                    NUMBER(3)              not null,
     constraint pk_joueur primary key (NUMERO_LICENCE)
 );
@@ -116,6 +114,8 @@ create table PARTICIPE
 (
     NUMERO_LICENCE                    NUMBER(3)              not null,
     NUMERO_RENCONTRE                  NUMBER(3)              not null,
+    CUMUL_POINTS_MARQUES_JOUEUR       NUMBER(3)                      ,	      
+    CUMUL_FAUTES_JOUEUR               NUMBER(3)                      , 
     constraint pk_participe primary key (NUMERO_LICENCE, NUMERO_RENCONTRE)
 );
 

@@ -1,3 +1,4 @@
+-- Commande 1 --
 -- Moyenne des points marquée par rencontre à une date donnée
 -- Input : date_rencontre (type date)
 
@@ -7,6 +8,7 @@ where rencontre.date_rencontre = '21-FEB-87'
       and rencontre.numero_rencontre = participe.numero_rencontre
       and participe.numero_licence = joueur.numero_licence;
 
+-- Commande 2 --
 -- Moyenne des points marquée depuis le début de la saison --
 -- Input : date de début de la saison
 
@@ -16,6 +18,7 @@ where rencontre.date_rencontre > '21-FEB-87'
       and rencontre.numero_rencontre = participe.numero_rencontre
       and participe.numero_licence = joueur.numero_licence;
 
+-- Commande 3 --
 -- Classement des meilleurs joueurs d'une journée pour une catégorie --
 -- Input : numero_categorie (type int)
 -- Input : date_rencontre (type date)
@@ -30,6 +33,7 @@ where equipe.numero_categorie = 1
 group by joueur.numero_licence 
 order by score DESC;
 
+-- Commande 4 --
 -- Classement des équipes --
 
 select t.numero_equipe,(sum(t.score_rencontre) + sum(rencontre.score_rencontre)) as score

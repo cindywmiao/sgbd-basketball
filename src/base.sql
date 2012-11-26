@@ -135,40 +135,40 @@ create table ENTRAINE
 
 alter table CLUB
     add constraint fk1_club foreign key (NUMERO_BUREAU)
-       references BUREAU (NUMERO_BUREAU);
+       references BUREAU (NUMERO_BUREAU) on delete cascade;
 
 alter table EQUIPE
     add constraint fk1_equipe foreign key (NUMERO_CLUB)
-       references CLUB (NUMERO_CLUB);
+       references CLUB (NUMERO_CLUB) on delete cascade;
 
 alter table EQUIPE
     add constraint fk2_equipe foreign key (NUMERO_CATEGORIE)
-       references CATEGORIE (NUMERO_CATEGORIE);
+       references CATEGORIE (NUMERO_CATEGORIE) on delete cascade;
 
 alter table JOUEUR
     add constraint fk1_joueur foreign key (NUMERO_EQUIPE)
-       references EQUIPE (NUMERO_EQUIPE);
+       references EQUIPE (NUMERO_EQUIPE) on delete cascade;
 
 alter table PARTICIPE
     add constraint fk1_participe foreign key (NUMERO_LICENCE)
-       references JOUEUR (NUMERO_LICENCE);
+       references JOUEUR (NUMERO_LICENCE) on delete cascade;
 
 alter table PARTICIPE
     add constraint fk2_participe foreign key (NUMERO_RENCONTRE)
-       references RENCONTRE (NUMERO_RENCONTRE);
+       references RENCONTRE (NUMERO_RENCONTRE) on delete cascade;
 
 alter table RENCONTRE
     add constraint fk1_rencontre foreign key (NUMERO_EQUIPE1)
-       references EQUIPE (NUMERO_EQUIPE);
+       references EQUIPE (NUMERO_EQUIPE) on delete cascade;
 
 alter table RENCONTRE
     add constraint fk2_rencontre foreign key (NUMERO_EQUIPE2)
-       references EQUIPE (NUMERO_EQUIPE);
+       references EQUIPE (NUMERO_EQUIPE) on delete cascade;
 
 alter table ENTRAINE
     add constraint fk1_entraine foreign key (NUMERO_EQUIPE)
-       references EQUIPE (NUMERO_EQUIPE);
+       references EQUIPE (NUMERO_EQUIPE) on delete cascade;
 
 alter table ENTRAINE
     add constraint fk2_entraine foreign key (NUMERO_ENTRAINEUR)
-       references ENTRAINEUR (NUMERO_ENTRAINEUR);
+       references ENTRAINEUR (NUMERO_ENTRAINEUR) on delete cascade;

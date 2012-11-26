@@ -128,26 +128,26 @@ commit;
 
 -- RENCONTRE
 
-insert into RENCONTRE values (  1 , '13-OCT-81' , 11-33 , 1  , 2 ) ;
-insert into RENCONTRE values (  2 , '21-FEB-87' , 20-26 , 3  , 4 ) ;
-insert into RENCONTRE values (  3 , '06-FEB-91' , 23-33 , 5  , 6 ) ;
-insert into RENCONTRE values (  4 , '12-FEB-87' , 22-25 , 7  , 8 ) ;
-insert into RENCONTRE values (  5 , '01-APR-82' , 33-22 , 9  , 10) ;
-insert into RENCONTRE values (  6 , '24-MAY-90' , 34-22 , 11 , 12 ) ;
-insert into RENCONTRE values (  7 , '08-APR-88' , 30-25 , 13 , 14 ) ;
-insert into RENCONTRE values (  8 , '24-APR-88' , 34-22 , 15 , 1  ) ;
-insert into RENCONTRE values (  9 , '19-FEB-89' , 28-22 , 12 , 13 ) ;
-insert into RENCONTRE values ( 10 , '04-OCT-83' , 35-24 , 5  , 8  ) ;
-insert into RENCONTRE values ( 11 , '01-JAN-91' , 35-19 , 9  , 3  ) ;
-insert into RENCONTRE values ( 12 , '01-MAR-91' , 32-23 , 2  , 10 ) ;
-insert into RENCONTRE values ( 13 , '25-JAN-89' , 25-32 , 4  , 7  ) ;
-insert into RENCONTRE values ( 14 , '01-NOV-84' , 28-34 , 7  , 11 ) ;
-insert into RENCONTRE values ( 15 , '01-MAY-88' , 25-33 , 5  , 8  ) ;
-insert into RENCONTRE values ( 16 , '11-APR-88' , 24-18 , 6  , 9  ) ;
-insert into RENCONTRE values ( 17 , '06-JUL-88' , 26-33 , 14 , 3  ) ;
-insert into RENCONTRE values ( 18 , '28-JUN-88' , 34-22 , 15 , 2  ) ;
-insert into RENCONTRE values ( 19 , '01-MAR-90' , 33-22 , 14 , 7  ) ;
-insert into RENCONTRE values ( 20 , '01-JAN-88' , 34-20 , 6  , 7  ) ;
+insert into RENCONTRE values (  1 , '13-OCT-81' , 11 , 33 , 1  , 2 ) ;
+insert into RENCONTRE values (  2 , '21-FEB-87' , 20 , 26 , 3  , 4 ) ;
+insert into RENCONTRE values (  3 , '06-FEB-91' , 23 , 33 , 5  , 6 ) ;
+insert into RENCONTRE values (  4 , '12-FEB-87' , 22 , 25 , 7  , 8 ) ;
+insert into RENCONTRE values (  5 , '01-APR-82' , 33 , 22 , 9  , 10) ;
+insert into RENCONTRE values (  6 , '24-MAY-90' , 34 , 22 , 11 , 12 ) ;
+insert into RENCONTRE values (  7 , '08-APR-88' , 30 , 25 , 13 , 14 ) ;
+insert into RENCONTRE values (  8 , '24-APR-88' , 34 , 22 , 15 , 1  ) ;
+insert into RENCONTRE values (  9 , '19-FEB-89' , 28 , 22 , 12 , 13 ) ;
+insert into RENCONTRE values ( 10 , '04-OCT-83' , 35 , 24 , 5  , 8  ) ;
+insert into RENCONTRE values ( 11 , '01-JAN-91' , 35 , 19 , 9  , 3  ) ;
+insert into RENCONTRE values ( 12 , '01-MAR-91' , 32 , 23 , 2  , 10 ) ;
+insert into RENCONTRE values ( 13 , '25-JAN-89' , 25 , 32 , 4  , 7  ) ;
+insert into RENCONTRE values ( 14 , '01-NOV-84' , 28 , 34 , 7  , 11 ) ;
+insert into RENCONTRE values ( 15 , '01-MAY-88' , 25 , 33 , 5  , 8  ) ;
+insert into RENCONTRE values ( 16 , '11-APR-88' , 24 , 18 , 6  , 9  ) ;
+insert into RENCONTRE values ( 17 , '06-JUL-88' , 26 , 33 , 14 , 3  ) ;
+insert into RENCONTRE values ( 18 , '28-JUN-88' , 34 , 22 , 15 , 2  ) ;
+insert into RENCONTRE values ( 19 , '01-MAR-90' , 33 , 22 , 14 , 7  ) ;
+insert into RENCONTRE values ( 20 , '01-JAN-88' , 34 , 20 , 6  , 7  ) ;
 
 commit ;
 

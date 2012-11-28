@@ -11,7 +11,7 @@ public class Lancer {
 	ArrayList<RequestSQL> commands = null;//Tableau pour stocker les commandes
 
 	try{
-	    commands = ParseSQL.parse(args[0], commands);
+	    commands = ParseSQL.parse(args[0]);
 	}
 	catch(java.lang.ArrayIndexOutOfBoundsException e) {
 	    System.out.println("Vous devez passer au moins un nom de fichier.sql en argument lorsque vous lancer le programme.");	    

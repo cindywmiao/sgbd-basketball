@@ -17,6 +17,9 @@ public class RequestSQL {
 	name = "";
     }
 
+    String getText(){
+	return requestText;
+    }
     
     //execute la commande passee en parametre
     ResultSet execRequest(Statement stmt) throws SQLException, ClassNotFoundException, java.io.IOException {
@@ -60,7 +63,7 @@ public class RequestSQL {
     }
 
     public String toString(){
-	System.out.println("La requete appelee est : " + requestText);
-	return("La requete appelee est : " + requestText);
+	System.out.println("&La requete appelee est : &" + requestText);
+	return("& je retourne la requete : &" + requestText);
     }
 }

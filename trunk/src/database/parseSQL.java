@@ -16,7 +16,7 @@ class ParseSQL {
     static ArrayList<RequestSQL> parse(String nomFichier){
 	BufferedReader buf = null;
 	String sentence = null;
-	RequestSQL command = new RequestSQL("");
+	RequestSQL command = new RequestSQL();
 	ArrayList<RequestSQL> stock = new ArrayList();//Tableau pour stocker les commandes
 
 	try{

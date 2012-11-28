@@ -29,7 +29,7 @@ class ParseSQL {
 		    else if(sentence.charAt(0) == ' ' || sentence.charAt(0) == '\n' || sentence.charAt(0) == '\0' || sentence.charAt(0) == '\r')
 			System.out.println("J'ai lu une ligne vide");
 		    else
-			Systeme.out.println("J'espere que c'est une commande");
+			System.out.println("J'espere que c'est une commande");
 		}
 	    }finally{
 		buf.close();

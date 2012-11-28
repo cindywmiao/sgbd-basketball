@@ -8,8 +8,7 @@ public class Lancer {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException, java.io.IOException {
 
-	ArrayList<String> commands = null;//Tableau pour stocker les commandes
-	RequestSQL exempleReq = new RequestSQL();
+	ArrayList<RequestSQL> commands = null;//Tableau pour stocker les commandes
 
 	try{
 	    commands = ParseSQL.parse(args[0]);

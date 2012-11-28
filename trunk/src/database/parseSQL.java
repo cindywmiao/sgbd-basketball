@@ -33,7 +33,7 @@ class ParseSQL {
 			    System.out.println("J'ai lu un commentaire");
 			else if(sentence.charAt(0) == ' ' || sentence.charAt(0) == '\n' || sentence.charAt(0) == '\0' || sentence.charAt(0) == '\r'){
 			    stock.add(command);
-			    System.out.println("J'ai ajouté la command : " + command);
+			    System.out.println("J'ai ajoute la command : " + command);
 			}
 			else{
 			    command.concat(sentence);
@@ -45,7 +45,7 @@ class ParseSQL {
 		}
 
 	    }catch (IOException e){
-		System.out.println("Erreur ) l'ouverture du ficher");
+		System.out.println("Erreur a l'ouverture du ficher");
 	    }
 	    return stock;
 	}

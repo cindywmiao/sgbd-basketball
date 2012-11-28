@@ -8,10 +8,10 @@ public class Lancer {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException, java.io.IOException {
 
-	ArrayList<RequestSQL> commands = null;//Tableau pour stocker les commandes
+	ArrayList<RequestSQL> commands = new ArrayList();//Tableau pour stocker les commandes
 
 	try{
-	    commands = ParseSQL.parse(args[0]);
+	    ParseSQL.parse(args[0], commands);
 	}
 	catch(java.lang.ArrayIndexOutOfBoundsException e) {
 	    System.out.println("Vous devez passer au moins un nom de fichier.sql en argument lorsque vous lancer le programme.");	    
@@ -32,7 +32,10 @@ public class Lancer {
 	    stmt = conn.createStatement();
 
 	    commands.get(1).execRequest(stmt);
-	} 
+	}
+	catch(IndexOutOfBoundsException e){
+	    System.out.println("Acces interdit a l'indic : 1");
+	}
 	finally {
 	    if (stmt != null) {
 		stmt.close();

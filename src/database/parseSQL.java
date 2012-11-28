@@ -20,15 +20,17 @@ class ParseSQL {
 	    BufferedReader buf= new BufferedReader(new FileReader(nomFichier));
 	    String sentence = null;
 
-		try{
-		    if((sentence = buf.readLine()) != null){
-			if(sentence.charAt(0) == '-')
-			    System.out.println("J'ai lu le bon truc! :) ");
-		    }
-		}finally{
-		    buf.close();}
-		}catch(IOException e){
-		    System.out.println("On a renvoye une erreur en lisant le fichier" + nomFichier);
+	    try{
+		if((sentence = buf.readLine()) != null){
+		    if(sentence.charAt(0) == '-')
+			System.out.println("J'ai lu le bon truc! :) ");
+		}
+	    }catch(IOException e){
+		System.out.println("On a renvoye une erreur en lisant le fichier" + nomFichier);
+	    }
+	    finally{
+		buf.close();
+	    }
 	}
     }
 }

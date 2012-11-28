@@ -1,8 +1,8 @@
 all : javac
-	java database/Lancer update.sql
+	java database/Lancer test.sql
 
 javac : 
 	javac database/*.java
 
 lancer :
-	java database/Lancer update.sql
+	java database/Lancer test.sql

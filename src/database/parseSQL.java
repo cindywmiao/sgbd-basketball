@@ -19,14 +19,18 @@ class ParseSQL {
 	RequestSQL command = new RequestSQL();
 	ArrayList<RequestSQL> stock = new ArrayList();//Tableau pour stocker les commandes
 
-	try{
-	    buf = new BufferedReader(new FileReader(nomFichier));
+	if(!nomFichier.endsWith(".sql"))
+	    System.out.println("le fichier n'est pas un point sql!");
+
+	else{
+	    try{
+		buf = new BufferedReader(new FileReader(nomFichier));
 	    
 		while((sentence = buf.readLine()) != null){
 		    if(sentence.charAt(0) == '-')
 			System.out.println("J'ai lu un commentaire");
 		    else if(sentence.charAt(0) == ' ' || sentence.charAt(0) == '\n' || sentence.charAt(0) == '\0' || sentence.charAt(0) == '\r'|| (sentence.length() == 0) || sentence.charAt(0) == '#'){
-
+			
 			stock.add(command);
 			System.out.println("&J'ai ajoute la commande : " + command + " &");
 			command = new RequestSQL("");
@@ -38,23 +42,17 @@ class ParseSQL {
 			System.out.println("Voila ce que je viens de mettre dans command :" + command.getText());
 			    }
 		}
-	}catch (IOException e){
+	    }catch (IOException e){
 		System.out.println("Erreur a l'ouverture du ficher");
-	}finally{
-	    try{
-	    buf.close();
-	    }catch(IOException e){
-		System.out.println("Impossible de fermer le fichier");
+	    }finally{
+		try{
+		    buf.close();
+		}catch(IOException e){
+		    System.out.println("Impossible de fermer le fichier");
+		}
 	    }
-	}
-	
+	}//end else
 	return stock;
     }
 }
-
-//	if(!nomFichier.endsWith(".sql"))
-//	    System.out.println("le fichier n'est pas un point sql!");
-
-//	else{
-//	}
 			    //C'est bizare mais le compilateur me dit ne pas connaitre isEmpty()

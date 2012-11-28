@@ -31,7 +31,7 @@ public class Lancer {
 	    conn = ods.getConnection();
 	    stmt = conn.createStatement();
 
-	    commands.get(0).execRequest(stmt);
+	    commands.get(1).execRequest(stmt);
 	} 
 	finally {
 	    if (stmt != null) {

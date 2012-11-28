@@ -3,8 +3,8 @@ package database;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
-import java.io.BufferedReader;
-import java.util.ArrayList<E>;
+import java.io.BufferedReader
+import java.util.ArrayList;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

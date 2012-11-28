@@ -23,13 +23,12 @@ class ParseSQL {
 		try{
 		    if((sentence = buf.readLine()) != null){
 			if(sentence.charAt(0) == '-')
-			    System.out.println("J'ai lu le bon truc! :) : ");
+			    System.out.println("J'ai lu le bon truc! :) ");
 		    }
 		}finally{
-		    buf.close();
+		    buf.close();}
 		}catch(IOException e){
 		    System.out.println("On a renvoye une erreur en lisant le fichier" + nomFichier);
-	}
 	}
     }
 }

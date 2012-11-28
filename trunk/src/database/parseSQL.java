@@ -18,15 +18,15 @@ class ParseSQL {
 	    System.out.println("le fichier n'est pas un point sql!");
 	else{
 	    BufferedReader buf= new BufferedReader(new FileReader(nomFichier));
-	    String sentence = NULL;
+	    String sentence = null;
 
 		try{
 		    if((sentence = buf.readLine()) != null){
-			if(sentence[0] == '-')
-			    System.out.println("J'ai lu le bon truc! :) : " + (char)buf);
+			if(sentence.charAt(0) == '-')
+			    System.out.println("J'ai lu le bon truc! :) : ");
 	    }
 		}catch(IOException e){
-		    System.out.println("On a renvoyé une erreur en lisant le fichier" + nomFichier);
+		    System.out.println("On a renvoye une erreur en lisant le fichier" + nomFichier);
 	}
 		finally{
 		    buf.close();

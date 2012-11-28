@@ -43,6 +43,7 @@ public class Lancer {
 	    catch(IndexOutOfBoundsException e){
 		System.out.println("Acces interdit a l'indice : 1");
 	    }
+	    System.out.println("La liste est vide : " + commands.isEmpty());
 	}
 	finally {
 	    if (stmt != null) {

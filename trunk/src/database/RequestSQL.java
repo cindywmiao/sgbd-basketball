@@ -8,7 +8,7 @@ public class RequestSQL {
     private String name;
 
     RequestSQL(){
-	requestText = "\0";
+	requestText = "";
 	name = "\0";
     }
     
@@ -42,7 +42,7 @@ public class RequestSQL {
     }
 
     void concat(String next){
-	requestText.concat(next);
+	requestText = requestText.concat(next);
     }
 
     //Affiche dans le terminal le resultat de la commande

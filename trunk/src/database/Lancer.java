@@ -26,13 +26,15 @@ public class Lancer {
 
 	Connection conn = null;
 	Statement stmt = null;
+	RequestSQL request = null;
 
 	try {
 	    conn = ods.getConnection();
 	    stmt = conn.createStatement();
 	    
 	    try{
-		(commands.get(0)).execRequest(stmt);
+		requete = (commands.get(0));
+		requete.execRequest(stmt);
 	    }
 	    catch(IndexOutOfBoundsException e){
 		System.out.println("Acces interdit a l'indice : 0");

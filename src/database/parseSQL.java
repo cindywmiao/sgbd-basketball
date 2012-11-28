@@ -33,7 +33,7 @@ class ParseSQL {
 			else if(sentence.charAt(0) == ' ' || sentence.charAt(0) == '\n' || sentence.charAt(0) == '\0' || sentence.charAt(0) == '\r'){
 			    stock.add(command);
 			    System.out.println("J'ai ajoute la command : " + command);
-			    command = "";
+			    command = new ArrayList();
 			}
 			else{
 			    command.concat(sentence);

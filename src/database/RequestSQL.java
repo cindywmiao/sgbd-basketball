@@ -34,7 +34,7 @@ public class RequestSQL {
     }
 
     void concat(String next){
-	requestTest.concat(next);
+	requestText.concat(next);
     }
 
     //Affiche dans le terminal le resultat de la commande

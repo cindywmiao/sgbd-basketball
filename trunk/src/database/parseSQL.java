@@ -17,7 +17,9 @@ class ParseSQL {
 	if(!nomFichier.endsWith(".sql"))
 	    System.out.println("le fichier n'est pas un point sql!");
 	else{
-	    BufferedReader buf= new BufferedReader(new FileReader(nomFichier));
+	    BufferedReader buf = null;
+	    try{
+	    buf = new BufferedReader(new FileReader(nomFichier));
 	    String sentence = null;
 
 	    try{
@@ -25,12 +27,17 @@ class ParseSQL {
 		    if(sentence.charAt(0) == '-')
 			System.out.println("J'ai lu le bon truc! :) ");
 		}
-	    }catch(IOException e){
-		System.out.println("On a renvoye une erreur en lisant le fichier" + nomFichier);
-	    }
-	    finally{
+	    // }catch(IOException e){
+	    // 	System.out.println("On a renvoye une erreur en lisant le fichier" + nomFichier);
+	    // }
+	    }finally{
 		buf.close();
 	    }
+
+	    }catch (IOexception e){
+		System.out.println("Erreur ) l'ouverture du ficher")
+		    }
+
 	}
     }
 }

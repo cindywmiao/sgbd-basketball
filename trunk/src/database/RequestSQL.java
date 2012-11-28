@@ -43,6 +43,7 @@ public class RequestSQL {
 
     void concat(String next){
 	requestText = requestText.concat(next);
+	requestText = requestText.concat(" ");
     }
 
     //Affiche dans le terminal le resultat de la commande
@@ -68,7 +69,7 @@ public class RequestSQL {
     }
 
     public String toString(){
-	System.out.println("&La requete appelee est : &" + requestText);
-	return("& je retourne la requete : &" + requestText);
+	System.out.println("La requete appelee est : " + requestText);
+	return("je retourne la requete : " + requestText);
     }
 }

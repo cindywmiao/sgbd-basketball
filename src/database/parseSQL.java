@@ -29,7 +29,7 @@ class ParseSQL {
 		    while((sentence = buf.readLine()) != null){
 			if(sentence.charAt(0) == '-')
 			    System.out.println("J'ai lu un commentaire");
-			else if(sentence.charAt(0) == ' ' || sentence.charAt(0) == '\n' || sentence.charAt(0) == '\0' || sentence.charAt(0) == '\r'|| (sentence.length() == 0)){
+			else if(sentence.charAt(0) == ' ' || sentence.charAt(0) == '\n' || sentence.charAt(0) == '\0' || sentence.charAt(0) == '\r'|| (sentence.length() == 0) || sentence.charAt(0) == '#'){
 			    //C'est bizare mais le compilateur me dit ne pas connaitre isEmpty()
 			    stock.add(command);
 			    System.out.println("J'ai ajoute la command : " + command);

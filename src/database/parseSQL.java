@@ -25,11 +25,12 @@ class ParseSQL {
 	    try{
 		if((sentence = buf.readLine()) != null){
 		    if(sentence.charAt(0) == '-')
-			System.out.println("J'ai lu le bon truc! :) ");
+			System.out.println("J'ai lu un commentaire");
+		    else if(sentence.charAt(0) == ' ' || sentence.charAt(0) == '\n' || sentence.charAt(0) == '\0' || sentence.charAt(0) == '\r')
+			System.out.println("J'ai lu une ligne vide");
+		    else
+			Systeme.out.println("J'espere que c'est une commande");
 		}
-	    // }catch(IOException e){
-	    // 	System.out.println("On a renvoye une erreur en lisant le fichier" + nomFichier);
-	    // }
 	    }finally{
 		buf.close();
 	    }

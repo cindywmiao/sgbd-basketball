@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.BufferedReader;
-import java.util.ArrayList;
+import java.util.ArrayList<E>;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

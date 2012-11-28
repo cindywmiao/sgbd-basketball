@@ -8,7 +8,7 @@ public class Lancer {
     public static void main(String[] args) throws SQLException, ClassNotFoundException, java.io.IOException {
 
 	ArrayList<String> commands = null;//Tableau pour stocker les commandes
-	RequestSQL exempleReq = new RequestSQL("select * from ENTRAINEUR ", "Entraineur");
+	RequestSQL exempleReq = new RequestSQL();
 
 	try{
 	    commands = ParseSQL.parse(args[0]);
@@ -31,7 +31,7 @@ public class Lancer {
 	    conn = ods.getConnection();
 	    stmt = conn.createStatement();
 
-	    command.get(0).execRequest(stmt);
+	    commands.get(0).execRequest(stmt);
 	} 
 	finally {
 	    if (stmt != null) {

@@ -7,10 +7,11 @@ public class Lancer {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException, java.io.IOException {
 
+	ArrayList<String> commands = null;//Tableau pour stocker les commandes
 	RequestSQL exempleReq = new RequestSQL("select * from ENTRAINEUR ", "Entraineur");
 
 	try{
-	ParseSQL.parse(args[0]);
+	    commands = ParseSQL.parse(args[0]);
 	}
 	catch(java.lang.ArrayIndexOutOfBoundsException e) {
 	    System.out.println("Vous devez passer au moins un nom de fichier.sql en argument lorsque vous lancer le programme.");	    
@@ -25,11 +26,12 @@ public class Lancer {
 
 	Connection conn = null;
 	Statement stmt = null;
+
 	try {
 	    conn = ods.getConnection();
 	    stmt = conn.createStatement();
 
-	exempleReq.execRequest(stmt);
+	    command.get(0).execRequest(stmt);
 	} 
 	finally {
 	    if (stmt != null) {

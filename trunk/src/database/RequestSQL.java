@@ -7,10 +7,16 @@ public class RequestSQL {
     private String requestText;
     private String name;
     
-    RequestSQL(String requete, String rName){
-	requestText = requete;
+    RequestSQL(String request, String rName){
+	requestText = request;
 	name = rName;
     }
+
+    RequestSQL(String request){
+	requestText = request;
+	name = "";
+    }
+
     
     //execute la commande passee en parametre
     ResultSet execRequest(Statement stmt) throws SQLException, ClassNotFoundException, java.io.IOException {
@@ -25,6 +31,10 @@ public class RequestSQL {
 
 	this.affichageTerminal(rset, data);
 	return rset;
+    }
+
+    void concat(String next){
+	requestTest.concat(next);
     }
 
     //Affiche dans le terminal le resultat de la commande

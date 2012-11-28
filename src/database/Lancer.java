@@ -33,19 +33,15 @@ public class Lancer {
 	    stmt = conn.createStatement();
 	    
 	    try{
-		requete = (commands.get(0));
-		requete.execRequest(stmt);
+	       commands.get(0).execRequest(stmt);
+	       commands.get(1).execRequest(stmt);
+	    }catch(IndexOutOfBoundsException e){
+		System.out.println("Acces interdit a l'indice : " + e.getCause());
 	    }
-	    catch(IndexOutOfBoundsException e){
-		System.out.println("Acces interdit a l'indice : 0");
+	    catch(SQLException e){
+		System.out.println("Voila l'exception :" + e.getCause());
 	    }
-	    try{
-		(commands.get(1)).execRequest(stmt);
-	    }
-	    catch(IndexOutOfBoundsException e){
-		System.out.println("Acces interdit a l'indice : 1");
-	    }
-	    System.out.println("La liste est vide : " + commands.isEmpty());
+	    
 	}
 	finally {
 	    if (stmt != null) {

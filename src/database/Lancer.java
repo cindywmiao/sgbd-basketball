@@ -30,11 +30,19 @@ public class Lancer {
 	try {
 	    conn = ods.getConnection();
 	    stmt = conn.createStatement();
-
-	    commands.get(1).execRequest(stmt);
-	}
-	catch(IndexOutOfBoundsException e){
-	    System.out.println("Acces interdit a l'indic : 1");
+	    
+	    try{
+		commands.get(0).execRequest(stmt);
+	    }
+	    catch(IndexOutOfBoundsException e){
+		System.out.println("Acces interdit a l'indice : 0");
+	    }
+	    try{
+		commands.get(1).execRequest(stmt);
+	    }
+	    catch(IndexOutOfBoundsException e){
+		System.out.println("Acces interdit a l'indice : 1");
+	    }
 	}
 	finally {
 	    if (stmt != null) {

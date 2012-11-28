@@ -38,8 +38,7 @@ class ParseSQL {
 
 		    else{
 			command.concat(sentence);
-			System.out.println("Voila ce que je viens de mettre dans command :" + command.getText());
-			    }
+		    }
 		}
 	    }catch (IOException e){
 		System.out.println("Erreur a l'ouverture du ficher");

@@ -34,7 +34,7 @@ class ParseSQL {
 		buf.close();
 	    }
 
-	    }catch (IOexception e){
+	    }catch (IOException e){
 		System.out.println("Erreur ) l'ouverture du ficher");
 		    }
 

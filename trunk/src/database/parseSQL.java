@@ -35,7 +35,7 @@ class ParseSQL {
 		    else{
 			command.concat(sentence);
 			System.out.println("J'espere que c'est une partie de commande : " + sentence);
-			System.out.println("Voila ce que je viens de mettre dans command :" + command.getText())
+			System.out.println("Voila ce que je viens de mettre dans command :" + command.getText());
 			    }
 		}
 	}catch (IOException e){

@@ -13,11 +13,10 @@ import java.io.IOException;
 class ParseSQL {
     
     //Fonction decoupant un fichier sql en un tableaux de fonction.
-    static ArrayList<RequestSQL> parse(String nomFichier){
+    static ArrayList<RequestSQL> parse(String nomFichier, ArrayList<RequestSQL> stock){
 	    BufferedReader buf = null;
 	    String sentence = null;
 	    RequestSQL command = new RequestSQL("");
-	    ArrayList<RequestSQL> stock = new ArrayList();//Tableau pour stocker les requetes
 
 	if(!nomFichier.endsWith(".sql"))
 	    System.out.println("le fichier n'est pas un point sql!");

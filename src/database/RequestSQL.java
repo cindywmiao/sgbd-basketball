@@ -6,6 +6,11 @@ import oracle.jdbc.pool.OracleDataSource;
 public class RequestSQL {
     private String requestText;
     private String name;
+
+    RequestSQL(){
+	requestText = "\0";
+	name = "\0";
+    }
     
     RequestSQL(String request, String rName){
 	requestText = request;

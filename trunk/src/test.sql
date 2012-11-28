@@ -1,6 +1,6 @@
 "select * 
 from ENTRAINEUR ", "Entraineur";
-
+#
 "select club.numero_club as NR, 
        club.nom_club as NOM,
        president  as P , 
@@ -10,4 +10,4 @@ from ENTRAINEUR ", "Entraineur";
 from club, bureau
 where club.numero_bureau = bureau.numero_bureau"
 , "club","bureau";
-
+#

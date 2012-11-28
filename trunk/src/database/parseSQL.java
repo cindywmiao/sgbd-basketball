@@ -29,14 +29,14 @@ class ParseSQL {
 		    while((sentence = buf.readLine()) != null){
 			if(sentence.charAt(0) == '-')
 			    System.out.println("J'ai lu un commentaire");
-			else if(sentence.charAt(0) == ' ' || sentence.charAt(0) == '\n' || sentence.charAt(0) == '\0' || sentence.charAt(0) == '\r'){
+			else if(sentence.charAt(0) == ' ' || sentence.charAt(0) == '\n' || sentence.charAt(0) == '\0' || sentence.charAt(0) == '\r'|| sentence.isEmpty()){
 			    stock.add(command);
 			    System.out.println("J'ai ajoute la command : " + command);
 			    command = new RequestSQL("");
 			}
 			else{
 			    command.concat(sentence);
-			    System.out.println("J'espere que c'est partie de commande une commande : " + sentence);
+			    System.out.println("J'espere que c'est une partie de commande : " + sentence);
 			}
 		    }
 		}finally{

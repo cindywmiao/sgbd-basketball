@@ -41,7 +41,11 @@ class ParseSQL {
 	}catch (IOException e){
 		System.out.println("Erreur a l'ouverture du ficher");
 	}finally{
+	    try{
 	    buf.close();
+	    }catch(IOException e){
+		System.out.println("Impossible de fermer le fichier");
+	    }
 	}
 	
 	return stock;

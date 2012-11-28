@@ -26,7 +26,7 @@ public class Lancer {
 
 	Connection conn = null;
 	Statement stmt = null;
-	RequestSQL request = null;
+	RequestSQL requete = null;
 
 	try {
 	    conn = ods.getConnection();

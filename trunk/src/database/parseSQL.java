@@ -14,11 +14,10 @@ import java.io.IOException;
 class ParseSQL {
     
     //Fonction decoupant un fichier sql en un tableaux de fonction.
-    static ArrayList<RequestSQL> parse(String nomFichier){
+    static void parse(String nomFichier, ArrayList<RequestSQL> stock){
 	BufferedReader buf = null;
 	String sentence = null;
 	RequestSQL command = new RequestSQL();
-	ArrayList<RequestSQL> stock = new ArrayList();//Tableau pour stocker les commandes
 
 	if(!nomFichier.endsWith(".sql"))
 	    System.out.println("le fichier n'est pas un point sql!");
@@ -29,19 +28,20 @@ class ParseSQL {
 	    
 		while((sentence = buf.readLine()) != null){
 		    if(sentence.length() == 0){
-			System.out.println("Ligne vide");
-			stock.add(command);
-			System.out.println("J'ai ajoute la commande : " + command.getText());
-			command = new RequestSQL("");
 		}
 		    else if(sentence.charAt(0) == '-'){
 			/*On lit un commentaire*/
-			//System.out.println("J'ai lu un commentaire");
+		    }
+		    else if(sentence.endsWith(";")){
+			    command.concat(sentence.replace(';', ' '));
+			    stock.add(command);
+			    command = new RequestSQL("");
 		    }
 		    else{
-			command.concat(sentence);
-		    }
+			command.concat(sentence);		      
+		    }//end else
 		}//end while
+
 	    }catch (IOException e){
 		System.out.println("Erreur a l'ouverture du ficher");
 	    }finally{
@@ -51,9 +51,6 @@ class ParseSQL {
 		    System.out.println("Impossible de fermer le fichier");
 		}//end catch
 	    }//end finally
-	    stock.add(command);
-	    System.out.println("J'ai ajoute la commande : " + command.getText());
 	}//end else
-	return stock;
-    }
-}
+    }//end fct
+}// end class

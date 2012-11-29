@@ -2,7 +2,7 @@
 -- Input : None --
 -- Output : Informations des clubs --
 select * 
-from ENTRAINEUR
+from ENTRAINEUR;
 
 select club.numero_club as NR, 
        club.nom_club as NOM,
@@ -11,4 +11,4 @@ select club.numero_club as NR,
        tresorier as T, 
        secretaire as S
 from club, bureau
-where club.numero_bureau = bureau.numero_bureau
+where club.numero_bureau = bureau.numero_bureau;

@@ -1,5 +1,4 @@
 -- Pour un club, on veut le nombre de matchs gagnés, perdus ou nuls --
-
 select count(*) as GAGNER
 from(
 (select *

@@ -34,12 +34,14 @@ class ParseSQL {
 			System.out.println("J'ai ajoute la commande : " + command.getText());
 			command = new RequestSQL("");
 		}
-		    else if(sentence.charAt(0) == '-')
-			System.out.println("J'ai lu un commentaire");
+		    else if(sentence.charAt(0) == '-'){
+			/*On lit un commentaire*/
+			//System.out.println("J'ai lu un commentaire");
+		    }
 		    else{
 			command.concat(sentence);
 		    }
-		}
+		}//end while
 	    }catch (IOException e){
 		System.out.println("Erreur a l'ouverture du ficher");
 	    }finally{
@@ -47,8 +49,10 @@ class ParseSQL {
 		    buf.close();
 		}catch(IOException e){
 		    System.out.println("Impossible de fermer le fichier");
-		}
-	    }
+		}//end catch
+	    }//end finally
+	    stock.add(command);
+	    System.out.println("J'ai ajoute la commande : " + command.getText());
 	}//end else
 	return stock;
     }

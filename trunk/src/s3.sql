@@ -1,7 +1,6 @@
 -- Classement des meilleurs joueurs d'une journée pour une catégorie --
 -- Input : numero_categorie (type int)
 -- Input : date_rencontre (type date)
-
 select joueur.numero_licence, sum(participe.cumul_points_marques_joueur) as SCORE
 from joueur, participe, rencontre, equipe
 where equipe.numero_categorie = 1

@@ -1,7 +1,6 @@
 -- Commande 1 --
 -- Moyenne des points marquée par rencontre à une date donnée
 -- Input : date_rencontre (type date)
-
 select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS
 from participe, rencontre
 where rencontre.date_rencontre = '21-FEB-87'
@@ -10,7 +9,6 @@ where rencontre.date_rencontre = '21-FEB-87'
 -- Commande 2 --
 -- Moyenne des points marquée depuis le début de la saison --
 -- Input : date de début de la saison
-
 select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS
 from joueur, participe, rencontre
 where rencontre.date_rencontre > '21-FEB-87'
@@ -20,7 +18,6 @@ where rencontre.date_rencontre > '21-FEB-87'
 -- Classement des meilleurs joueurs d'une journée pour une catégorie --
 -- Input : numero_categorie (type int)
 -- Input : date_rencontre (type date)
-
 select joueur.numero_licence, sum(participe.cumul_points_marques_joueur) as SCORE
 from joueur, participe, rencontre, equipe
 where equipe.numero_categorie = 1
@@ -33,7 +30,6 @@ order by score DESC;
 
 -- Commande 4 --
 -- Classement des équipes --
-
 select numero, sum(score) as S
 from(
 (select rencontre.numero_equipe1 as NUMERO , rencontre.score_equipe1_rencontre as SCORE

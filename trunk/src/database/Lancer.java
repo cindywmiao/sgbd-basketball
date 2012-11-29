@@ -38,7 +38,7 @@ public class Lancer {
 	       commands.get(0).execRequest(stmt);
 	       System.out.println("Je viens d'executer : " + commands.get(0).getText());
 	       commands.get(1).execRequest(stmt);
-	       System.out.println("Je viens d'executer : " + commands.get(0).getText());
+	       System.out.println("Je viens d'executer : " + commands.get(1).getText());
 
 	       Iterator it = commands.iterator();	       
 	       while(it.hasNext())

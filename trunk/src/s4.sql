@@ -1,5 +1,4 @@
 -- Classement des équipes --
-
 select numero, sum(score) as S
 from(
 (select rencontre.numero_equipe1 as NUMERO , rencontre.score_equipe1_rencontre as SCORE

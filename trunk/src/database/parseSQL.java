@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.util.ArrayList;
+import java.lang.String;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -27,15 +28,14 @@ class ParseSQL {
 		buf = new BufferedReader(new FileReader(nomFichier));
 	    
 		while((sentence = buf.readLine()) != null){
-		    if(sentence.charAt(0) == '-')
-			System.out.println("J'ai lu un commentaire");
-		    else if(sentence.charAt(0) == '\n' || sentence.charAt(0) == '\0' || (sentence.length() == 0) || sentence.charAt(0) == '#'){
-
+		    if(sentence.length() == 0){
+			System.out.println("Ligne vide");
 			stock.add(command);
 			System.out.println("J'ai ajoute la commande : " + command.getText());
 			command = new RequestSQL("");
-		    }
-
+		}
+		    else if(sentence.charAt(0) == '-')
+			System.out.println("J'ai lu un commentaire");
 		    else{
 			command.concat(sentence);
 		    }
@@ -53,4 +53,3 @@ class ParseSQL {
 	return stock;
     }
 }
-			    //C'est bizare mais le compilateur me dit ne pas connaitre isEmpty()

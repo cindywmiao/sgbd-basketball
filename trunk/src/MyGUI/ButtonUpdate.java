@@ -1,31 +1,38 @@
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*;
 
 
 class ButtonUpdate implements ActionListener{
-    private Frame FrameUpdate;
+    private JFrame FrameUpdate;
     private Panel panel1Update,panel2Update,panel3Update;
-    private Button buttonAdd, buttonDelete,buttonChange;
-    private Button buttonYes, buttonNo;
+    private JButton buttonAdd, buttonDelete,buttonChange;
+    private JButton buttonYes, buttonNo;
     private TextArea ta_update;
+    private JTable table;
     private String decide = "Add";
     private String info = "";
     public void actionPerformed(ActionEvent e)
     {
 	
-	FrameUpdate = new Frame("Update");
+	FrameUpdate = new JFrame("Update");
 	FrameUpdate.setSize(400,300);
+	FrameUpdate.setLocationRelativeTo(null);
+	FrameUpdate.getContentPane().setBackground(Color.white);
+	FrameUpdate.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 	panel1Update = new Panel();
-	buttonAdd = new Button("Add");
+	buttonAdd = new JButton("Add");
 	buttonAdd.addActionListener(new ButtonAdd());
-	buttonDelete = new Button("Delete");
+	buttonDelete = new JButton("Delete");
 	buttonDelete.addActionListener(new ButtonDelete());
-	buttonChange = new Button("Change");
+	buttonChange = new JButton("Change");
 	buttonChange.addActionListener(new ButtonChange());
 	panel1Update.add(buttonAdd);
 	panel1Update.add(buttonDelete);
 	panel1Update.add(buttonChange);
 	FrameUpdate.add(panel1Update, "North");
+
 	panel2Update = new Panel();
 	ta_update = new TextArea("Donnee",5,40);
 	//ta_update.addTextListener(new TextAreaUpdate());
@@ -33,9 +40,9 @@ class ButtonUpdate implements ActionListener{
 	panel2Update.add(new Label("Are you sure?"),"Center");
 	FrameUpdate.add(panel2Update);
 	panel3Update = new Panel();
-	buttonYes = new Button("Yes");
+	buttonYes = new JButton("Yes");
 	buttonYes.addActionListener(new ButtonYes());
-	buttonNo = new Button("No");
+	buttonNo = new JButton("No");
 	buttonNo.addActionListener(new ButtonNo());
 	panel3Update.add(buttonYes);
 	panel3Update.add(buttonNo);

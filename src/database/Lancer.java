@@ -25,8 +25,8 @@ public class Lancer {
 
       	// Preparation de la connexion.
 	OracleDataSource ods = new OracleDataSource();
-	ods.setUser("bmeunier");
-	ods.setPassword("bmeunier");
+	ods.setUser("miwang");
+	ods.setPassword("miwang");
 	// URL de connexion, on remarque que le pilote utilise est "thin".
 	ods.setURL("jdbc:oracle:thin:@oracle.enseirb.fr:1522/ecole");
 

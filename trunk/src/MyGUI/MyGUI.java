@@ -1,23 +1,28 @@
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*;
+
 public class MyGUI{
-    public Frame f;
+    public JFrame f;
    
     public Panel p_title,p_option,p_textarea,p_stats,p_exit;
     public Button club,joueur,rencontre,bureau,equipe,categorie,entraineur;
     public Button b_moyenne_rencontre_date,b_moyenne_debut_saison;
     public Button b_class_joueurs, b_class_equipes;
     public Button b_update, b_exit;
-    public TextField textfield;
-    public TextArea textarea;
+    public JTextField textfield;
+    // public TextArea textarea;
     public static void main(String argc[]){
 	MyGUI that = new MyGUI();
 	that.go();
     }
     public void go(){
-	f = new Frame("GUI Basketball");
+	f = new JFrame("GUI Basketball");
 	f.setLayout(new GridLayout(5,1));
 	f.setSize(600,800);
+	f.setLocationRelativeTo(null);
+	f.getContentPane().setBackground(Color.white);
+	f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	mainPage();
     }
 
@@ -72,8 +77,8 @@ public class MyGUI{
 
     void panelTextArea(){
 	p_textarea = new Panel();
-	textarea = new TextArea("Donnees",5,60);
-	p_textarea.add(textarea);
+	textfield = new JTextField(20);
+	p_textarea.add(textfield);
 	f.add(p_textarea);
     }
 
@@ -119,13 +124,13 @@ public class MyGUI{
 	    option = op;
 	}
 	public void actionPerformed(ActionEvent e){	
-	    textarea.insertText(option,0);
+	    textfield.setText(option);
 	}
     }
   
     class ButtonClassEquipe implements ActionListener{
 	public void actionPerformed(ActionEvent e){	
-	    textarea.insertText("Classement des equipe",0);
+	    textfield.setText("Classement des equipe");
 	    System.out.println("Classement des equipes");
 	}
     }

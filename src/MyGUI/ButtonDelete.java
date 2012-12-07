@@ -3,7 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 
-class ButtonUpdate extends MyGUI{
+class ButtonDelete extends MyGUI{
     private JFrame FrameUpdate;
     private Panel panel1Update,panel2Update,panel3Update;
     private JButton buttonAdd, buttonDelete,buttonChange;
@@ -56,7 +56,7 @@ class ButtonUpdate extends MyGUI{
 	FrameUpdate.setVisible(true);
 	System.out.println("Action Update");
     }
-    
+  
     class ButtonYes implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 	    System.out.print(info);

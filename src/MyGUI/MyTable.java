@@ -17,9 +17,16 @@ class MyTable extends AbstractTableModel {
 	  new Boolean(false), "05678" } };
 
     String[] n2 = { "Name", "Numero", "Math", "Moyenne", "Adresse", "Telephone" };
+    
+    String[] name = {"Option1","Option2","Option3","Option4","Option5"};
+    Object[][] data = new String[1][5];
 
     int model = 1;
     
+    public MyTable(){
+	model = 0;
+    
+    }
     public MyTable(int i) {
 	    model = i;
     }
@@ -32,27 +39,35 @@ class MyTable extends AbstractTableModel {
     
 
     public int getColumnCount() {
-	if (model == 1)
+	if (model == 0)
+	    return name.length;
+	else if (model == 1)
 	    return n1.length;
 	else
 	    return n2.length;
     }
 
     public int getRowCount() {
-	if (model == 1)
+	if (model == 0)
+	    return data.length;
+	else if (model == 1)
 	    return p1.length;
 	else
 	    return p2.length;
     }
 
     public String getColumnName(int col) {
-	if (model == 1)
+	if (model == 0)
+	    return name[col];
+	else if (model == 1)
 	    return n1[col];
 	else
 	    return n2[col];
     }
 
     public Object getValueAt(int row, int col) {
+	if (model == 0)
+	    return data[row][col];
 	if (model == 1)
 	    return p1[row][col];
 	else

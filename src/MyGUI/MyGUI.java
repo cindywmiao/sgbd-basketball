@@ -153,18 +153,6 @@ public class MyGUI implements ActionListener{
 	    table.setModel(new MyTable(2)); option = null;
 	}
 
-	// if(e.getActionCommand().equals("Add")){
-	//     // if (option == null){
-	//     // 	MyErrorFrame errorFrame = new MyErrorFrame();
-	//     // 	errorFrame.go();
-	//     // }
-	    
-	//     System.out.println("Add" + option);
-	// }
-	// if(e.getActionCommand().equals("Update"))
-	//     System.out.println("Update" + option);
-	// if(e.getActionCommand().equals("Delete"))
-	//     System.out.println("Delete" + option);
 
 	if(option != null)
 	    table.setModel(new MyTable(option));

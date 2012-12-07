@@ -87,19 +87,19 @@ public class MyGUI implements ActionListener{
     void panelStats(){
 	panelStatistique = new JPanel();
 	 
-	b_moyenne_rencontre_date = new JButton("Moyenne des points marqués par rencontre");
+	b_moyenne_rencontre_date = new JButton("Moyenne des points marques par rencontre");
 	b_moyenne_rencontre_date.addActionListener(this);
 	panelStatistique.add(b_moyenne_rencontre_date);
 
-	b_moyenne_debut_saison = new JButton("Moyenne des points marqués depuis le début de la saison");
+	b_moyenne_debut_saison = new JButton("Moyenne des points marques depuis le debut de la saison");
 	b_moyenne_debut_saison.addActionListener(this);
 	panelStatistique.add(b_moyenne_debut_saison);
 
-	b_class_joueurs = new JButton("Classement des meilleurs joueurs d'une jourenée pour une catégorie");
+	b_class_joueurs = new JButton("Classement des meilleurs joueurs d'une jourenee pour une categorie");
 	b_class_joueurs.addActionListener(this);
 	panelStatistique.add(b_class_joueurs);
 	
-	b_class_equipes = new JButton("Classement des équipes");
+	b_class_equipes = new JButton("Classement des equipes");
 	b_class_equipes.addActionListener(this);
 	panelStatistique.add(b_class_equipes);
     	
@@ -140,16 +140,16 @@ public class MyGUI implements ActionListener{
 	    option = "Entraineur";
        
 	
-	if (e.getActionCommand().equals("Moyenne des points marqués par rencontre")){
+	if (e.getActionCommand().equals("Moyenne des points marques par rencontre")){
 	    table.setModel(new MyTable(2));option = null;
 	}
-	if (e.getActionCommand().equals("Moyenne des points marqués depuis le début de la saison")){
+	if (e.getActionCommand().equals("Moyenne des points marques depuis le debut de la saison")){
 	    table.setModel(new MyTable(2));option = null;
 	}
-	if (e.getActionCommand().equals("Classement des meilleurs joueurs d'une jourenée pour une catégorie")){
+	if (e.getActionCommand().equals("Classement des meilleurs joueurs d'une jourenee pour une categorie")){
 	    table.setModel(new MyTable(2)); option = null;
 	}
-	if (e.getActionCommand().equals("Classement des équipes")){
+	if (e.getActionCommand().equals("Classement des equipes")){
 	    table.setModel(new MyTable(2)); option = null;
 	}
 

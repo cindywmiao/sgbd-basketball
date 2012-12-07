@@ -5,18 +5,18 @@ import javax.swing.table.AbstractTableModel;
 
 class MyTable extends AbstractTableModel {
 
-    Object[][] p1 = { { "阿呆", "1234", new Integer(66), new Integer(50),
+    Object[][] p1 = { { "Steve", "1234", new Integer(66), new Integer(50),
 			new Integer(116), new Boolean(false), new Boolean(false) } };
 
-    String[] n1 = { "姓名", "学号", "语文", "数学", "总分", "及格", "作弊" };
+    String[] n1 = { "Name", "Numero", "Chinese", "Math", "Somme", "Moyenne", "..." };
 
     Object[][] p2 = {
-	{ "阿呆", "1234", new Integer(50), new Boolean(false),
+	{ "Steve", "1234", new Integer(50), new Boolean(false),
 	  new Boolean(false), "01234" },
-	{ "阿瓜", "1235", new Integer(75), new Boolean(true),
+	{ "Lily", "1235", new Integer(75), new Boolean(true),
 	  new Boolean(false), "05678" } };
 
-    String[] n2 = { "姓名", "学号", "数学", "及格", "作弊", "电话" };
+    String[] n2 = { "Name", "Numero", "Math", "Moyenne", "Adresse", "Telephone" };
 
     int model = 1;
     

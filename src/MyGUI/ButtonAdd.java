@@ -26,18 +26,6 @@ class ButtonAdd implements ActionListener{
 	FrameUpdate.getContentPane().setBackground(Color.white);
 	FrameUpdate.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	// panel1Update = new Panel();
-	// buttonAdd = new JButton("Add");
-	// buttonAdd.addActionListener(new ButtonAdd());
-	// buttonDelete = new JButton("Delete");
-	// buttonDelete.addActionListener(new ButtonDelete());
-	// buttonChange = new JButton("Change");
-	// buttonChange.addActionListener(new ButtonChange());
-	// panel1Update.add(buttonAdd);
-	// panel1Update.add(buttonDelete);
-	// panel1Update.add(buttonChange);
-	// FrameUpdate.add(panel1Update, "North");
-
 	panel2Update = new Panel();
 	ta_update = new TextArea("Donnee",5,40);
 	//ta_update.addTextListener(new TextAreaUpdate());

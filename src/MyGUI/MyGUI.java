@@ -3,6 +3,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.DefaultCellEditor;  
+import javax.swing.table.TableColumn;  
 
 
 public class MyGUI implements ActionListener,ListSelectionListener{
@@ -14,6 +16,9 @@ public class MyGUI implements ActionListener,ListSelectionListener{
     private static JButton b_class_joueurs, b_class_equipes;
     private static JButton buttonUpdate, buttonAdd, buttonDelete;
     private static JTable table = null;
+    private JComboBox cob = null;  
+    private JCheckBox ckb = null;  
+    private JTextField txt = null;  
     private ListSelectionModel selectionMode=null;
 
     public String option = "Club";
@@ -80,11 +85,18 @@ public class MyGUI implements ActionListener,ListSelectionListener{
     }
     void panelTextArea(){
 	panelTable = new JPanel();
-	table = new JTable(new MyTable(1));
-	table.setCellSelectionEnabled(true);
-	table.setPreferredScrollableViewportSize(new Dimension(550, 90));
-	selectionMode=table.getSelectionModel();
-	selectionMode.addListSelectionListener(this);
+	MyAbstractTableModel1 myModel = new MyAbstractTableModel1();  
+  
+        table = new JTable(myModel);  
+        TableColumn tc1 = table.getColumnModel().getColumn(2);  
+        TableColumn tc3 = table.getColumnModel().getColumn(4);  
+        ckb = new JCheckBox();  
+        tc1.setCellEditor(new DefaultCellEditor(ckb));  
+    
+        txt = new JTextField("");  
+        txt.setSize(100, 26);  
+        tc3.setCellEditor(new DefaultCellEditor(txt));  
+  
 	JScrollPane s = new JScrollPane(table);
 	panelTable.add(s);
 	myJFrame.add(panelTable);
@@ -185,24 +197,6 @@ public class MyGUI implements ActionListener,ListSelectionListener{
 	
 	int[] rows=table.getSelectedRows();
 	int[] columns=table.getSelectedColumns();
-
-      
-	for (int i=0;i< rows.length;i++){
-	    for (int j=0;j< columns.length;j++){
-		System.out.println(table.getValueAt(rows[i],columns[j]).getClass().getName());
-		if(table.getValueAt(rows[i],columns[j]).getClass().getName().equals("java.lang.String")){
-		    System.out.println("true");
-		    tempString = (String)table.getValueAt(rows[i], columns[j]);     
-		}
-		else if(table.getValueAt(rows[i],columns[j]).getClass().getName().equals("java.lang.Boolean")){
-		    System.out.println("true");
-		    tempBoolean = (Boolean)table.getValueAt(rows[i], columns[j]);     
-		}
-		else if(table.getValueAt(rows[i],columns[j]).getClass().getName().equals("java.lang.Integer")){
-		    System.out.println("true");
-		    tempInteger = (Integer)table.getValueAt(rows[i], columns[j]);     
-		}
-	    }
-	}
     }
 }
+

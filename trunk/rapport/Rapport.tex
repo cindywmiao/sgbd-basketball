@@ -42,7 +42,7 @@
 
 Afin de garder les information sur ses membres et sur son foncionnement, un club sportif peut être amener à utiliser une base de données. Ce projet consite en l'implémentation d'une base de données pour un club de basket-ball gérant les rencontres entre les différents clubs d'une fédération. \\
 
-Dans ce rapport, il sera question, en premier temps, de présenter le modèle conceptuel utilisé pour la modélisation des données, puis le modèle relationnel en $3^{ème}$ forme normale. Ensuite, l'implémentation de la base en MySQL ainsi que la justification de notre choix. Enfin, l'environnement d'exécution avec un apercu de l'interface graphique concue pour accéder à la base. 
+Dans ce rapport, il sera question, en premier temps, de présenter le modèle conceptuel utilisé pour la modélisation des données, puis le modèle relationnel en $3^{eme}$ forme normale. Ensuite, l'implémentation de la base en MySQL ainsi que la justification de notre choix. Enfin, l'environnement d'exécution avec un apercu de l'interface graphique concue pour accéder à la base. 
 
 %Ainsi, nous avons dû créer deux fichiers afin de créer la base : base.sql et données.sql qui nous ont ensuite servi à tester nos requêtes.
 %Puis, nous avons créer les requêtes et enfin l'interface graphique permettant leur utilisation. Pour celle-ci nous avons choisi jdbc car nous avons une bonne maîtrise du java.
@@ -84,7 +84,8 @@ Le dernier problème rencontré concernait les membres du bureau. Comme il est p
 Après différentes modifications, voici le schéma entité-association :
  
 \begin{figure}[h!]
-\includegraphics[width=0.90 \textwidth]{BasketBall_EA.pdf}
+\centering
+\includegraphics[scale=0.35 , angle = -90]{BasketBall_EA.pdf}
 \caption{schéma entité-association de la base de données}
 \end{figure}
 
@@ -98,17 +99,26 @@ Après différentes modifications, voici le schéma entité-association :
 
 \subsection{Contraintes d'intégrité, dépendances fonctionnelles}
 
+\newpage
 \subsection{Schéma relationnel en $3^{eme}$ forme normale}
 
 \begin{figure}[h!]
-\center
-\includegraphics[width=0.90 \textwidth, angle = -90]{BasketBall_Relationnel.pdf}
+\centering
+\includegraphics[scale = 0.35, angle = -90]{BasketBall_Relationnel.pdf}
 \caption{schéma relationnel en $3^{eme}$ forme normale}
 \end{figure}
 
 \section{Implémentation de la base de données}
 \subsection{Création de la base}
+\subsubsection*{Choix de MySQL}
+Il existe une multitude de SGBD disponibles pour une utilisation au niveau dont nous avons besoin. Nous avons choisi d'utiliser MySQL. Les avantages liés à l'utilisation d'une base MySQL sont :
+\begin{itemize}
+\item Facilité de déploiement et de prise en main.
+\item Open Source.
+\item Plusieurs moteurs de stockage adaptés aux différentes problématiques, configurable au niveau table. \\
+\end{itemize}
 
+De plus, MySQL est un SGBD qui a été étudié en cours. Il n'y aura donc pas de problème lié à la recherche de documentation sur son fonctionnement global. De plus, bien que MySQL ait une capacité de données limitée, il semble que celle-ci soit suffisante pour stocker toutes les données nécessaires.
 
 \subsection{Implémentation des commandes SQL}
 

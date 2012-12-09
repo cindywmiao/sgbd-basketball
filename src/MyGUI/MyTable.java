@@ -4,19 +4,16 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 
 class MyTable extends AbstractTableModel {
+    Object[][] p1 = { {new Boolean(false), new Integer(1), "Club 1" },
+     		      {new Boolean(false), new Integer(2), "Club 2" }};
 
-    Object[][] p1 = { { "Steve", "1234", new Integer(66), new Integer(50),
-			new Integer(116), new Boolean(false), new Boolean(false) } };
-
-    String[] n1 = { "Name", "Numero", "Chinese", "Math", "Somme", "Moyenne", "..." };
+    String[] n1 = {" ", "Numero", "NOM"};
 
     Object[][] p2 = {
-	{ "Steve", "1234", new Integer(50), new Boolean(false),
-	  new Boolean(false), "01234" },
-	{ "Lily", "1235", new Integer(75), new Boolean(true),
-	  new Boolean(false), "05678" } };
+	{ new Boolean(false),"Steve", "1234"},
+	{ new Boolean(false),"Lily" , "1235" }};
 
-    String[] n2 = { "Name", "Numero", "Math", "Moyenne", "Adresse", "Telephone" };
+    String[] n2 = {"", "Name", "Numero" };
     
     String[] name = {"Option1","Option2","Option3","Option4","Option5"};
     Object[][] data = new String[1][5];

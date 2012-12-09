@@ -2,8 +2,8 @@
 --    suppression des donnees
 -- ============================================================
 
-delete from BUREAU ;
 delete from CLUB ;
+delete from PERSONNE ;
 delete from EQUIPE ;
 delete from CATEGORIE ;
 delete from ENTRAINE ;
@@ -51,33 +51,18 @@ insert into CATEGORIE values (  3 , 'JUNIOR' );
 
 commit;
 
--- BUREAU
-
-insert into BUREAU values (  1 , 'SAUTET'     , 'BESSON'     , 'RIVIERE'   , 'MONTAND'  ) ;
-insert into BUREAU values (  2 , 'PINOTEAU'   , 'PREMINGER'  , 'COLAF'     , 'GARCIA  ' ) ;
-insert into BUREAU values (  3 , 'FREY'       , 'DAVOY'      , 'GERONMI'   , 'DENEUVE'  ) ;
-insert into BUREAU values (  4 , 'RICARDO'    , 'ZIDI'       , 'LYNE'      , 'MANESSE'  ) ;
-insert into BUREAU values (  5 , 'AUTAN-LARA' , 'LESTRADOS'  , 'COCTEAU'   , 'CAPELLI'  ) ;
-insert into BUREAU values (  6 , 'ROHMER'     , 'TRUFFAUT'   , 'GOMEZ'     , 'BELLI'    ) ;
-insert into BUREAU values (  7 , 'MALLE'      , 'DELON'      , 'MEUNIER'   , 'DUPRILLOT') ;
-insert into BUREAU values (  8 , 'BESSON'     , 'POIRET'     , 'GABIN'     , 'DUBOIS'   ) ;
-insert into BUREAU values (  9 , 'PREMINGER'  , 'ROBERT'     , 'BARTHOU'   , 'ANGLADE'  ) ;
-insert into BUREAU values ( 10 , 'BEINEIX'    , 'BOURVIL'    , 'METIVIER'  , 'DUJARDIN' ) ;
-
-commit ;
-
 -- CLUB
 
-insert into CLUB values (  1 , 'SAUTET'     , 1 ) ;
-insert into CLUB values (  2 , 'PINOTEAU'   , 2 ) ;
-insert into CLUB values (  3 , 'FREY'       , 3 ) ;
-insert into CLUB values (  4 , 'RICARDO'    , 4 ) ;
-insert into CLUB values (  5 , 'AUTAN-LARA' , 5 ) ;
-insert into CLUB values (  6 , 'ROHMER'     , 6 ) ;
-insert into CLUB values (  7 , 'MALLE'      , 7 ) ;
-insert into CLUB values (  8 , 'BESSON'     , 8 ) ;
-insert into CLUB values (  9 , 'PREMINGER'  , 9 ) ;
-insert into CLUB values ( 10 , 'BEINEIX'    , 10 ) ;
+insert into CLUB values (  1 , 'SAUTET'     ) ;
+insert into CLUB values (  2 , 'PINOTEAU'   ) ;
+insert into CLUB values (  3 , 'FREY'       ) ;
+insert into CLUB values (  4 , 'RICARDO'    ) ;
+insert into CLUB values (  5 , 'AUTAN-LARA' ) ;
+insert into CLUB values (  6 , 'ROHMER'     ) ;
+insert into CLUB values (  7 , 'MALLE'      ) ;
+insert into CLUB values (  8 , 'BESSON'     ) ;
+insert into CLUB values (  9 , 'PREMINGER'  ) ;
+insert into CLUB values ( 10 , 'BEINEIX'    ) ;
 
 commit;
 
@@ -256,13 +241,56 @@ insert into PARTICIPE values ( 20 ,  9   ,2 , 1) ;
 
 commit;
 
--- ============================================================
---    verification des donnees
--- ============================================================
+-- PERSONNE
+
+insert into PERSONNE values ( 1  ,'MALLE' ,'ROBAT', 'TALENCE' , 'PESIDENT',      1);
+insert into PERSONNE values ( 2  ,'MALLE' ,'ROBAT', 'TALENCE' , 'VICE-PESIDENT', 1);
+insert into PERSONNE values ( 3  ,'MALLE' ,'ROBAT', 'TALENCE' , 'TRESORIER',     1);
+insert into PERSONNE values ( 4  ,'MALLE' ,'ROBAT', 'TALENCE' , 'SECINIATAIRE',  1);
+insert into PERSONNE values ( 5  ,'MALLE' ,'ROBAT', 'TALENCE' , 'PESIDENT',      2);
+insert into PERSONNE values ( 6  ,'MALLE' ,'ROBAT', 'TALENCE' , 'VICE-PESIDENT', 2);
+insert into PERSONNE values ( 7  ,'MALLE' ,'ROBAT', 'TALENCE' , 'TRESORIER',     2);
+insert into PERSONNE values ( 8  ,'MALLE' ,'ROBAT', 'TALENCE' , 'SECINIATAIRE',  2);
+insert into PERSONNE values ( 9  ,'MALLE' ,'ROBAT', 'TALENCE' , 'PESIDENT',      3);
+insert into PERSONNE values ( 10 ,'MALLE' ,'ROBAT', 'TALENCE' , 'VICE-PESIDENT', 3);
+insert into PERSONNE values ( 11 ,'MALLE' ,'ROBAT', 'TALENCE' , 'TRESORIER',     3);
+insert into PERSONNE values ( 12 ,'MALLE' ,'ROBAT', 'TALENCE' , 'SECINIATAIRE',  3);
+insert into PERSONNE values ( 13 ,'MALLE' ,'ROBAT', 'TALENCE' , 'PESIDENT',      4);
+insert into PERSONNE values ( 14 ,'MALLE' ,'ROBAT', 'TALENCE' , 'VICE-PESIDENT', 4);
+insert into PERSONNE values ( 15 ,'MALLE' ,'ROBAT', 'TALENCE' , 'TRESORIER',     4);
+insert into PERSONNE values ( 16 ,'MALLE' ,'ROBAT', 'TALENCE' , 'SECINIATAIRE',  4);
+insert into PERSONNE values ( 17 ,'MALLE' ,'ROBAT', 'TALENCE' , 'PESIDENT',      5);
+insert into PERSONNE values ( 18 ,'MALLE' ,'ROBAT', 'TALENCE' , 'VICE-PESIDENT', 5);
+insert into PERSONNE values ( 19 ,'MALLE' ,'ROBAT', 'TALENCE' , 'TRESORIER',     5);
+insert into PERSONNE values ( 20 ,'MALLE' ,'ROBAT', 'TALENCE' , 'SECINIATAIRE',  5);
+insert into PERSONNE values ( 21 ,'MALLE' ,'ROBAT', 'TALENCE' , 'PESIDENT',      6);
+insert into PERSONNE values ( 22 ,'MALLE' ,'ROBAT', 'TALENCE' , 'VICE-PESIDENT', 6);
+insert into PERSONNE values ( 23 ,'MALLE' ,'ROBAT', 'TALENCE' , 'TRESORIER',     6);
+insert into PERSONNE values ( 24 ,'MALLE' ,'ROBAT', 'TALENCE' , 'SECINIATAIRE',  6);
+insert into PERSONNE values ( 25 ,'MALLE' ,'ROBAT', 'TALENCE' , 'PESIDENT',      7);
+insert into PERSONNE values ( 26 ,'MALLE' ,'ROBAT', 'TALENCE' , 'VICE-PESIDENT', 7);
+insert into PERSONNE values ( 27 ,'MALLE' ,'ROBAT', 'TALENCE' , 'TRESORIER',     7);
+insert into PERSONNE values ( 28 ,'MALLE' ,'ROBAT', 'TALENCE' , 'SECINIATAIRE',  7);
+insert into PERSONNE values ( 29 ,'MALLE' ,'ROBAT', 'TALENCE' , 'PESIDENT',      8);
+insert into PERSONNE values ( 30 ,'MALLE' ,'ROBAT', 'TALENCE' , 'VICE-PESIDENT', 8);
+insert into PERSONNE values ( 31 ,'MALLE' ,'ROBAT', 'TALENCE' , 'TRESORIER',     8);
+insert into PERSONNE values ( 32 ,'MALLE' ,'ROBAT', 'TALENCE' , 'SECINIATAIRE',  8);
+insert into PERSONNE values ( 33 ,'MALLE' ,'ROBAT', 'TALENCE' , 'PESIDENT',      9);
+insert into PERSONNE values ( 34 ,'MALLE' ,'ROBAT', 'TALENCE' , 'VICE-PESIDENT', 9);
+insert into PERSONNE values ( 35 ,'MALLE' ,'ROBAT', 'TALENCE' , 'TRESORIER',     9);
+insert into PERSONNE values ( 36 ,'MALLE' ,'ROBAT', 'TALENCE' , 'SECINIATAIRE',  9);
+insert into PERSONNE values ( 37 ,'MALLE' ,'ROBAT', 'TALENCE' , 'PESIDENT',      10);
+insert into PERSONNE values ( 38 ,'MALLE' ,'ROBAT', 'TALENCE' , 'VICE-PESIDENT', 10);
+insert into PERSONNE values ( 39 ,'MALLE' ,'ROBAT', 'TALENCE' , 'TRESORIER',     10);
+insert into PERSONNE values ( 40 ,'MALLE' ,'ROBAT', 'TALENCE' , 'SECINIATAIRE',  10);
+
+commit;
+
+-- -- ============================================================
+-- --    verification des donnees
+-- -- ============================================================
 
 select count(*),'= 20 ?','ENTRAINEUR' from ENTRAINEUR 
-union
-select count(*),'= 3 ?','BUREAU' from BUREAU 
 union
 select count(*),'= 10 ?','CATEGORIE' from CATEGORIE 
 union
@@ -276,4 +304,6 @@ select count(*),'= 20 ?','RENCONTRE' from RENCONTRE
 union
 select count(*),'= 20 ?','JOUEUR' from JOUEUR 
 union
-select count(*), '=75 ?','PARTICIPE' from PARTICIPE ;
+select count(*), '=75 ?','PARTICIPE' from PARTICIPE
+union
+select count(*),'= 40 ?','PERSONNE' from BUREAU ;

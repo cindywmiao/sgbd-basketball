@@ -3,8 +3,7 @@ insert into JOUEUR values(21,'MONTAND','YVES','13-OCT-89','TALENCE', '14-JAN-01'
 commit;
 
 -- Ajout d'un club --
-insert into BUREAU values ( 11 , 'MILLE' , 'BOURVAL' , 'MAVER', 'DOJA' ) ;
-insert into CLUB values ( 11 , 'BEINEIX'    , 11 ) ;
+insert into CLUB values ( 11 , 'BEINEIX' ) ;
 commit;
 
 -- Ajout d'un match --

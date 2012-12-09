@@ -1,10 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.*;
 import javax.swing.table.AbstractTableModel;
 
 
-public class MyGUI implements ActionListener{
+public class MyGUI implements ActionListener,ListSelectionListener{
     private static JFrame myJFrame;
     private static Container contentTitle;
     private static JPanel panelOption,panelTable,panelStatistique,panelUpdate;
@@ -12,7 +13,8 @@ public class MyGUI implements ActionListener{
     private static JButton b_moyenne_rencontre_date,b_moyenne_debut_saison;
     private static JButton b_class_joueurs, b_class_equipes;
     private static JButton buttonUpdate, buttonAdd, buttonDelete;
-    private static JTable table;
+    private static JTable table = null;
+    private ListSelectionModel selectionMode=null;
 
     public String option = "Club";
 
@@ -79,7 +81,10 @@ public class MyGUI implements ActionListener{
     void panelTextArea(){
 	panelTable = new JPanel();
 	table = new JTable(new MyTable(1));
+	table.setCellSelectionEnabled(true);
 	table.setPreferredScrollableViewportSize(new Dimension(550, 90));
+	selectionMode=table.getSelectionModel();
+	selectionMode.addListSelectionListener(this);
 	JScrollPane s = new JScrollPane(table);
 	panelTable.add(s);
 	myJFrame.add(panelTable);
@@ -171,5 +176,33 @@ public class MyGUI implements ActionListener{
 	    table.setModel(new MyTable(option));
 	
 	table.revalidate();
-    }    
+    } 
+
+    public void valueChanged(ListSelectionEvent el){
+	String tempString="";
+	Integer tempInteger = 0;
+	Boolean tempBoolean = false;
+	
+	int[] rows=table.getSelectedRows();
+	int[] columns=table.getSelectedColumns();
+
+      
+	for (int i=0;i< rows.length;i++){
+	    for (int j=0;j< columns.length;j++){
+		System.out.println(table.getValueAt(rows[i],columns[j]).getClass().getName());
+		if(table.getValueAt(rows[i],columns[j]).getClass().getName().equals("java.lang.String")){
+		    System.out.println("true");
+		    tempString = (String)table.getValueAt(rows[i], columns[j]);     
+		}
+		else if(table.getValueAt(rows[i],columns[j]).getClass().getName().equals("java.lang.Boolean")){
+		    System.out.println("true");
+		    tempBoolean = (Boolean)table.getValueAt(rows[i], columns[j]);     
+		}
+		else if(table.getValueAt(rows[i],columns[j]).getClass().getName().equals("java.lang.Integer")){
+		    System.out.println("true");
+		    tempInteger = (Integer)table.getValueAt(rows[i], columns[j]);     
+		}
+	    }
+	}
+    }
 }

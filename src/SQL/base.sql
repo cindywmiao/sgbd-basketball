@@ -5,7 +5,7 @@
 -- ============================================================
 drop table CLUB cascade constraints;
 
-drop table BUREAU cascade constraints;
+drop table PERSONNE cascade constraints;
 
 drop table EQUIPE cascade constraints;
 
@@ -27,22 +27,22 @@ drop table ENTRAINE cascade constraints;
 create table CLUB
 (
     NUMERO_CLUB                   NUMBER(3)              not null,
-    NOM_CLUB                      CHAR(20)               not null,
-    NUMERO_BUREAU                 NUMBER(3)  		 not null,	 
+    NOM_CLUB                      CHAR(20)               not null,	 
     constraint pk_club primary key (NUMERO_CLUB)
 );
 
 -- ============================================================
 --   Table : BUREAU                                            
 -- ============================================================
-create table BUREAU
+create table PERSONNE
 (
-    NUMERO_BUREAU                   NUMBER(3)              not null,
-    PRESIDENT                       CHAR(20)               not null,
-    VICE_PRESIDENT                  CHAR(20)               not null,
-    TRESORIER                       CHAR(20)               not null,
-    SECRETAIRE                      CHAR(20)               not null,	
-    constraint pk_bureau primary key (NUMERO_BUREAU)
+    NUMERO_PERSONNE                 NUMBER(3)              not null,
+    NOM_PERSONNE                    CHAR(20)               not null,
+    PRENOM_PERSONNE                 CHAR(20)               not null,
+    ADRESSE_PERSONNE                CHAR(20)               not null,
+    FONCTION_PERSONNE               CHAR(20)               not null,
+    NUMERO_CLUB                     NUMBER(3)              not null,	
+    constraint pk_personne primary key (NUMERO_PERSONNE)
 );
 
 -- ============================================================
@@ -134,9 +134,13 @@ create table ENTRAINE
 --     add constraint fk1_bureau foreign key (NUMERO_CLUB)
 --        references CLUB (NUMERO_CLUB);
 
-alter table CLUB
-    add constraint fk1_club foreign key (NUMERO_BUREAU)
-       references BUREAU (NUMERO_BUREAU) on delete cascade;
+-- alter table CLUB
+--    add constraint fk1_club foreign key (NUMERO_BUREAU)
+--       references BUREAU (NUMERO_BUREAU) on delete cascade;
+
+alter table PERSONNE
+    add constraint fk1_personne foreign key (NUMERO_CLUB)
+       references CLUB (NUMERO_CLUB) on delete cascade;
 
 alter table EQUIPE
     add constraint fk1_equipe foreign key (NUMERO_CLUB)

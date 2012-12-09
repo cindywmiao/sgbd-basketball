@@ -15,7 +15,6 @@ class ButtonDelete implements ActionListener, ListSelectionListener{
 	FrameDelete.setSize(600,100);
 	FrameDelete.setLocationRelativeTo(null);
 	FrameDelete.getContentPane().setBackground(Color.white);
-	FrameDelete.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	panelTable = new JPanel();
 	String[] name={"Option1","Option2","Option3","Option4","Option5"};
 	String[][] data=new String[1][5];

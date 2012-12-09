@@ -15,7 +15,6 @@ class ButtonAdd implements ActionListener, ListSelectionListener{
 	FrameAdd.setSize(600,100);
 	FrameAdd.setLocationRelativeTo(null);
 	FrameAdd.getContentPane().setBackground(Color.white);
-	FrameAdd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	panelTable = new JPanel();
 	String[] name={"Option1","Option2","Option3","Option4","Option5"};
 	String[][] data=new String[1][5];

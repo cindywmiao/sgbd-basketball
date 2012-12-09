@@ -110,15 +110,15 @@ public class MyGUI implements ActionListener{
 	panelUpdate = new JPanel();
 
 	buttonUpdate = new JButton("Update");
-	buttonUpdate.addActionListener(new ButtonUpdate());
+	buttonUpdate.addActionListener(this);
 	panelUpdate.add(buttonUpdate);
      
 	buttonAdd = new JButton("Add");
-	buttonAdd.addActionListener(new ButtonAdd());
+	buttonAdd.addActionListener(this);
 	panelUpdate.add(buttonAdd);
 
-	buttonDelete = new JButton("Delet");
-	buttonDelete.addActionListener(new ButtonDelete());
+	buttonDelete = new JButton("Delete");
+	buttonDelete.addActionListener(this);
 	panelUpdate.add(buttonDelete);
 
 	myJFrame.add(panelUpdate);
@@ -152,8 +152,21 @@ public class MyGUI implements ActionListener{
 	if (e.getActionCommand().equals("Classement des equipes")){
 	    table.setModel(new MyTable(2)); option = null;
 	}
+	
+	if (e.getActionCommand().equals("Add")){
+	    ButtonAdd buttonAddClass = new ButtonAdd();
+	    buttonAddClass.actionPerformed(e);
+	}
 
-
+	if (e.getActionCommand().equals("Update")){
+	    ButtonUpdate buttonUpdateClass = new ButtonUpdate();
+	    buttonUpdateClass.actionPerformed(e);
+	}
+	
+	if (e.getActionCommand().equals("Delete")){
+	  
+	}
+	
 	if(option != null)
 	    table.setModel(new MyTable(option));
 	

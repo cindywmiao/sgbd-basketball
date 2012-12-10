@@ -38,7 +38,9 @@
 
 \newpage
 
+
 \section*{Introduction}
+
 
 Afin de garder les information sur ses membres et sur son foncionnement, un club sportif peut être amener à utiliser une base de données. Ce projet consite en l'implémentation d'une base de données pour un club de basket-ball gérant les rencontres entre les différents clubs d'une fédération. \\
 
@@ -54,6 +56,11 @@ Dans ce rapport, il sera question, en premier temps, de présenter le modèle co
 \section{Modèle conceptuel}
 
 \subsection{Description du contexte de l'application}
+
+\subsubsection*{Les entités}
+Le projet s’articule autour de la création d’une base de données d’un club de basket-ball permettant la bonne gestion des rencontres entre les différentes équipes : elle devrait permettre l’organisation des informations qui concernent les équipes, les joueurs ainsi que les clubs.
+Dans ce contexte, nous avons essayé d’envisager le bon modèle des données qui permettra d’aboutir à cette finalité.
+
 Pour la modélisation conceptuelle des données nous avons créé au départ 6 entités : \\
 
 
@@ -68,7 +75,7 @@ Pour la modélisation conceptuelle des données nous avons créé au départ 6 e
 
 
 
-Dans un premier temps nous avons choisi de modéliser les rencontres entre par une association entre deux équipes et dans laquelle on stocke le score et la date de la rencontre. Nous nous sommes rendus compte par la suite qu une telle modélisation pose quelques problèmes : d'une part, on ne peut pas savoir quel joueur a participé à quelle rencontre. D'autre part, il nous est impossible de savoir quel joueur a marqué dans quelle rencontre ce qui pose un problème pour le calcul des cumuls des points marqués et des fautes pour chaque joueur ou même encore au niveau des statistiques notamment au niveau du classement des meilleurs joueurs d'une journée pour une catégorie. Nous avons donc créé une entité \textit{Rencontre} dans laquelle on stocke le numéro de la rencontre ainsi que le score et la date. De cette manière, un joueur peut jouer à différentes rencontres.
+Dans un premier temps, nous avons choisi de modéliser les rencontres entre par une association entre deux équipes et dans laquelle on stocke le score et la date de la rencontre. Nous nous sommes rendus compte par la suite qu une telle modélisation pose quelques problèmes : d'une part, on ne peut pas savoir quel joueur a participé à quelle rencontre. D'autre part, il nous est impossible de savoir quel joueur a marqué dans quelle rencontre ce qui pose un problème pour le calcul des cumuls des points marqués et des fautes pour chaque joueur ou même encore au niveau des statistiques notamment au niveau du classement des meilleurs joueurs d'une journée pour une catégorie. Nous avons donc créé une entité \textit{Rencontre} dans laquelle on stocke le numéro de la rencontre ainsi que le score et la date. De cette manière, un joueur peut jouer à différentes rencontres.
 \\
 
 Un nouveau problème s'est posé par la suite lors de l'implémentation de la base. Le modèle choisi a entraîné une énorme duplication de données au niveau de la table des joueurs. Etant donnée que les joueurs peuvent participer à plusieurs rencontres, nous devons à chaque fois réinsérer le nom, le prénom, le numéro de licence, sa date de naissance, son adresse et sa date d'entrée dans le club pour chaque match joué rien que pour stocker le nombre de points marqués et des fautes. La solution était donc d'enlever ces deux derniers attributs et de les insérer dans l'assocation \textit{participe} qui relie le joueur et la rencontre puisqu'ils dépendent de ces deux entités. Cela nous a permis d'éviter la duplication des données.
@@ -76,6 +83,12 @@ Un nouveau problème s'est posé par la suite lors de l'implémentation de la ba
 
 
 Le dernier problème rencontré concernait les membres du bureau. Comme il est précedemment expliqué, nous avons créé une entité \textit{Bureau} qui a pour attribut -entre autres- les noms du président, du vice-président et du trésorier. Cela nous empêchait de stocker d'autres informations concernant les membres du bureau notamment le prénom, la date de naissance ou encore le numéro identifiant. L'idée était d'ajouter une nouvelle entité \textit{Membre du bureau} permettant de stocker ces informations. L'entité \textit{Bureau} ne contenant plus que le numéro du bureau et ayant une association 1,1 des deux côtés avec le club devient alors inutile.  
+
+\subsubsection*{Les règles de gestion}
+
+\subsubsection*{Les associations}
+
+\subsubsection*{Les cardinalités}
 
 
 \newpage
@@ -89,6 +102,20 @@ Après différentes modifications, voici le schéma entité-association :
 \caption{schéma entité-association de la base de données}
 \end{figure}
 
+\subsection {Listes des opérations prévues sur la base}
+
+L’application devra assurer plusieurs fonctionnalités : les opérations standard de consultation et d’insertion ainsi celles correspondant à la recherche d’informations particulères notamment : \\
+
+\begin{itemize}
+\item les scores des matchs joués à une date donnée
+\item la liste des joueurs à une date donnée
+\item la feuille du match à une date donnée
+\item le nombre de matchs gagnés, perdus ou nuls
+\item la moyenne des points marqués à une date donnée
+\item la moyenne des points marqués depuis le début de la saison
+\item le classement des meilleurs joueurs d’une journée pour une catégorie
+\item le classement des équipes
+\end{itemize}
 
 \newpage
 \section{Modèle relationnel}
@@ -98,6 +125,8 @@ Après différentes modifications, voici le schéma entité-association :
 
 
 \subsection{Contraintes d'intégrité, dépendances fonctionnelles}
+ 
+\subsection{Normalisation de la base en $3^{eme}$ forme}
 
 \newpage
 \subsection{Schéma relationnel en $3^{eme}$ forme normale}
@@ -110,6 +139,7 @@ Après différentes modifications, voici le schéma entité-association :
 
 \section{Implémentation de la base de données}
 \subsection{Création de la base}
+
 \subsubsection*{Choix de MySQL}
 Il existe une multitude de SGBD disponibles pour une utilisation au niveau dont nous avons besoin. Nous avons choisi d'utiliser MySQL. Les avantages liés à l'utilisation d'une base MySQL sont :
 \begin{itemize}
@@ -120,6 +150,9 @@ Il existe une multitude de SGBD disponibles pour une utilisation au niveau dont 
 
 De plus, MySQL est un SGBD qui a été étudié en cours. Il n'y aura donc pas de problème lié à la recherche de documentation sur son fonctionnement global. De plus, bien que MySQL ait une capacité de données limitée, il semble que celle-ci soit suffisante pour stocker toutes les données nécessaires.
 
+\subsubsection*{Création des tables}
+
+\subsubsection*{Suppression}
 \subsection{Implémentation des commandes SQL}
 
 \section{Environnement d'exécution}

@@ -11,7 +11,7 @@ public class MyGUI implements ActionListener,ListSelectionListener{
     private static JFrame myJFrame;
     private static Container contentTitle;
     private static JPanel panelOption,panelTable,panelStatistique,panelUpdate;
-    private static JButton club,joueur,rencontre,bureau,equipe,categorie,entraineur;
+    private static JButton club,joueur,rencontre,equipe,categorie,entraineur;
     private static JButton b_moyenne_rencontre_date,b_moyenne_debut_saison;
     private static JButton b_class_joueurs, b_class_equipes;
     private static JButton buttonUpdate, buttonAdd, buttonDelete;
@@ -42,7 +42,7 @@ public class MyGUI implements ActionListener,ListSelectionListener{
 	panelExit();
 	myJFrame.setVisible(true);
     }
-    void partTitle(String title){;
+    void partTitle(String title){
 
 	contentTitle = myJFrame.getContentPane();
 	JLabel mytitle = new JLabel("BasketBall Club");
@@ -56,10 +56,6 @@ public class MyGUI implements ActionListener,ListSelectionListener{
 	club = new JButton("Club");
 	club.addActionListener(this);
 	panelOption.add(club);
-
-	bureau = new JButton("Bureau");
-	bureau.addActionListener(this);
-	panelOption.add(bureau);
 	
 	joueur = new JButton("Joueur");
 	joueur.addActionListener(this);
@@ -141,20 +137,30 @@ public class MyGUI implements ActionListener,ListSelectionListener{
 	myJFrame.add(panelUpdate);
     }
     public void actionPerformed(ActionEvent e) {
-	if (e.getActionCommand().equals("Club"))
+	if (e.getActionCommand().equals("Club")){
 	    option = "Club";
-	if (e.getActionCommand().equals("Bureau"))
-	    option = "Bureau";
-	if (e.getActionCommand().equals("Joueur"))
+	    table.setModel(new TableClub());
+	}
+	if (e.getActionCommand().equals("Joueur")){
 	    option = "Joueur";
-	if (e.getActionCommand().equals("Rencontre"))
-	    option = "Recontre";
-	if (e.getActionCommand().equals("Equipe"))
+	    table.setModel(new TableJoueur());
+	}
+	if (e.getActionCommand().equals("Rencontre")){
+	    option = "Rencontre";
+	    table.setModel(new TableRencontre());
+	}
+	if (e.getActionCommand().equals("Equipe")){
 	    option = "Equipe";
-	if (e.getActionCommand().equals("Categorie"))
+	    table.setModel(new TableEquipe());
+	}
+	if (e.getActionCommand().equals("Categorie")){
+	    table.setModel(new TableCategorie());
 	    option = "Categorie";
-	if (e.getActionCommand().equals("Entraineur"))
+	}
+	if (e.getActionCommand().equals("Entraineur")){
+	    table.setModel(new TableEntraineur());
 	    option = "Entraineur";
+	}
        
 	
 	if (e.getActionCommand().equals("Moyenne des points marques par rencontre")){
@@ -171,7 +177,8 @@ public class MyGUI implements ActionListener,ListSelectionListener{
 	}
 	
 	if (e.getActionCommand().equals("Add")){
-	    ButtonAdd buttonAddClass = new ButtonAdd();
+	    
+	    ButtonAdd buttonAddClass = new ButtonAdd(option);
 	    buttonAddClass.actionPerformed(e);
 	}
 
@@ -184,8 +191,6 @@ public class MyGUI implements ActionListener,ListSelectionListener{
 	  
 	}
 	
-	if(option != null)
-	    table.setModel(new MyTable(option));
 	
 	table.revalidate();
     } 

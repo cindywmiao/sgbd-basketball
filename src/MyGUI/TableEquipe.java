@@ -6,20 +6,33 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.DefaultCellEditor;  
 import javax.swing.table.TableColumn; 
  
-class MyAbstractTableModel1 extends AbstractTableModel {  
-    String[] head = { " ","ID", "NAME", "AGE", "DEMO" };  
- 
-    Object[] data1 = { new Boolean(false),  "200913420125", "SUMMER", new Integer(20),  "NULL" };  
-    Object[] data2 = { new Boolean(false),   "200913420124", "WULEI",  new Integer(20),  "NULL" };  
-    Object[] data3 = { new Boolean(false), "200913420125", "BOOK",  new Integer(20),  "NULL" };  
-    Object[] data4 = {new Boolean(false),  "200913420125", "CUP",  new Integer(20), "NULL" };  
-    Object[] data5 = { new Boolean(false),  "200913420125", "MOUSE", new Integer(20), "NULL" };   
+class TableEquipe extends AbstractTableModel {  
+    String[] head = { " ","NUMERO","NOM", "CLUB","CATEGORIE"};  
+    Object[] data0 = { new Boolean(true) ,"","",0,0};
+    Object[] data1 = { new Boolean(false),  "200913420125" ,"CUT"  , 1,1};  
+    Object[] data2 = { new Boolean(false),  "200913420124" ,"BOOK" , 2,2};  
+    Object[] data3 = { new Boolean(false),  "200913420125" ,"SUM"  , 3,3};  
+    Object[] data4 = { new Boolean(false),  "200913420125" ,"NOM " , 4,4};  
+    Object[] data5 = { new Boolean(false),  "200913420125" ,"RIG"  , 5,5};   
   
-    Class[] typeArray = {Boolean.class,   Object.class, Object.class, 
-            Integer.class, Object.class };  
+    Class[] typeArray = {Boolean.class,  //bool   
+			 Object.class,   //numero
+			 Object.class,   //nom
+			 Integer.class,
+			 Integer.class
+    };  
   
+   
     Object[][] data = { data1, data2, data3, data4, data5 };  
-    
+    public JTable t = null;
+
+    public TableEquipe(){
+	Object[][] data= {data0};
+	// String[] newhead = new String[2];
+	// for(int i = 1; i < head.length; i++)
+	//     newhead[i - 1]= head[i];
+	t = new JTable(data,head);
+    }
   
     public int getColumnCount() {  
         return head.length;  

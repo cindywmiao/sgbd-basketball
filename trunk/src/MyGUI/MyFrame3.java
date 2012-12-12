@@ -6,7 +6,6 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.DefaultCellEditor;  
 import javax.swing.table.TableColumn;  
 
-
 public class MyFrame3 implements ActionListener{
     private static JFrame frame;
     private static Container content;
@@ -14,7 +13,13 @@ public class MyFrame3 implements ActionListener{
     private static JLabel labelnumero, labelname;
     private static JTextField textnumero, textname;
     private static JButton buttonadd, buttonclear,buttoncancel;
-
+    private static String cmd;
+    private EcritureFichier Ef = null;
+    private String fichier;
+    public MyFrame3(EcritureFichier f,String nf){
+	this.Ef = f;
+	this.fichier = nf;
+    }
     public void go(){
 	frame = new JFrame("GUI Basketball");
 	frame.setLayout(new GridLayout(3,1));
@@ -61,16 +66,19 @@ public class MyFrame3 implements ActionListener{
 	}
 	else if(e.getActionCommand().equals("Find")){
 	    //System.out.println("select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS from joueur, participe, rencontre where rencontre.date_rencontre > '" + textnumero.getText()+"'and rencontre.numero_rencontre = participe.numero_rencontre;");    
-		System.out.println("select joueur.numero_licence, sum(participe.cumul_points_marques_joueur) as SCORE\n" +
+	    cmd =
+		"select joueur.numero_licence, sum(participe.cumul_points_marques_joueur) as SCORE\n" +
 		"from joueur, participe, rencontre, equipe\n"+
 		"where equipe.numero_categorie = "+textnumero.getText()+ "\n"+
-      	"and rencontre.date_rencontre = '"+textname.getText()+"'\n" +
-	    "and equipe.numero_equipe = joueur.numero_equipe\n" +
-      	"and joueur.numero_licence = participe.numero_licence\n" +
-      	"and participe.numero_rencontre = rencontre.numero_rencontre" +
+		"and rencontre.date_rencontre = '"+textname.getText()+"'\n" +
+		"and equipe.numero_equipe = joueur.numero_equipe\n" +
+		"and joueur.numero_licence = participe.numero_licence\n" +
+		"and participe.numero_rencontre = rencontre.numero_rencontre" +
 		"group by joueur.numero_licence\n" +
-		"order by score DESC;");
-		frame.dispose();	
+		"order by score DESC;";
+	    Ef.ecrireDuTexte(cmd,fichier);
+	    System.out.println(cmd);
+	    frame.dispose();	
 	}
 	else
 	    this.go();

@@ -6,7 +6,6 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.DefaultCellEditor;  
 import javax.swing.table.TableColumn;  
 
-
 public class MyFrame2 implements ActionListener{
     private static JFrame frame;
     private static Container content;
@@ -14,7 +13,13 @@ public class MyFrame2 implements ActionListener{
     private static JLabel labelnumero, labelname;
     private static JTextField textnumero, textname;
     private static JButton buttonadd, buttonclear,buttoncancel;
-
+    private static String cmd;
+    private EcritureFichier Ef = null;
+    private String fichier;
+    public MyFrame2(EcritureFichier f,String nf){
+	this.Ef = f;
+	this.fichier = nf;
+    }
 
     public void go(){
 	frame = new JFrame("GUI Basketball");
@@ -54,8 +59,13 @@ public class MyFrame2 implements ActionListener{
 	    textnumero.setText("");
 
 	else if(e.getActionCommand().equals("Find")){
-	    System.out.println("select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS from joueur, participe, rencontre where rencontre.date_rencontre > '" + textnumero.getText()+"'and rencontre.numero_rencontre = participe.numero_rencontre;");    
-		frame.dispose();	
+	    cmd = 
+		"select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS\n"+
+		"from joueur, participe, rencontre\n"+ 
+		"where rencontre.date_rencontre > '" + textnumero.getText()+"'and rencontre.numero_rencontre = participe.numero_rencontre;";
+	    Ef.ecrireDuTexte(cmd,fichier);
+	    System.out.println(cmd);
+	    frame.dispose();	
 	}
 	else
 	    this.go();

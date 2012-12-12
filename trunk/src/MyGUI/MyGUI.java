@@ -5,7 +5,7 @@ import javax.swing.event.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.DefaultCellEditor;  
 import javax.swing.table.TableColumn;  
-
+import java.awt.HeadlessException;
 
 public class MyGUI implements ActionListener,ListSelectionListener{
     private static JFrame myJFrame;
@@ -16,13 +16,16 @@ public class MyGUI implements ActionListener,ListSelectionListener{
     private static JButton b_class_joueurs, b_class_equipes;
     private static JButton buttonUpdate, buttonAdd, buttonDelete;
     private static JTable table = null;
-    private JComboBox cob = null;  
-    private JCheckBox ckb = null;  
-    private JTextField txt = null;  
-    private ListSelectionModel selectionMode=null;
+    private static JComboBox cob = null;  
+    private static JCheckBox ckb = null;  
+    private static JTextField txt = null;  
+    private static ListSelectionModel selectionMode=null;
+    private String command;
 
     public String option = "Club";
-
+    public EcritureFichier Ef = new EcritureFichier();
+    public String fichier = "../SQL/tmp.sql";
+	
     public static void main(String argc[]){
     	MyGUI that = new MyGUI();
 	that.go();
@@ -91,7 +94,7 @@ public class MyGUI implements ActionListener,ListSelectionListener{
     
         txt = new JTextField("");  
         txt.setSize(100, 26);  
-        tc3.setCellEditor(new DefaultCellEditor(txt));  
+        //tc3.setCellEditor(new DefaultCellEditor(txt));  
   
 	JScrollPane s = new JScrollPane(table);
 	panelTable.add(s);
@@ -139,47 +142,64 @@ public class MyGUI implements ActionListener,ListSelectionListener{
     public void actionPerformed(ActionEvent e) {
 	if (e.getActionCommand().equals("Club")){
 	    option = "Club";
+	    command = "select * from club;";
+	    System.out.println(command);
+	    Ef.ecrireDuTexte(command,fichier);
 	    table.setModel(new TableClub());
 	}
 	if (e.getActionCommand().equals("Joueur")){
 	    option = "Joueur";
+	    command = "select * from joueur;";
+	    System.out.println(command);
+	    Ef.ecrireDuTexte(command,fichier);
 	    table.setModel(new TableJoueur());
 	}
 	if (e.getActionCommand().equals("Rencontre")){
 	    option = "Rencontre";
+	    command = "select * from rencontre;";
+	    System.out.println(command);
+	    Ef.ecrireDuTexte(command,fichier);
 	    table.setModel(new TableRencontre());
 	}
 	if (e.getActionCommand().equals("Equipe")){
 	    option = "Equipe";
+	    command = "select * from equipe;";
+	    System.out.println(command);
+	    Ef.ecrireDuTexte(command,fichier);
 	    table.setModel(new TableEquipe());
 	}
 	if (e.getActionCommand().equals("Categorie")){
 	    table.setModel(new TableCategorie());
+	    command = "select * from categorie;";
+	    System.out.println(command);
+	    Ef.ecrireDuTexte(command,fichier);
 	    option = "Categorie";
 	}
 	if (e.getActionCommand().equals("Entraineur")){
+	    command = "select * from entraineur;";
+	    System.out.println(command);
+	    Ef.ecrireDuTexte(command,fichier);
 	    table.setModel(new TableEntraineur());
 	    option = "Entraineur";
 	}
        
 	
 	if (e.getActionCommand().equals("Moyenne des points marques par rencontre")){
-	    //table.setModel(new MyTable(2));option = null;
-	    MyFrame1 myframe1 = new MyFrame1();
-	    myframe1.actionPerformed(e);
+	    MyFrame1 myframe1 = new MyFrame1(Ef,fichier);
+	    myframe1.actionPerformed(e);   
 	}
 	if (e.getActionCommand().equals("Moyenne des points marques depuis le debut de la saison")){
-	    //table.setModel(new MyTable(2));option = null;
-	    MyFrame2 myframe2 = new MyFrame2();
+	
+	    MyFrame2 myframe2 = new MyFrame2(Ef,fichier);
 	    myframe2.actionPerformed(e);
 	}
 	if (e.getActionCommand().equals("Classement des meilleurs joueurs d'une jourenee pour une categorie")){
 	    //table.setModel(new MyTable(2));option = null;
-	    MyFrame3 myframe3 = new MyFrame3();
+	    MyFrame3 myframe3 = new MyFrame3(Ef,fichier);
 	    myframe3.actionPerformed(e);
 	}
 	if (e.getActionCommand().equals("Classement des equipes")){
-		System.out.println("select num_equipe, sum(score) as Score\n" +
+		command = "select num_equipe, sum(score) as Score\n" +
 		"from(\n" +	
 		"(select rencontre.numero_equipe1 as NUM_EQUIPE , rencontre.score_equipe1_rencontre as SCORE\n"+
 		"from rencontre)\n"+
@@ -187,13 +207,14 @@ public class MyGUI implements ActionListener,ListSelectionListener{
 		"(select rencontre.numero_equipe2 as NUM_EQUIPE , rencontre.score_equipe2_rencontre as SCORE\n"+
 		"from rencontre))\n"+
 		"group by NUM_EQUIPE\n"+
-		"order by Score DESC;");
-	    //table.setModel(new MyTable(2)); option = null;
+		"order by Score DESC;";
+		System.out.println(command);
+		Ef.ecrireDuTexte(command,fichier);
 	}
 	
 	if (e.getActionCommand().equals("Add")){
 	    
-	    ButtonAdd buttonAddClass = new ButtonAdd(option);
+	    ButtonAdd buttonAddClass = new ButtonAdd(option,Ef,fichier);
 	    buttonAddClass.actionPerformed(e);
 	}
 
@@ -203,7 +224,7 @@ public class MyGUI implements ActionListener,ListSelectionListener{
 	}
 	
 	if (e.getActionCommand().equals("Delete")){
-	  	ButtonDelete buttonDeleteClass = new ButtonDelete(option);
+	    ButtonDelete buttonDeleteClass = new ButtonDelete(option,Ef,fichier);
 	    buttonDeleteClass.actionPerformed(e);
 	}
 	

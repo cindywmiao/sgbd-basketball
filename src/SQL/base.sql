@@ -1,8 +1,9 @@
 -- ============================================================
 --   Nom de la base   :  Basketball                                
 --   Nom de SGBD      :  ORACLE Version 7.0                    
---   Date de creation :  30/10/96  12:09                       
+--   Date de creation :  7/11/2012                       
 -- ============================================================
+
 drop table CLUB cascade constraints;
 
 drop table PERSONNE cascade constraints;
@@ -26,13 +27,13 @@ drop table ENTRAINE cascade constraints;
 -- ============================================================
 create table CLUB
 (
-    NUMERO_CLUB                   NUMBER(3)              not null,
+    NUMERO_CLUB                   NUMBER(3)			 not null,
     NOM_CLUB                      CHAR(20)               not null,	 
     constraint pk_club primary key (NUMERO_CLUB)
 );
 
 -- ============================================================
---   Table : BUREAU                                            
+--   Table : PERSONNE                                            
 -- ============================================================
 create table PERSONNE
 (
@@ -130,13 +131,7 @@ create table ENTRAINE
     constraint pk_entraine primary key (NUMERO_EQUIPE, NUMERO_ENTRAINEUR)
 );
 
--- alter table BUREAU
---     add constraint fk1_bureau foreign key (NUMERO_CLUB)
---        references CLUB (NUMERO_CLUB);
 
--- alter table CLUB
---    add constraint fk1_club foreign key (NUMERO_BUREAU)
---       references BUREAU (NUMERO_BUREAU) on delete cascade;
 
 alter table PERSONNE
     add constraint fk1_personne foreign key (NUMERO_CLUB)

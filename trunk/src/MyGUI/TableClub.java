@@ -9,14 +9,14 @@ import javax.swing.table.TableColumn;
 class TableClub extends AbstractTableModel {  
     String[] head = { " ","NUMERO","NOM" };  
     
-    Object[] data0 = { new Boolean(true) ,"",""};
-    Object[] data1 = { new Boolean(false),  "200913420125" , "SUMMER" };  
-    Object[] data2 = { new Boolean(false),  "200913420124" , "WULEI"  };  
-    Object[] data3 = { new Boolean(false),  "200913420125" , "BOOK"   };  
-    Object[] data4 = { new Boolean(false),  "200913420125" , "CUP"    };  
-    Object[] data5 = { new Boolean(false),  "200913420125" , "MOUSE"  };   
+    Object[] data0 = { new Boolean(true) ,"0",""};
+    Object[] data1 = { new Boolean(false),  "125" , "SUMMER" };  
+    Object[] data2 = { new Boolean(false),  "224" , "WULEI"  };  
+    Object[] data3 = { new Boolean(false),  "205" , "BOOK"   };  
+    Object[] data4 = { new Boolean(false),  "215" , "CUP"    };  
+    Object[] data5 = { new Boolean(false),  "200" , "MOUSE"  };   
   
-    Class[] typeArray = {Boolean.class,   Object.class, Object.class  };  
+    Class[] typeArray = {Boolean.class, Object.class, Object.class  };  
     
   
     Object[][] data = { data1, data2, data3, data4, data5 }; 
@@ -25,9 +25,6 @@ class TableClub extends AbstractTableModel {
 
     public TableClub(){
 	Object[][] data= {data0};
-	// String[] newhead = new String[2];
-	// for(int i = 1; i < head.length; i++)
-	//     newhead[i - 1]= head[i];
 	t = new JTable(data,head);
     }
    

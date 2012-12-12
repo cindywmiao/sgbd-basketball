@@ -89,7 +89,7 @@ class ButtonDelete implements ActionListener, ListSelectionListener{
     protected void getCommand(String optioncommand){
 	boolean res = false;
 	for(int i = 1; i < mytable.getColumnCount(); i++)
-	    if(mytable.getValueAt(0,i) != "" && mytable.getValueAt(0,i) != null)
+	    if(mytable.getValueAt(0,i) != "" && mytable.getValueAt(0,i) != null && mytable.getValueAt(0,i) != "0")
 		{
 		    res = true;
 		    break;
@@ -109,7 +109,7 @@ class ButtonDelete implements ActionListener, ListSelectionListener{
 	    if(opt.equals("Club")){
 		getCommand("CLUB");
 		tmp = mytable.getValueAt(0,1);
-		if( tmp != "" && tmp != null){
+		if( tmp != "" && tmp != null && tmp != "0"){
 		    command += "club.numero_club = "+ tmp;
 		    res = true;}
 		tmp = mytable.getValueAt(0,2);
@@ -123,7 +123,7 @@ class ButtonDelete implements ActionListener, ListSelectionListener{
 	    else if(opt.equals("Categorie")){
 		getCommand("CATEGORIE");
 		tmp = mytable.getValueAt(0,1);
-		if( tmp != "" && tmp != null){
+		if( tmp != "" && tmp != null && tmp != "0"){
 		    command += "categorie.numero_categorie = "+ tmp;
 		    res = true;
 		}
@@ -138,7 +138,7 @@ class ButtonDelete implements ActionListener, ListSelectionListener{
 	    else if(opt.equals("Entraineur")){
 		getCommand("ENTRAINEUR");
 		tmp = mytable.getValueAt(0,1);
-		if( tmp != "" && tmp != null){
+		if( tmp != "" && tmp != null && tmp != "0"){
 		    command += "entraineur.numero_entraineur = "+ tmp;
 		    res = true;
 		}
@@ -166,10 +166,10 @@ class ButtonDelete implements ActionListener, ListSelectionListener{
 		command += ";\n";
 	    }
 	    
-	     else if(opt.equals("Joueur")){
+	    else if(opt.equals("Joueur")){
 		getCommand("JOUEUR");
 		tmp = mytable.getValueAt(0,1);
-		if( tmp != "" && tmp != null){
+		if( tmp != "" && tmp != null && tmp != "0"){
 		    command += "joueur.numero_joueur = "+ tmp;
 		    res = true;
 		}
@@ -209,7 +209,7 @@ class ButtonDelete implements ActionListener, ListSelectionListener{
 		    res = true;
 		}
 		tmp = mytable.getValueAt(0,7);
-		if( res && tmp != "" && tmp != null) 
+		if( res && tmp != "" && tmp != null && tmp != "0") 
 		    command += " and ";
 		if( tmp!= null && tmp!= ""){
 		    command += "joueur.numero_club =" + "'"+ tmp +"'";
@@ -222,7 +222,7 @@ class ButtonDelete implements ActionListener, ListSelectionListener{
 	    else if(opt.equals("Equipe")){
 		getCommand("EQUIPE");
 		tmp = mytable.getValueAt(0,1);
-		if( tmp != "" && tmp != null){
+		if( tmp != "" && tmp != null && tmp != "0"){
 		    command += "equipe.numero_equipe = "+ tmp;
 		    res = true;
 		}
@@ -253,7 +253,7 @@ class ButtonDelete implements ActionListener, ListSelectionListener{
 	    else if(opt.equals("Rencontre")){
 		getCommand("RENCONTRE");
 		tmp = mytable.getValueAt(0,1);
-		if( tmp != "" && tmp != null){
+		if( tmp != "" && tmp != null && tmp != "0"){
 		    command += "rencontre.numero_rencontre = "+ tmp;
 		    res = true;
 		}
@@ -287,10 +287,10 @@ class ButtonDelete implements ActionListener, ListSelectionListener{
 		}
 		command += ";\n";
 	    }
-	   
+	   	command += "commit;";
 	    System.out.println(command);
 	    Ef.ecrireDuTexte(command,fichier);
-    	    FrameDelete.dispose();
+    	FrameDelete.dispose();
 	}
     	else if (e.getActionCommand().equals("Cancel"))
 	    FrameDelete.dispose();

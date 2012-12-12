@@ -5,6 +5,7 @@ import javax.swing.event.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.DefaultCellEditor;  
 import javax.swing.table.TableColumn;  
+import java.lang.*;
 
 public class MyFrame3 implements ActionListener{
     private static JFrame frame;
@@ -69,7 +70,7 @@ public class MyFrame3 implements ActionListener{
 	    cmd =
 		"select joueur.numero_licence, sum(participe.cumul_points_marques_joueur) as SCORE\n" +
 		"from joueur, participe, rencontre, equipe\n"+
-		"where equipe.numero_categorie = "+textnumero.getText()+ "\n"+
+		"where equipe.numero_categorie = "+Integer.parseInt(textnumero.getText())+ "\n"+
 		"and rencontre.date_rencontre = '"+textname.getText()+"'\n" +
 		"and equipe.numero_equipe = joueur.numero_equipe\n" +
 		"and joueur.numero_licence = participe.numero_licence\n" +

@@ -62,7 +62,7 @@ public class MyFrame2 implements ActionListener{
 	    cmd = 
 		"select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS\n"+
 		"from joueur, participe, rencontre\n"+ 
-		"where rencontre.date_rencontre > '" + textnumero.getText()+"'and rencontre.numero_rencontre = participe.numero_rencontre;";
+		"where rencontre.date_rencontre > '" + textnumero.getText()+"' and rencontre.numero_rencontre = participe.numero_rencontre;";
 	    Ef.ecrireDuTexte(cmd,fichier);
 	    System.out.println(cmd);
 	    frame.dispose();	

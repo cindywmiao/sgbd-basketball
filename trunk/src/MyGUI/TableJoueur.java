@@ -9,12 +9,12 @@ import javax.swing.table.TableColumn;
 class TableJoueur extends AbstractTableModel {  
     String[] head = { " ","NUMERO","NOM", "PRENOM", "DATE DE NAISSAINCE","ADRESSE" ,"DATE D'ENTREE CLUB" ,"CLUB"};  
  
-    Object[] data0 = { new Boolean(true ), "","","","","","",0};
-    Object[] data1 = { new Boolean(false),  "200913420125" , "SUMMER" , "MILLE" ,"12-DEC-85" , "BORDEAUX" ,"12-FEV-98" , 1};  
-    Object[] data2 = { new Boolean(false),  "200913420124" , "WULEI"  , "MILLE" ,"12-DEC-85" , "BORDEAUX" ,"12-FEV-98" , 2};  
-    Object[] data3 = { new Boolean(false),  "200913420125" , "BOOK"   , "MILLE" ,"12-DEC-85" , "BORDEAUX" ,"12-FEV-98" , 3};  
-    Object[] data4 = { new Boolean(false),  "200913420125" , "CUP"    , "MILLE" ,"12-DEC-85" , "BORDEAUX" ,"12-FEV-98" , 4};  
-    Object[] data5 = { new Boolean(false),  "200913420125" , "MOUSE"  , "MILLE" ,"12-DEC-85" , "BORDEAUX" ,"12-FEV-98" , 5};   
+    Object[] data0 = { new Boolean(true ), "0","","","","","","0"};
+    Object[] data1 = { new Boolean(false),  "200913420125" , "SUMMER" , "MILLE" ,"12-DEC-85" , "BORDEAUX" ,"12-FEV-98" , "1"};  
+    Object[] data2 = { new Boolean(false),  "200913420124" , "WULEI"  , "MILLE" ,"12-DEC-85" , "BORDEAUX" ,"12-FEV-98" , "2"};  
+    Object[] data3 = { new Boolean(false),  "200913420125" , "BOOK"   , "MILLE" ,"12-DEC-85" , "BORDEAUX" ,"12-FEV-98" , "3"};  
+    Object[] data4 = { new Boolean(false),  "200913420125" , "CUP"    , "MILLE" ,"12-DEC-85" , "BORDEAUX" ,"12-FEV-98" , "4"};  
+    Object[] data5 = { new Boolean(false),  "200913420125" , "MOUSE"  , "MILLE" ,"12-DEC-85" , "BORDEAUX" ,"12-FEV-98" , "5"};   
   
     Class[] typeArray = {Boolean.class,  //bool   
 			 Object.class,   //numero
@@ -23,7 +23,7 @@ class TableJoueur extends AbstractTableModel {
 			 Object.class,   //date de naissance
 			 Object.class,   //adresse
 			 Object.class,   //date d'entre club
-			 Integer.class   //club
+			 Object.class   //club
     };  
   
     Object[][] data = { data1, data2, data3, data4, data5 };  

@@ -165,19 +165,16 @@ public class MyGUI implements ActionListener,ListSelectionListener{
 	
 	if (e.getActionCommand().equals("Moyenne des points marques par rencontre")){
 	    //table.setModel(new MyTable(2));option = null;
-	    option = null;
 	    MyFrame1 myframe1 = new MyFrame1();
 	    myframe1.actionPerformed(e);
 	}
 	if (e.getActionCommand().equals("Moyenne des points marques depuis le debut de la saison")){
 	    //table.setModel(new MyTable(2));option = null;
-	    option = null;
 	    MyFrame2 myframe2 = new MyFrame2();
 	    myframe2.actionPerformed(e);
 	}
 	if (e.getActionCommand().equals("Classement des meilleurs joueurs d'une jourenee pour une categorie")){
 	    //table.setModel(new MyTable(2));option = null;
-	    option = null;
 	    MyFrame3 myframe3 = new MyFrame3();
 	    myframe3.actionPerformed(e);
 	}
@@ -191,7 +188,7 @@ public class MyGUI implements ActionListener,ListSelectionListener{
 		"from rencontre))\n"+
 		"group by NUM_EQUIPE\n"+
 		"order by Score DESC;");
-	    table.setModel(new MyTable(2)); option = null;
+	    //table.setModel(new MyTable(2)); option = null;
 	}
 	
 	if (e.getActionCommand().equals("Add")){

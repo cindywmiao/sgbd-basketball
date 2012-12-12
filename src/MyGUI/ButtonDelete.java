@@ -86,17 +86,17 @@ class ButtonDelete implements ActionListener, ListSelectionListener{
 			
     	if (e.getActionCommand().equals("Delete Element")){
 	    if(opt.equals("Club"))
-		System.out.println("delete from CLUB values "+
-				   "(" + mytable.getValueAt(0,1) +"," + "'"+ mytable.getValueAt(0,2) +"');");
+		System.out.println("delete from CLUB where club.numero_club = "+
+				   "" + mytable.getValueAt(0,1) +"or club.nom_club = " + "'"+ mytable.getValueAt(0,2) +"');");
 	    else if(opt.equals("Joueur"))
-		System.out.println("insert into JOUEUR values "+
-				   "(" + mytable.getValueAt(0,1) + ","+  //licence
-				   "'"+ mytable.getValueAt(0,2) + "'" + "," + // nom
-				   "'"+ mytable.getValueAt(0,3) + "'" + "," + //prenom
-				   "'"+ mytable.getValueAt(0,4) + "'" + "," + //date de naissance
-				   "'"+ mytable.getValueAt(0,5) + "'" + "," + //adresse
-				   "'"+ mytable.getValueAt(0,6) + "'" + "," + //date d'entree club
-				   "'"+ mytable.getValueAt(0,7) + "'" + ");"); //club
+		System.out.println("delete from JOUEUR where "+
+				   "joueur.licence_joueur = " + mytable.getValueAt(0,1) + "' or"+  //licence
+				   "joueur.nom_joueur = '"+ mytable.getValueAt(0,2) + "' or" + // nom
+				   "joueur.prenom_joueur = '"+ mytable.getValueAt(0,3) + "' or" + //prenom
+				   "joueur.date_de_naissance_joueur = '"+ mytable.getValueAt(0,4) + "' or" + //date de naissance
+				   "joueur.adresse_joueur = '"+ mytable.getValueAt(0,5) + "or" + //adresse
+				   "joueur.date_entree_club_joueur = '"+ mytable.getValueAt(0,6) + "' or" + //date d'entree club
+				   "joueur.numero_club = "+ mytable.getValueAt(0,7) + ";"); //club
 	    else if(opt.equals("Rencontre"))
 		System.out.println("insert into RENCONTRE values "+
 				   "(" + mytable.getValueAt(0,1) + ","+ 

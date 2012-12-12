@@ -6,7 +6,6 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.DefaultCellEditor;  
 import javax.swing.table.TableColumn;  
 
-
 public class MyFrame1 implements ActionListener{
     private static JFrame frame;
     private static Container content;
@@ -14,12 +13,14 @@ public class MyFrame1 implements ActionListener{
     private static JLabel labelnumero, labelname;
     private static JTextField textnumero, textname;
     private static JButton buttonadd, buttonclear,buttoncancel;
-
-    public static void main(String argc[]){
-    	MyFrame1 that = new MyFrame1();
-		that.go();
+    private static String cmd;
+    private EcritureFichier Ef = null;
+    private String fichier;
+    public MyFrame1(EcritureFichier f,String nf){
+	this.Ef = f;
+	this.fichier = nf;
     }
-
+    
     public void go(){
 	frame = new JFrame("GUI Basketball");
 	frame.setLayout(new GridLayout(2,1));
@@ -50,14 +51,21 @@ public class MyFrame1 implements ActionListener{
 
     public void actionPerformed(ActionEvent e){
 	
-	if(e.getActionCommand().equals("Cancel"))
+	if(e.getActionCommand().equals("Cancel")){
 	    frame.dispose();
+	}
 	
-	else if(e.getActionCommand().equals("Clear"))
+	else if(e.getActionCommand().equals("Clear")){
 	    textnumero.setText("");
+	}
 
 	else if(e.getActionCommand().equals("Find")){
-	    System.out.println("select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS from participe, rencontre where rencontre.date_rencontre = '"+textnumero.getText()+"'and rencontre.numero_rencontre = participe.numero_rencontre;");
+	    cmd = 
+		"select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS\n"+
+		"from participe, rencontre\n"+
+		"where rencontre.date_rencontre = '"+textnumero.getText()+"'and rencontre.numero_rencontre = participe.numero_rencontre;";
+	    Ef.ecrireDuTexte(cmd,fichier);
+	    System.out.println(cmd);
 	    frame.dispose();
 	}
 	else

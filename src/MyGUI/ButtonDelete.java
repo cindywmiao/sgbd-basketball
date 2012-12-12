@@ -11,8 +11,13 @@ class ButtonDelete implements ActionListener, ListSelectionListener{
     private JTable mytable = null;
     private ListSelectionModel selectionMode=null;
     private String opt;
+    private String command;
+    private EcritureFichier Ef = null;
+    private String fichier;
 
-    public ButtonDelete(String option){
+    public ButtonDelete(String option,EcritureFichier f,String sf){
+	this.Ef = f;
+	this.fichier = sf;
 	opt = option;
 	if(opt.equals("Club")){
 	    TableClub tableclub = new TableClub();
@@ -40,7 +45,6 @@ class ButtonDelete implements ActionListener, ListSelectionListener{
 	}
 	else 
 	    mytable = null;
-	    //mytable = new TableClub();
     }
     
     public ButtonDelete(){
@@ -82,45 +86,210 @@ class ButtonDelete implements ActionListener, ListSelectionListener{
 
     }
 
-    public void actionPerformed(ActionEvent e) {
-			
-    	if (e.getActionCommand().equals("Delete Element")){
-	    if(opt.equals("Club"))
-		System.out.println("delete from CLUB where club.numero_club = "+
-				   "" + mytable.getValueAt(0,1) +"or club.nom_club = " + "'"+ mytable.getValueAt(0,2) +"');");
-	    else if(opt.equals("Joueur"))
-		System.out.println("delete from JOUEUR where "+
-				   "joueur.licence_joueur = " + mytable.getValueAt(0,1) + "' or"+  //licence
-				   "joueur.nom_joueur = '"+ mytable.getValueAt(0,2) + "' or" + // nom
-				   "joueur.prenom_joueur = '"+ mytable.getValueAt(0,3) + "' or" + //prenom
-				   "joueur.date_de_naissance_joueur = '"+ mytable.getValueAt(0,4) + "' or" + //date de naissance
-				   "joueur.adresse_joueur = '"+ mytable.getValueAt(0,5) + "or" + //adresse
-				   "joueur.date_entree_club_joueur = '"+ mytable.getValueAt(0,6) + "' or" + //date d'entree club
-				   "joueur.numero_club = "+ mytable.getValueAt(0,7) + ";"); //club
-	    else if(opt.equals("Rencontre"))
-		System.out.println("insert into RENCONTRE values "+
-				   "(" + mytable.getValueAt(0,1) + ","+ 
-				   "'"+ mytable.getValueAt(0,2) + "'" + "," +
-				   "'"+ mytable.getValueAt(0,3) + "'" + "," +
-				   "'"+ mytable.getValueAt(0,4) + "'" + "," +
-				   "'"+ mytable.getValueAt(0,5) + "'" + ");");
-	    else if(opt.equals("Equipe"))
-		System.out.println("insert into EQUIPE values "+
-				   "(" + mytable.getValueAt(0,1) + ","+ 
-				   "'"+ mytable.getValueAt(0,2) + "'" + "," +
-				   "'"+ mytable.getValueAt(0,3) + "'" + "," +
-				   "'"+ mytable.getValueAt(0,4) + "'" + ");");
-	    else if(opt.equals("Categorie"))
-		System.out.println("insert into CATEGORIE values "+
-				   "(" + mytable.getValueAt(0,1) + ","+ 
-				   "'"+ mytable.getValueAt(0,2) + "'" +");");
-	    else if(opt.equals("Entraineur"))
-		System.out.println("insert into ENTRAINEUR values "+
-				   "(" + mytable.getValueAt(0,1) + ","+ 
-				   "'"+ mytable.getValueAt(0,2) + "'" + "," +
-				   "'"+ mytable.getValueAt(0,3) + "'" + "," +
-				   "'"+ mytable.getValueAt(0,4) + "'" + ");");
+    protected void getCommand(String optioncommand){
+	boolean res = false;
+	for(int i = 1; i < mytable.getColumnCount(); i++)
+	    if(mytable.getValueAt(0,i) != "" && mytable.getValueAt(0,i) != null)
+		{
+		    res = true;
+		    break;
+		}
+	if(res){
+	    command = "delete from ";
+	    command += optioncommand;
+	    command += "\nwhere ";
+	}
+    }
 
+    public void actionPerformed(ActionEvent e) {
+	Object tmp = null;
+	boolean res = false;	
+    	if (e.getActionCommand().equals("Delete Element")){
+	    
+	    if(opt.equals("Club")){
+		getCommand("CLUB");
+		tmp = mytable.getValueAt(0,1);
+		if( tmp != "" && tmp != null){
+		    command += "club.numero_club = "+ tmp;
+		    res = true;}
+		tmp = mytable.getValueAt(0,2);
+		if( res && tmp != "" && tmp != null)
+		    command += " and ";
+		if( tmp!= null && tmp!= "")
+		    command += "club.nom_club =" + "'"+ tmp +"'";
+		command += ";\n";
+	    }
+
+	    else if(opt.equals("Categorie")){
+		getCommand("CATEGORIE");
+		tmp = mytable.getValueAt(0,1);
+		if( tmp != "" && tmp != null){
+		    command += "categorie.numero_categorie = "+ tmp;
+		    res = true;
+		}
+		tmp = mytable.getValueAt(0,2);
+		if( res && tmp != "" && tmp != null)
+		    command += " and ";
+		if( tmp!= null && tmp!= "")
+		    command += "categorie.nom_categorie =" + "'"+ tmp +"'";
+		command += ";\n";
+	    }
+
+	    else if(opt.equals("Entraineur")){
+		getCommand("ENTRAINEUR");
+		tmp = mytable.getValueAt(0,1);
+		if( tmp != "" && tmp != null){
+		    command += "entraineur.numero_entraineur = "+ tmp;
+		    res = true;
+		}
+		tmp = mytable.getValueAt(0,2);
+		if( res && tmp != "" && tmp != null)
+		    command += " and ";
+		if( tmp!= null && tmp!= ""){
+		    command += "entraineur.nom_entraineur =" + "'"+ tmp+"'";
+		    res = true;
+		}
+		tmp = mytable.getValueAt(0,3);
+		if( res && tmp != "" && tmp != null) 
+		    command += " and ";
+		if( tmp!= null && tmp!= ""){
+		    command += "entraineur.prenom_entraineur =" + "'"+ tmp+"'";
+		    res = true;
+		}
+		tmp = mytable.getValueAt(0,4);
+		if( res && tmp != "" && tmp != null) 
+		    command += " and ";
+		if( tmp!= null && tmp!= ""){
+		    command += "entraineur.date_dentree_club_entraineur =" + "'"+ tmp+"'";
+		    res = true;
+		}
+		command += ";\n";
+	    }
+	    
+	     else if(opt.equals("Joueur")){
+		getCommand("JOUEUR");
+		tmp = mytable.getValueAt(0,1);
+		if( tmp != "" && tmp != null){
+		    command += "joueur.numero_joueur = "+ tmp;
+		    res = true;
+		}
+		tmp = mytable.getValueAt(0,2);
+		if( res && tmp != "" && tmp != null)
+		    command += " and ";
+		if( tmp!= null && tmp!= ""){
+		    command += "joueur.nom_joueur =" + "'"+ tmp+"'";
+		    res = true;
+		}
+		tmp = mytable.getValueAt(0,3);
+		if( res && tmp != "" && tmp != null) 
+		    command += " and ";
+		if( tmp!= null && tmp!= ""){
+		    command += "joueur.prenom_joueur =" + "'"+ tmp+"'";
+		    res = true;
+		}
+		tmp = mytable.getValueAt(0,4);
+		if( res && tmp != "" && tmp != null) 
+		    command += " and ";
+		if( tmp!= null && tmp!= ""){
+		    command += "joueur.date_de_naissance_joueur =" + "'"+ tmp+"'";
+		    res = true;
+		}
+		tmp = mytable.getValueAt(0,5);
+		if( res && tmp != "" && tmp != null) 
+		    command += " and ";
+		if( tmp!= null && tmp!= ""){
+		    command += "joueur.adresse_joueur=" + "'"+ tmp+"'";
+		    res = true;
+		}
+		tmp = mytable.getValueAt(0,6);
+		if( res && tmp != "" && tmp != null) 
+		    command += " and ";
+		if( tmp!= null && tmp!= ""){
+		    command += "joueur.date_dentree_club_joueur =" + "'"+ tmp +"'";
+		    res = true;
+		}
+		tmp = mytable.getValueAt(0,7);
+		if( res && tmp != "" && tmp != null) 
+		    command += " and ";
+		if( tmp!= null && tmp!= ""){
+		    command += "joueur.numero_club =" + "'"+ tmp +"'";
+		    res = true;
+		}		
+		
+		command += ";\n";
+	    }
+
+	    else if(opt.equals("Equipe")){
+		getCommand("EQUIPE");
+		tmp = mytable.getValueAt(0,1);
+		if( tmp != "" && tmp != null){
+		    command += "equipe.numero_equipe = "+ tmp;
+		    res = true;
+		}
+		tmp = mytable.getValueAt(0,2);
+		if( res && tmp != "" && tmp != null)
+		    command += " and ";
+		if( tmp!= null && tmp!= ""){
+		    command += "equipe.nom_equipe =" + "'"+ tmp+"'";
+		    res = true;
+		}
+		tmp = mytable.getValueAt(0,3);
+		if( res && tmp != "" && tmp != null) 
+		    command += " and ";
+		if( tmp!= null && tmp!= "" && tmp != "0"){
+		    command += "equipe.numero_club =" + "'"+ tmp+"'";
+		    res = true;
+		}
+		tmp = mytable.getValueAt(0,4);
+		if( res && tmp != "" && tmp != null && tmp != "0") 
+		    command += " and ";
+		if( tmp!= null && tmp!= ""){
+		    command += "equipe.numero_caterogie=" + "'"+ tmp+"'";
+		    res = true;
+		}
+		command += ";\n";
+	    }
+	  
+	    else if(opt.equals("Rencontre")){
+		getCommand("RENCONTRE");
+		tmp = mytable.getValueAt(0,1);
+		if( tmp != "" && tmp != null){
+		    command += "rencontre.numero_rencontre = "+ tmp;
+		    res = true;
+		}
+		tmp = mytable.getValueAt(0,2);
+		if( res && tmp != "" && tmp != null && tmp != "0")
+		    command += " and ";
+		if( tmp!= null && tmp!= ""){
+		    command += "rencontre.score_equipe1=" + "'"+ tmp+"'";
+		    res = true;
+		}
+		tmp = mytable.getValueAt(0,3);
+		if( res && tmp != "" && tmp != null && tmp != "0") 
+		    command += " and ";
+		if( tmp!= null && tmp!= ""){
+		    command += "rencontre.score_equipe2 =" + "'"+ tmp+"'";
+		    res = true;
+		}
+		tmp = mytable.getValueAt(0,4);
+		if( res && tmp != "" && tmp != null && tmp != "0" ) 
+		    command += " and ";
+		if( tmp!= null && tmp!= ""){
+		    command += "rencontre.numero_equipe1 =" + "'"+ tmp+"'";
+		    res = true;
+		}
+		tmp = mytable.getValueAt(0,5);
+		if( res && tmp != "" && tmp != null && tmp != "0") 
+		    command += " and ";
+		if( tmp!= null && tmp!= ""){
+		    command += "rencontre.numero_equipe2 =" + "'"+ tmp+"'";
+		    res = true;
+		}
+		command += ";\n";
+	    }
+	   
+	    System.out.println(command);
+	    Ef.ecrireDuTexte(command,fichier);
     	    FrameDelete.dispose();
 	}
     	else if (e.getActionCommand().equals("Cancel"))

@@ -11,8 +11,13 @@ class ButtonAdd implements ActionListener, ListSelectionListener{
     private JTable mytable = null;
     private ListSelectionModel selectionMode=null;
     private String opt;
+    private String command;
+    private EcritureFichier Ef = null;
+    private String fichier;
 
-    public ButtonAdd(String option){
+    public ButtonAdd(String option,EcritureFichier f,String sf){
+	this.Ef = f;
+	this.fichier = sf;
 	opt = option;
 	if(opt.equals("Club")){
 	    TableClub tableclub = new TableClub();
@@ -40,7 +45,6 @@ class ButtonAdd implements ActionListener, ListSelectionListener{
 	}
 	else 
 	    mytable = null;
-	    //mytable = new TableClub();
     }
     
     public ButtonAdd(){
@@ -85,42 +89,61 @@ class ButtonAdd implements ActionListener, ListSelectionListener{
     public void actionPerformed(ActionEvent e) {
 			
     	if (e.getActionCommand().equals("Add Element")){
-	    if(opt.equals("Club"))
-		System.out.println("insert into CLUB values "+
-				   "(" + mytable.getValueAt(0,1) +"," + "'"+ mytable.getValueAt(0,2) +"');");
-	    else if(opt.equals("Joueur"))
-		System.out.println("insert into JOUEUR values "+
-				   "(" + mytable.getValueAt(0,1) + ","+  //licence
-				   "'"+ mytable.getValueAt(0,2) + "'" + "," + // nom
-				   "'"+ mytable.getValueAt(0,3) + "'" + "," + //prenom
-				   "'"+ mytable.getValueAt(0,4) + "'" + "," + //date de naissance
-				   "'"+ mytable.getValueAt(0,5) + "'" + "," + //adresse
-				   "'"+ mytable.getValueAt(0,6) + "'" + "," + //date d'entree club
-				   "'"+ mytable.getValueAt(0,7) + "'" + ");"); //club
-	    else if(opt.equals("Rencontre"))
-		System.out.println("insert into RENCONTRE values "+
-				   "(" + mytable.getValueAt(0,1) + ","+ 
-				   "'"+ mytable.getValueAt(0,2) + "'" + "," +
-				   "'"+ mytable.getValueAt(0,3) + "'" + "," +
-				   "'"+ mytable.getValueAt(0,4) + "'" + "," +
-				   "'"+ mytable.getValueAt(0,5) + "'" + ");");
-	    else if(opt.equals("Equipe"))
-		System.out.println("insert into EQUIPE values "+
-				   "(" + mytable.getValueAt(0,1) + ","+ 
-				   "'"+ mytable.getValueAt(0,2) + "'" + "," +
-				   "'"+ mytable.getValueAt(0,3) + "'" + "," +
-				   "'"+ mytable.getValueAt(0,4) + "'" + ");");
-	    else if(opt.equals("Categorie"))
-		System.out.println("insert into CATEGORIE values "+
-				   "(" + mytable.getValueAt(0,1) + ","+ 
-				   "'"+ mytable.getValueAt(0,2) + "'" +");");
-	    else if(opt.equals("Entraineur"))
-		System.out.println("insert into ENTRAINEUR values "+
-				   "(" + mytable.getValueAt(0,1) + ","+ 
-				   "'"+ mytable.getValueAt(0,2) + "'" + "," +
-				   "'"+ mytable.getValueAt(0,3) + "'" + "," +
-				   "'"+ mytable.getValueAt(0,4) + "'" + ");");
-
+	    if(opt.equals("Club")){
+		command = "insert into CLUB values "+
+		    "(" + mytable.getValueAt(0,1) +"," + "'"+ mytable.getValueAt(0,2) +"');";
+		command += "\ncommit;";
+	
+	    }
+	    else if(opt.equals("Joueur")){
+		command = "insert into JOUEUR values "+
+		    "(" + mytable.getValueAt(0,1) + ","+  //licence
+		    "'"+ mytable.getValueAt(0,2) + "'" + "," + // nom
+		    "'"+ mytable.getValueAt(0,3) + "'" + "," + //prenom
+		    "'"+ mytable.getValueAt(0,4) + "'" + "," + //naissance
+		    "'"+ mytable.getValueAt(0,5) + "'" + "," + //adresse
+		    "'"+ mytable.getValueAt(0,6) + "'" + "," + //date d'entree
+		    "'"+ mytable.getValueAt(0,7) + "'" + ");"; //club
+		command += "\ncommit;";
+	
+	    }
+	    else if(opt.equals("Rencontre")){
+		command = "insert into RENCONTRE values "+
+		    "(" + mytable.getValueAt(0,1) + ","+ 
+		    "'"+ mytable.getValueAt(0,2) + "'" + "," +
+		    "'"+ mytable.getValueAt(0,3) + "'" + "," +
+		    "'"+ mytable.getValueAt(0,4) + "'" + "," +
+		    "'"+ mytable.getValueAt(0,5) + "'" + ");";
+		command += "\ncommit;";
+	
+	    }
+	    else if(opt.equals("Equipe")){
+		command = "insert into EQUIPE values "+
+		    "(" + mytable.getValueAt(0,1) + ","+ 
+		    "'"+ mytable.getValueAt(0,2) + "'" + "," +
+		    "'"+ mytable.getValueAt(0,3) + "'" + "," +
+		    "'"+ mytable.getValueAt(0,4) + "'" + ");";
+		command += "\ncommit;";
+	
+	    }
+	    else if(opt.equals("Categorie")) {
+		command = "insert into CATEGORIE values "+
+		    "(" + mytable.getValueAt(0,1) + ","+ 
+		    "'"+ mytable.getValueAt(0,2) + "'" +");";
+		command += "\ncommit;";
+	
+	    }
+	    else if(opt.equals("Entraineur")){
+		command = "insert into ENTRAINEUR values "+
+		    "(" + mytable.getValueAt(0,1) + ","+ 
+		    "'"+ mytable.getValueAt(0,2) + "'" + "," +
+		    "'"+ mytable.getValueAt(0,3) + "'" + "," +
+		    "'"+ mytable.getValueAt(0,4) + "'" + ");";
+		command += "\ncommit;";
+	
+	    }
+	    System.out.println(command);
+	    Ef.ecrireDuTexte(command,fichier);
     	    FrameAdd.dispose();
 	}
     	else if (e.getActionCommand().equals("Cancel"))

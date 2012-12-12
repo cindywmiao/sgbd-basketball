@@ -85,7 +85,7 @@ public class MyGUI implements ActionListener,ListSelectionListener{
   
         table = new JTable(myModel);  
         TableColumn tc1 = table.getColumnModel().getColumn(2);  
-        TableColumn tc3 = table.getColumnModel().getColumn(4);  
+       // TableColumn tc3 = table.getColumnModel().getColumn(4);  
         ckb = new JCheckBox();  
         tc1.setCellEditor(new DefaultCellEditor(ckb));  
     

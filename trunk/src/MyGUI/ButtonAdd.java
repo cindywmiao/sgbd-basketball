@@ -10,30 +10,31 @@ class ButtonAdd implements ActionListener, ListSelectionListener{
     private JButton buttonYes, buttonNo;
     private JTable mytable = null;
     private ListSelectionModel selectionMode=null;
+    private String opt;
 
     public ButtonAdd(String option){
-	
-	if(option.equals("Club")){
+	opt = option;
+	if(opt.equals("Club")){
 	    TableClub tableclub = new TableClub();
 	    mytable = tableclub.t;
 	}
-	else if(option.equals("Joueur")){
+	else if(opt.equals("Joueur")){
 	    TableJoueur tablejoueur = new TableJoueur();
 	    mytable = tablejoueur.t;
 	}
-	else if(option.equals("Rencontre")){
+	else if(opt.equals("Rencontre")){
 	    TableRencontre tablerencontre = new TableRencontre();
 	    mytable = tablerencontre.t;
 	}
-	else if(option.equals("Equipe")){
+	else if(opt.equals("Equipe")){
 	    TableEquipe tableequipe = new TableEquipe();
 	    mytable = tableequipe.t;
 	}
-        else if(option.equals("Categorie")){
+        else if(opt.equals("Categorie")){
 	    TableCategorie tablecategorie = new TableCategorie();
 	    mytable = tablecategorie.t;
 	}
-	else if(option.equals("Entraineur")){
+	else if(opt.equals("Entraineur")){
 	    TableEntraineur tableentraineur = new TableEntraineur();
 	    mytable = tableentraineur.t; 
 	}
@@ -44,7 +45,7 @@ class ButtonAdd implements ActionListener, ListSelectionListener{
     
     public ButtonAdd(){
 
-	String[] name={"Option1","Option2","Option3","Option4","Option5"};
+	String[] name={"Opt1","Opt2","Opt3","Opt4","Opt5"};
 	String[][] data=new String[1][5];
 	int value=1;
 	for(int i=0;i< data.length;i++){
@@ -84,8 +85,42 @@ class ButtonAdd implements ActionListener, ListSelectionListener{
     public void actionPerformed(ActionEvent e) {
 			
     	if (e.getActionCommand().equals("Add Element")){
-	    System.out.println("insert into CLUB values "+
-			       "(" + mytable.getValueAt(0,1) +"," + "'"+ mytable.getValueAt(0,2) +"');");
+	    if(opt.equals("Club"))
+		System.out.println("insert into CLUB values "+
+				   "(" + mytable.getValueAt(0,1) +"," + "'"+ mytable.getValueAt(0,2) +"');");
+	    else if(opt.equals("Joueur"))
+		System.out.println("insert into JOUEUR values "+
+				   "(" + mytable.getValueAt(0,1) + ","+  //licence
+				   "'"+ mytable.getValueAt(0,2) + "'" + "," + // nom
+				   "'"+ mytable.getValueAt(0,3) + "'" + "," + //prenom
+				   "'"+ mytable.getValueAt(0,4) + "'" + "," + //date de naissance
+				   "'"+ mytable.getValueAt(0,5) + "'" + "," + //adresse
+				   "'"+ mytable.getValueAt(0,6) + "'" + "," + //date d'entree club
+				   "'"+ mytable.getValueAt(0,7) + "'" + ");"); //club
+	    else if(opt.equals("Rencontre"))
+		System.out.println("insert into RENCONTRE values "+
+				   "(" + mytable.getValueAt(0,1) + ","+ 
+				   "'"+ mytable.getValueAt(0,2) + "'" + "," +
+				   "'"+ mytable.getValueAt(0,3) + "'" + "," +
+				   "'"+ mytable.getValueAt(0,4) + "'" + "," +
+				   "'"+ mytable.getValueAt(0,5) + "'" + ");");
+	    else if(opt.equals("Equipe"))
+		System.out.println("insert into EQUIPE values "+
+				   "(" + mytable.getValueAt(0,1) + ","+ 
+				   "'"+ mytable.getValueAt(0,2) + "'" + "," +
+				   "'"+ mytable.getValueAt(0,3) + "'" + "," +
+				   "'"+ mytable.getValueAt(0,4) + "'" + ");");
+	    else if(opt.equals("Categorie"))
+		System.out.println("insert into CATEGORIE values "+
+				   "(" + mytable.getValueAt(0,1) + ","+ 
+				   "'"+ mytable.getValueAt(0,2) + "'" +");");
+	    else if(opt.equals("Entraineur"))
+		System.out.println("insert into ENTRAINEUR values "+
+				   "(" + mytable.getValueAt(0,1) + ","+ 
+				   "'"+ mytable.getValueAt(0,2) + "'" + "," +
+				   "'"+ mytable.getValueAt(0,3) + "'" + "," +
+				   "'"+ mytable.getValueAt(0,4) + "'" + ");");
+
     	    FrameAdd.dispose();
 	}
     	else if (e.getActionCommand().equals("Cancel"))

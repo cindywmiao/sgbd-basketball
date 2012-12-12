@@ -164,15 +164,33 @@ public class MyGUI implements ActionListener,ListSelectionListener{
        
 	
 	if (e.getActionCommand().equals("Moyenne des points marques par rencontre")){
-	    table.setModel(new MyTable(2));option = null;
+	    //table.setModel(new MyTable(2));option = null;
+	    option = null;
+	    MyFrame1 myframe1 = new MyFrame1();
+	    myframe1.actionPerformed(e);
 	}
 	if (e.getActionCommand().equals("Moyenne des points marques depuis le debut de la saison")){
-	    table.setModel(new MyTable(2));option = null;
+	    //table.setModel(new MyTable(2));option = null;
+	    option = null;
+	    MyFrame2 myframe2 = new MyFrame2();
+	    myframe2.actionPerformed(e);
 	}
 	if (e.getActionCommand().equals("Classement des meilleurs joueurs d'une jourenee pour une categorie")){
-	    table.setModel(new MyTable(2)); option = null;
+	    //table.setModel(new MyTable(2));option = null;
+	    option = null;
+	    MyFrame3 myframe3 = new MyFrame3();
+	    myframe3.actionPerformed(e);
 	}
 	if (e.getActionCommand().equals("Classement des equipes")){
+		System.out.println("select num_equipe, sum(score) as Score\n" +
+		"from(\n" +	
+		"(select rencontre.numero_equipe1 as NUM_EQUIPE , rencontre.score_equipe1_rencontre as SCORE\n"+
+		"from rencontre)\n"+
+		"union\n"+
+		"(select rencontre.numero_equipe2 as NUM_EQUIPE , rencontre.score_equipe2_rencontre as SCORE\n"+
+		"from rencontre))\n"+
+		"group by NUM_EQUIPE\n"+
+		"order by Score DESC;");
 	    table.setModel(new MyTable(2)); option = null;
 	}
 	
@@ -183,12 +201,13 @@ public class MyGUI implements ActionListener,ListSelectionListener{
 	}
 
 	if (e.getActionCommand().equals("Update")){
-	    ButtonUpdate buttonUpdateClass = new ButtonUpdate();
+	    ButtonUpdate buttonUpdateClass = new ButtonUpdate(option);
 	    buttonUpdateClass.actionPerformed(e);
 	}
 	
 	if (e.getActionCommand().equals("Delete")){
-	  
+	  	ButtonDelete buttonDeleteClass = new ButtonDelete(option);
+	    buttonDeleteClass.actionPerformed(e);
 	}
 	
 	

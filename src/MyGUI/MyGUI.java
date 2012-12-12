@@ -30,7 +30,6 @@ public class MyGUI implements ActionListener,ListSelectionListener{
     	MyGUI that = new MyGUI();
 	that.go();
     }
-
     public void go(){
 	myJFrame = new JFrame("GUI Basketball");
 	myJFrame.setLayout(new GridLayout(5,1));
@@ -182,8 +181,7 @@ public class MyGUI implements ActionListener,ListSelectionListener{
 	    table.setModel(new TableEntraineur());
 	    option = "Entraineur";
 	}
-       
-	
+       	
 	if (e.getActionCommand().equals("Moyenne des points marques par rencontre")){
 	    MyFrame1 myframe1 = new MyFrame1(Ef,fichier);
 	    myframe1.actionPerformed(e);   
@@ -217,12 +215,11 @@ public class MyGUI implements ActionListener,ListSelectionListener{
 	    ButtonAdd buttonAddClass = new ButtonAdd(option,Ef,fichier);
 	    buttonAddClass.actionPerformed(e);
 	}
-
 	if (e.getActionCommand().equals("Update")){
-	    ButtonUpdate buttonUpdateClass = new ButtonUpdate(option);
+	    ButtonUpdate buttonUpdateClass = new ButtonUpdate(option,Ef,fichier);
 	    buttonUpdateClass.actionPerformed(e);
-	}
-	
+	    
+	}	
 	if (e.getActionCommand().equals("Delete")){
 	    ButtonDelete buttonDeleteClass = new ButtonDelete(option,Ef,fichier);
 	    buttonDeleteClass.actionPerformed(e);
@@ -231,7 +228,6 @@ public class MyGUI implements ActionListener,ListSelectionListener{
 	
 	table.revalidate();
     } 
-
     public void valueChanged(ListSelectionEvent el){
 	String tempString="";
 	Integer tempInteger = 0;

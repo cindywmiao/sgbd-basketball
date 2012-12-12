@@ -8,18 +8,18 @@ import javax.swing.table.TableColumn;
  
 class TableEquipe extends AbstractTableModel {  
     String[] head = { " ","NUMERO","NOM", "CLUB","CATEGORIE"};  
-    Object[] data0 = { new Boolean(true) ,"","",0,0};
-    Object[] data1 = { new Boolean(false),  "200913420125" ,"CUT"  , 1,1};  
-    Object[] data2 = { new Boolean(false),  "200913420124" ,"BOOK" , 2,2};  
-    Object[] data3 = { new Boolean(false),  "200913420125" ,"SUM"  , 3,3};  
-    Object[] data4 = { new Boolean(false),  "200913420125" ,"NOM " , 4,4};  
-    Object[] data5 = { new Boolean(false),  "200913420125" ,"RIG"  , 5,5};   
+    Object[] data0 = { new Boolean(true) ,"0","","0","0"};
+    Object[] data1 = { new Boolean(false),  "200913420125" ,"CUT"  , "1","1"};  
+    Object[] data2 = { new Boolean(false),  "200913420124" ,"BOOK" , "2","2"};  
+    Object[] data3 = { new Boolean(false),  "200913420125" ,"SUM"  , "3","3"};  
+    Object[] data4 = { new Boolean(false),  "200913420125" ,"NOM " , "4","4"};  
+    Object[] data5 = { new Boolean(false),  "200913420125" ,"RIG"  , "5","5"};   
   
     Class[] typeArray = {Boolean.class,  //bool   
 			 Object.class,   //numero
 			 Object.class,   //nom
-			 Integer.class,
-			 Integer.class
+			 Object.class,
+			 Object.class
     };  
   
    

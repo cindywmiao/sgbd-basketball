@@ -8,7 +8,7 @@ import javax.swing.table.TableColumn;
  
 class TableEntraineur extends AbstractTableModel {  
     String[] head = { " ","NUMERO","NOM", "PRENOM","DATE D'ENTREE CLUB" };  
-    Object[] data0 = { new Boolean(true) ,"","","","",""};
+    Object[] data0 = { new Boolean(true) ,"0","","","",""};
     Object[] data1 = { new Boolean(false),  "200913420125" , "SUMMER" , "MILLE" ,"12-FEV-98" };  
     Object[] data2 = { new Boolean(false),  "200913420124" , "WULEI"  , "MILLE" ,"12-FEV-98" };  
     Object[] data3 = { new Boolean(false),  "200913420125" , "BOOK"   , "MILLE" ,"12-DEC-85" };  

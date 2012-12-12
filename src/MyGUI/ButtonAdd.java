@@ -103,17 +103,17 @@ class ButtonAdd implements ActionListener, ListSelectionListener{
 		    "'"+ mytable.getValueAt(0,4) + "'" + "," + //naissance
 		    "'"+ mytable.getValueAt(0,5) + "'" + "," + //adresse
 		    "'"+ mytable.getValueAt(0,6) + "'" + "," + //date d'entree
-		    "'"+ mytable.getValueAt(0,7) + "'" + ");"; //club
+		    mytable.getValueAt(0,7) + ");"; //club
 		command += "\ncommit;";
 	
 	    }
 	    else if(opt.equals("Rencontre")){
 		command = "insert into RENCONTRE values "+
 		    "(" + mytable.getValueAt(0,1) + ","+ 
-		    "'"+ mytable.getValueAt(0,2) + "'" + "," +
-		    "'"+ mytable.getValueAt(0,3) + "'" + "," +
-		    "'"+ mytable.getValueAt(0,4) + "'" + "," +
-		    "'"+ mytable.getValueAt(0,5) + "'" + ");";
+		   	mytable.getValueAt(0,2) + "," +
+			mytable.getValueAt(0,3) + "," +
+		    mytable.getValueAt(0,4) + "," +
+		    mytable.getValueAt(0,5) + ");";
 		command += "\ncommit;";
 	
 	    }
@@ -121,8 +121,8 @@ class ButtonAdd implements ActionListener, ListSelectionListener{
 		command = "insert into EQUIPE values "+
 		    "(" + mytable.getValueAt(0,1) + ","+ 
 		    "'"+ mytable.getValueAt(0,2) + "'" + "," +
-		    "'"+ mytable.getValueAt(0,3) + "'" + "," +
-		    "'"+ mytable.getValueAt(0,4) + "'" + ");";
+		    mytable.getValueAt(0,3) +  "," +
+		    mytable.getValueAt(0,4) +  ");";
 		command += "\ncommit;";
 	
 	    }

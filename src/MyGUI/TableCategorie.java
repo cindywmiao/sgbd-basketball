@@ -8,7 +8,7 @@ import javax.swing.table.TableColumn;
  
 class TableCategorie extends AbstractTableModel {  
     String[] head = { " ","NUMERO","NOM" };  
-    Object[] data0 = { new Boolean(true) ,"",""};
+    Object[] data0 = { new Boolean(true) ,"0",""};
     Object[] data1 = { new Boolean(false),  "200913420125" , "SUMMER"  };  
     Object[] data2 = { new Boolean(false),  "200913420124" , "WULEI"   };  
     Object[] data3 = { new Boolean(false),  "200913420125" , "BOOK"    };  

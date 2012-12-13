@@ -7,6 +7,7 @@
 \usepackage{amsmath}
 \usepackage{geometry}
 \usepackage{graphicx}
+\usepackage{array}
 
 \usepackage[final]{pdfpages}
 
@@ -31,9 +32,9 @@
 \begin{document}
 
 \thispagestyle{empty}
-\begin{figure}
-\includegraphics[width=0.25\textwidth]{enseirb-matmeca.png}
-\end{figure}
+% \begin{figure}
+% \includegraphics[width=0.25\textwidth]{enseirb-matmeca.png}
+% \end{figure}
 \maketitle
 
 \newpage
@@ -46,8 +47,6 @@ Afin de garder les information sur ses membres et sur son foncionnement, un club
 
 Dans ce rapport, il sera question, en premier temps, de présenter le modèle conceptuel utilisé pour la modélisation des données, puis le modèle relationnel en $3^{eme}$ forme normale. Ensuite, l'implémentation de la base en MySQL ainsi que la justification de notre choix. Enfin, l'environnement d'exécution avec un apercu de l'interface graphique concue pour accéder à la base. 
 
-%Ainsi, nous avons dû créer deux fichiers afin de créer la base : base.sql et données.sql qui nous ont ensuite servi à tester nos requêtes.
-%Puis, nous avons créer les requêtes et enfin l'interface graphique permettant leur utilisation. Pour celle-ci nous avons choisi jdbc car nous avons une bonne maîtrise du java.
 
 \newpage
 \tableofcontents
@@ -85,10 +84,87 @@ Un nouveau problème s'est posé par la suite lors de l'implémentation de la ba
 Le dernier problème rencontré concernait les membres du bureau. Comme il est précedemment expliqué, nous avons créé une entité \textit{Bureau} qui a pour attribut -entre autres- les noms du président, du vice-président et du trésorier. Cela nous empêchait de stocker d'autres informations concernant les membres du bureau notamment le prénom, la date de naissance ou encore le numéro identifiant. L'idée était d'ajouter une nouvelle entité \textit{Membre du bureau} permettant de stocker ces informations. L'entité \textit{Bureau} ne contenant plus que le numéro du bureau et ayant une association 1,1 des deux côtés avec le club devient alors inutile.  
 
 \subsubsection*{Les règles de gestion}
+\begin{itemize}
+\item Un club de basket possède une bureau formé d'un président, d'un vice-président, d'un trésorier, d'un secrétaire.  \\
+
+
+\item Chaque membre du bureau est caractérisé par une fonction qui peut être président, vice-président, trésorier ou secrétaire. \\
+
+
+\item Au sein d'un club, il existe plusieurs équipes. \\
+
+
+\item Chaque équipe appartient à une catégorie et donc, au sein d'un club, il existe plusieurs catégories.  \\
+
+
+\item Pour une catégorie, il peut exister plusieurs équipes dans le même club (ex : cadet I, cadet II). \\
+
+
+\item Chaque équipe est composée de plusieurs joueurs. Un joueur joue dans une seule équipe mais peut changer d'équipe. \\
+
+
+\item Une équipe a au moins un entraîneur. Un entraîneur peut entraîner plusieurs équipes du même club. \\
+
+
+\item Une équipe peut participer à plusieurs rencontres. \\
+
+
+\item Une rencontre est caractérisée par une date et se déroule entre deux équipes. Pour chaque rencontre, on enregistre le score des deux équipes. \\
+
+
+\item Un joueur peut participer à 0 ou plusieurs rencontres. Pour chaque participation, on enregistre le nombre de points marqués ainsi que les fautes commises par le joueur durant la rencontre. \\
+\end{itemize}
+
 
 \subsubsection*{Les associations}
+\begin {itemize}
+\item Un membre du bureau \textbf{appartient} à un club. \\
+
+\item Un club \textbf{possède} une équipe. \\
+
+\item Une équipe \textbf{appartient} à une catégorie. \\
+
+\item Un joueur \textbf{joue} dans une équipe. \\
+
+\item Un joueur \textbf{participe} à une rencontre. \\
+
+\item Une équipe \textbf{participe} à une rencontre. \\
+
+\item Un entraîneur \textbf{entraîne} une équipe. \\
+
+\end{itemize}
 
 \subsubsection*{Les cardinalités}
+\begin{itemize}
+\item Un club possède \textbf{0 ou N} membres. \\
+
+\item Un membre appartient à \textbf{un unique} club. \\
+
+\item Un club possède \textbf{0 ou N} équipes. \\
+
+\item Une équipe appartient à \textbf{un unique} club. \\
+
+\item Une équipe appartient à \textbf{une unique} catégotrie. \\
+
+\item Une catégorie possède \textbf{0 ou N} équipes. \\
+
+\item Une équipe \textbf{5 ou N} joueurs. \\
+
+\item Un joueur joue dans \textbf{une seule} équipe. \\
+
+\item Une équipe participe à \textbf{0 ou N} rencontres. \\
+
+\item Une rencontre réunit \textbf{2} équipes. \\
+
+\item Un joueur participe à \textbf{0 ou N} rencontres. \\
+
+\item Une rencontre réunit \textbf{10 ou N} joueurs. \\
+
+\item Un entraîneur entraîne \textbf{1 ou N} équipes. \\
+
+\item Une équipe est entraînée par \textbf{1 ou N} entraîneurs. \\
+\end{itemize}
+
 
 
 \newpage
@@ -102,31 +178,104 @@ Après différentes modifications, voici le schéma entité-association :
 \caption{schéma entité-association de la base de données}
 \end{figure}
 
+\newpage
 \subsection {Listes des opérations prévues sur la base}
 
 L’application devra assurer plusieurs fonctionnalités : les opérations standard de consultation et d’insertion ainsi celles correspondant à la recherche d’informations particulères notamment : \\
 
 \begin{itemize}
-\item les scores des matchs joués à une date donnée
-\item la liste des joueurs à une date donnée
-\item la feuille du match à une date donnée
-\item le nombre de matchs gagnés, perdus ou nuls
-\item la moyenne des points marqués à une date donnée
-\item la moyenne des points marqués depuis le début de la saison
-\item le classement des meilleurs joueurs d’une journée pour une catégorie
-\item le classement des équipes
+
+\item la recherche d'un joueur ou d'un entraîneur par son identifiant, son nom, son prénom ou son équipe. \\
+
+\item la recherche d'une équipe par son identifiant, son nom ou sa catégorie ou encore la recherche d'une équipe d'un joueur ou d'un entraîneur donné. \\
+
+\item la recherche d'un club par son identifiant, son nom ou le nom d'un membre du bureau. \\
+
+\item la recherche du président, du vice-président, du trésorier ou du secrétaire d'un club. \\
+
+\item les dates des rencontres auxquelles a participé un joueur donnée. \\
+
+\item le nombre de points marqués par un joueur à une date donnée. \\
+
+\item le nombre de fautes commises par un joueur à une date donnée. \\
+
+\item les scores des matchs joués à une date donnée. \\
+
+
+\item la liste des joueurs à une date donnée. \\
+
+
+\item la feuille du match à une date donnée. \\
+
+
+\item le nombre de matchs gagnés, perdus ou nuls. \\
+
+
+\item la moyenne des points marqués à une date donnée. \\
+
+
+\item la moyenne des points marqués depuis le début de la saison. \\
+
+
+\item le classement des meilleurs joueurs d’une journée pour une catégorie. \\
+
+
+\item le classement des équipes. \\
+
+
 \end{itemize}
 
 \newpage
 \section{Modèle relationnel}
 
 
-
-
-
 \subsection{Contraintes d'intégrité, dépendances fonctionnelles}
- 
+
+\subsubsection*{Les contraintes d'intégrité}
+\input{table.tex}
+
+\newpage
+\subsubsection*{Les dépendances fonctionnelles}
+
+numéro club $\rightarrow$ nom club.  \\
+numéro personne $\rightarrow$ nom personne, prenom personne, adresse personne, fonction personne. \\
+numéro équipe $\rightarrow$ nom équipe.\\
+numéro catégorie $\rightarrow$ nom catégorie.\\
+numéro entraîneur $\rightarrow$ nom entraineur, prénom entraîneur, date d'entrée au club entraîneur. \\
+numéro joueur $\rightarrow$ nom joueur, prénom joueur, date de naissance joueur, adresse joueur, date d'entrée au club joueur. \\
+numéro rencontre $\rightarrow$ date rencontre, score equipe1, score équipe2. \\
+
+
+
 \subsection{Normalisation de la base en $3^{eme}$ forme}
+
+\textbf{Club} (\underline{numéro club}, nom club) \\
+En premier lieu, tous les attributs sont atomiques; Ici on dipose bien d'une clé unique qui est le numéro du club. Il s'agit bien de la 1ère forme normale. La 2ème forme normale est également respectée puisque la clé est simple et que l'attribut nom club dépend de la clé. On a bien dépendance de la totalité de la clé (FN2). L'attribut nom club ne depend pas d'un ou plusieurs attributs ne participant pas à la clé mais uniquement de la clé. On a bien la 3ème forme normale. \\
+
+\textbf{Personne} (\underline{numéro personne}, nom, prénom, fonction, date de naissance, \#numéro club) \\
+Tous les attributs sont atomiques donc la 1ère forme normale est validée. La clé est simple et on a dépendance totale et non d'une partie de la clé pour tous les attributs. La 2ème forme normale est donc validée.  Aucun attribut ne dépend d'un attribut hors clé. On a bien la 3ème forme normale. \\
+
+\textbf{Equipe} (\underline{numéro équipe}, nom équipe, \#numéro club, \#numéro catégorie) \\
+Tous les attributs sont atomiques et on a dépendance totale de la clé \emph{numéro équipe}. Les attributs \emph{numéro club} et \emph{numéro catégorie} ne nous renseignent pas sur le nom de l'équipe puisqu'il existe plusieurs équipes au sein du même club et de la même catégorie. Les attributs ne dépendent donc d'aucun attribut hors clé. On a bien la 3ème forme normale. \\
+
+\textbf{Catégorie} (\underline{numéro catégorie}, nom catégorie)\\
+La 3ème forme normale est respectée (évident). \\
+
+\textbf{Joueur} (\underline{numéro licence}, nom joueur, prénom joueur, date de naissance joueur, date d'entrée club joueur, \#numéro équipe ) \\
+Tous les attributs sont atomiques et tous les attributs dépendent entièrement de la clé numéro licence. L'attribut numéro équipe ne donne rien car une équipe possède plusieurs joueurs ayant différentes dates d'entrée au club. De plus le joueur peut changer d'équipe. Il est donc clair que les attributs ne dépendent pas d'un attribut hors clé. On a bien la 3ème forme normale. \\
+
+\textbf{Entraîneur} (\underline{numéro entraîneur}, nom entraîneur, prénom entraîneur, date d'entrée au club entraîneur) \\
+La 3ème forme normale est respectée (évident). \\
+
+\textbf{Rencontre} (\underline{numéro rencontre}, date rencontre, score equipe1, score équipe2, \#numéro equipe1, \#numéro équipe2 ) \\
+Tous les attributs sont atomiques et on a dépendance totale de la clé \emph{numéro rencontre}. Les attributs \emph{numéro équipe1} et \emph{numéro équipe2} ne nous renseignent pas sur la date de la rencontre puisque chaque équipe peut participer à plusieurs rencontres et obtient un score différent à chaque rencontre. Les attributs \emph{date rencontre, score équipe1} et \emph{score équipe2} ne dépendent donc pas d'un attribut hors clé. Cela respecte bien la 3eme forme normale. \\
+
+\textbf{Participe} (\#numéro licence, \#numéro rencontre, cumul points marqués, cumul fautes) \\
+FN3 respectée. \\
+
+
+\textbf{Entraîne} (\#numéro équipe, \#numéro entraîneur) \\
+FN3 respectée.
 
 \newpage
 \subsection{Schéma relationnel en $3^{eme}$ forme normale}
@@ -140,21 +289,296 @@ L’application devra assurer plusieurs fonctionnalités : les opérations stand
 \section{Implémentation de la base de données}
 \subsection{Création de la base}
 
-\subsubsection*{Choix de MySQL}
-Il existe une multitude de SGBD disponibles pour une utilisation au niveau dont nous avons besoin. Nous avons choisi d'utiliser MySQL. Les avantages liés à l'utilisation d'une base MySQL sont :
+\subsubsection*{Choix de Oracle}
+Il existe une multitude de SGBD disponibles pour une utilisation au niveau dont nous avons besoin. Nous avons choisi d'utiliser Oracle. Les avantages liés à l'utilisation d'une base Oracle sont :
 \begin{itemize}
 \item Facilité de déploiement et de prise en main.
 \item Open Source.
 \item Plusieurs moteurs de stockage adaptés aux différentes problématiques, configurable au niveau table. \\
 \end{itemize}
 
-De plus, MySQL est un SGBD qui a été étudié en cours. Il n'y aura donc pas de problème lié à la recherche de documentation sur son fonctionnement global. De plus, bien que MySQL ait une capacité de données limitée, il semble que celle-ci soit suffisante pour stocker toutes les données nécessaires.
+De plus, Oracle est un SGBD qui a été étudié en cours. Il n'y aura donc pas de problème lié à la recherche de documentation sur son fonctionnement global. De plus, cela nous permettra de mettre en pratique les connaissances que nous avons acquises au cours des séances de TD.
 
-\subsubsection*{Création des tables}
+\subsubsection*{Mise en place de la base}
+Après la conception et la modélisation de la structure de la base, nous nous sommes intéressés à la création des tables de la base et des données. 
+Lors de la création des tables, il fallu suivre un certain ordre respectant les contraintes d'intégrité. Ainsi, chaque clé étrangère doit référencier 
+une table qui existe déjà. En fait, pour la mise en place de la base, nous avons créé 3 fichiers base.sql, autoicrement.sql et donnees.sql. Le premier permet de créer les tables et de les effacer. Le deuxième permet de créer des séquences. Le dernier permet 
+le remplissage des tables avec des lignes significatives qui vont nous servir pour tester les requêtes. \\
 
-\subsubsection*{Suppression}
+Dans le fichier autoincrement.sql, nous avons créé les séquences et les déclencheurs. Elles correspondent aux clés qui s'auto-incrémentent, puisque Oracle ne reconnaît pas le mot clé auto\_increment, contrairement à MySQL. \\
+---exemple---
+
+Dans le fichier base.sql, nous avons créé les tables tout en respectant les contraintes référentielles iter-tables. Voici un exemple de création de table :  \\
+
+\begin{verbatim}
+create table CLUB
+(
+    NUMERO_CLUB                   NUMBER(3)		 not null,
+    NOM_CLUB                      CHAR(20)               not null,	 
+    constraint pk_club primary key (NUMERO_CLUB)
+); 
+
+\end{verbatim}
+
+
+Voici un exemple de suppression des tables : \\
+
+\begin{verbatim}
+drop table CLUB cascade constraints;
+
+drop table PERSONNE cascade constraints;
+
+drop table EQUIPE cascade constraints;
+
+drop table CATEGORIE cascade constraints;
+
+drop table ENTRAINEUR cascade constraints;
+
+drop table JOUEUR cascade constraints;
+
+drop table RENCONTRE cascade constraints;
+
+drop table PARTICIPE cascade constraints;
+
+drop table ENTRAINE cascade constraints;
+\end{verbatim}
+
+Dans le fichier donnees.sql, nous avons rempli les tables avec des données significatives pour le test des différentes requêtes. Cela se fait à l'aide du mot clé insert. 
+Voici un exemple d'insertion de données dans une table : \\
+
+\begin{verbatim}
+insert into ENTRAINEUR values (  1 , 'MONTAND'   , 'YVES'        , '13-OCT-61' ) ;
+insert into ENTRAINEUR values (  2 , 'GARCIA'    , 'NICOLE'      , '21-FEB-67' ) ;
+insert into ENTRAINEUR values (  3 , 'VILLERET'  , 'JACQUES'     , '06-FEB-71' ) ;
+\end{verbatim}
+
 \subsection{Implémentation des commandes SQL}
+Cette partie du travail nous a permis de tout tester au début: consultation, mise à jour, recherche, suppression, ajout, requêtes de statistiques etc. 
+chaque commande SQL correspond bien à un besoin réel, soit pour la gestion interne du club, soit pour le besoin de l'utilisateur.
+
+\subsubsection{Ajout, suppression et mise à jour}
+Toutes ces requêtes se trouvent dans le fichier update.sql. Elles permettent d'ajouter, supprimer ou mettre à jour des données en fonction du désir de l'utilisateur.
+Voici un exemple d'ajout de données d'un joueur: \\
+
+\begin{verbatim}
+insert into JOUEUR values(21,'MONTAND','YVES','13-OCT-89','TALENCE', '14-JAN-01',1);
+commit;
+\end{verbatim}
+
+Voici un exemple de suppression des données d'un club: \\
+
+\begin{verbatim}
+delete from club where club.numero_club = 10;
+commit;
+\end{verbatim}
+
+Voici un exemple de mise à jour du score d'une équipe: \\
+
+\begin{verbatim}
+update rencontre set rencontre.score_equipe1_rencontre = 15 where rencontre.numero_equipe1 = 3;
+commit;
+\end{verbatim}
+
+\subsubsection{Consultation}
+Ces requêtes sont réparties dans les fichiers recherche.sql et consultation.sql. Le premier fichier permet à l'utilisateur de chercher une entité en fonction d'une donnée rentrée par l'utilisateur.
+Voici l'exemple de recherche d'un entraîneur par son nom : \\
+
+\begin{verbatim}
+select * from ENTRAINEUR where NOM_ENTRAINEUR = 'DUBOIS';
+\end{verbatim}
+
+Voici l'exemple de recherche des dates de rencontres auxquelles a participé un joueur donné (l'utilisateur doit fournir le nom du joueur) : \\
+
+\begin{verbatim}
+select DATE_RENCONTRE from RENCONTRE where NUMERO_RENCONTRE in 
+      (select NUMERO_RENCONTRE from PARTICIPE where NUMERO_LICENCE = 
+           (select NUMERO_LICENCE from JOUEUR where NOM_JOUEUR = 'GARCIA'));
+\end{verbatim}
+
+Le fichier consultation.sql permet d'afficher toutes les informations sur les clubs, les équipes et les joueurs. 
+L'exemple suivant permet de consulter toutes les information de toutes les équipes : \\
+
+\begin{verbatim}
+select equipe.numero_equipe, equipe.nom_equipe, club.nom_club, categorie.nom_categorie
+from equipe, club, categorie
+where equipe.numero_club = club.numero_club and equipe.numero_categorie = categorie.numero_categorie;
+\end{verbatim}
+
+L'exemple qui suit permet de consulter les scores des matchs joués à une date donnée : \\
+
+\begin{verbatim}
+select rencontre.score_equipe1_rencontre as Equipe1 , rencontre.score_equipe2_rencontre as Equipe2
+from rencontre
+where rencontre.date_rencontre = '21-FEB-87'; 
+\end{verbatim}
+
+L'utilisateur peut également consulter le nombre de matchs gagnés, perdus et nuls pour un club donné.
+Pour le club numéro 2 voici les trois requêtes que nous avons utilisées :
+nombre de matchs gagnés : \\
+
+\begin{verbatim}
+select count(*) as GAGNER
+from(
+(select *
+from club, equipe, rencontre
+where equipe.numero_equipe = rencontre.numero_equipe1 
+      and rencontre.score_equipe1_rencontre > rencontre.score_equipe2_rencontre
+      and equipe.numero_club = club.numero_club
+      and club.numero_club = 2)
+union
+(select *
+from club, equipe, rencontre 
+where equipe.numero_equipe = rencontre.numero_equipe2
+      and rencontre.score_equipe2_rencontre > rencontre.score_equipe1_rencontre
+      and equipe.numero_club = club.numero_club
+      and club.numero_club = 2)
+);
+\end{verbatim}
+
+nombre de matchs perdus: \\
+
+\begin{verbatim}
+select count(*) as PERDU
+from(
+(select *
+from club, equipe, rencontre
+where equipe.numero_equipe = rencontre.numero_equipe1 
+      and rencontre.score_equipe1_rencontre < rencontre.score_equipe2_rencontre
+      and equipe.numero_club = club.numero_club
+      and club.numero_club = 2)
+union
+(select *
+from club, equipe, rencontre 
+where equipe.numero_equipe = rencontre.numero_equipe2
+      and rencontre.score_equipe2_rencontre < rencontre.score_equipe1_rencontre
+      and equipe.numero_club = club.numero_club
+      and club.numero_club = 2)
+);
+\end{verbatim}
+
+nombre de matchs nuls : \\
+
+\begin{verbatim}
+select count(*) as NULS
+from(
+(select *
+from club, equipe, rencontre
+where equipe.numero_equipe = rencontre.numero_equipe1 
+      and rencontre.score_equipe1_rencontre = rencontre.score_equipe2_rencontre
+      and equipe.numero_club = club.numero_club
+      and club.numero_club = 2)
+union
+(select *
+from club, equipe, rencontre 
+where equipe.numero_equipe = rencontre.numero_equipe2
+      and rencontre.score_equipe2_rencontre = rencontre.score_equipe1_rencontre
+      and equipe.numero_club = club.numero_club
+      and club.numero_club = 2)
+);
+\end{verbatim}
+
+\subsubsection{Les statistiques}
+Ces requêtes se trouvent dans le fichier statistques.sql. Elle permettent de réaliser les requêtes de statistiques demandées dans l'énoncé du sujet.
+Pour la moyenne des points marqués à une date donnée (ici c'est 27/02/2006): \\
+
+\begin{verbatim}
+select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS
+from participe, rencontre
+where rencontre.date_rencontre = '21-FEB-06'
+      and rencontre.numero_rencontre = participe.numero_rencontre;
+\end{verbatim}
+
+La commande suivante permet de consulter la moyenne des points marqués depuis le début de la saison 2001 : \\
+
+\begin{verbatim}
+select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS
+from joueur, participe, rencontre
+where rencontre.date_rencontre > '01-JAN-01'
+      and rencontre.numero_rencontre = participe.numero_rencontre;
+\end{verbatim}
+
+L'exemple suivant permet d'avoir le classement des meilleurs joueurs de la catégorie cadet pour la date du 21/02/07 : \\
+
+\begin{verbatim}
+select joueur.numero_licence, sum(participe.cumul_points_marques_joueur) as SCORE
+from joueur, participe, rencontre, equipe
+where equipe.numero_categorie = 1
+      and rencontre.date_rencontre = '21-FEB-07'
+      and equipe.numero_equipe = joueur.numero_equipe
+      and joueur.numero_licence = participe.numero_licence
+      and participe.numero_rencontre = rencontre.numero_rencontre
+group by joueur.numero_licence 
+order by score DESC;
+\end{verbatim}
+
+L'exemple qui suit nous permet d'avoir le classement des équipes en fonctions de leurs scores durant les rencontres auxquelles elles avaient participé: \\
+
+\begin{verbatim}
+select num_equipe, nom_equipe, sum(score) as Score
+from(
+(select rencontre.numero_equipe1 as NUM_EQUIPE , rencontre.nom_equipe1 as NOM_EQUIPE ,rencontre.score_equipe1_rencontre as SCORE
+from rencontre)
+union
+(select rencontre.numero_equipe2 as NUM_EQUIPE , rencontre.nom_equipe2 as NOM_EQUIPE ,rencontre.score_equipe2_rencontre as SCORE
+from rencontre))
+group by NUM_EQUIPE, NOM_EQUIPE
+order by Score DESC;
+\end{verbatim}
+
 
 \section{Environnement d'exécution}
+
+Pour établir l'interface graphique de base des données, nous avons utilisé JDBC avec les bibliothèques JFrame, JPanel, JButton, JTable etc. L'interface s'organise en cinq zones principales: le titre, les options, le tableau, les statistiques, et la mise à jour. Pour chaque partie, nous avons utilisé un objet JPanel pour organiser les postions des différentes parties dans l'interface. \\
+
+Dans la zone des options, il est possible de sélectionner un bouton. Chaque bouton retourne un tableau de données different, par exemple, quand nous cliquons sur le bouton "Joueur", et il envoie une commande "select * from JOUEUR" et affiche les toutes informations sur les joueurs. \\
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale = 0.4] {1.png}
+\caption{apercu de l'interface}
+\end{figure}
+
+ \newpage
+Pour la zone des statistiques, nous avons proposé quarte méthodes, et avons consacré un bouton pour chaque méthode. Quand nous appuions sur un bouton de statistique, il affiche une nouvelle fenêtre, dans laquelle nous pourrons remplir les conditions de recherche. Pour valider la requête, il suffit de cliquer sur le bouton "Find". Cela permet d'envoyer une commande et de contruire un nouveau tableau. Quand on selectionne le Bouton "Clear", les chiffres que nous avons rentrés seront supprimés. Quand on selectionne le Bouton "Cancel", on rentoure à la fenêtre principale, et aucune commande n'est exécutée. \\
+ 
+\begin{figure}[!h]
+\centering
+\includegraphics[scale = 0.4] {2.png}
+\caption{la nouvelle fenêtre qui s'ouvre lors de l'appui sur le bouton de la moyenne des points marqués à une date donnée }
+\end{figure}
+
+\newpage
+
+Par exemple, si on veut consulter le classement des meilleurs joueurs d'une journée pour une catégorie, nous devons remplir le numéro de catégorie et la date de rencontre, et après l'interface doit envoyer une commande : \\
+
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale = 0.5] {3.png}
+\caption{la commande qui s'affiche dans le terminal}
+\end{figure}
+
+La dernière zone est dédiée pour mettre à jour des données. Nous pourrons ajouter, supprimer ou modifier des données. Quand on appuie sur l'un des boutons, une nouvelle fenêtre s'ouvre avec un tableau au milieu. Dans ce tableau, nous pourrons modifier des données et à la fin on appuie sur add, update ou delete. \\
+
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale = 0.4] {4.png}
+\caption{la nouvelle fenêtre qui s'ouvre pour la mise à jour des données}
+\end{figure}
+
+
+Après avoir conçu l'interface graphique, nous n'avons pas réussi à afficher la fenêtre tout en se connectant à Oracle. Nous avons quand même gardé l'interface graphique mais nous nous sommes intéressés par la suite à un affichage dans le terminal, puisqu'il n'est pas obligatoire de réaliser une interface et que le but de ce projet et de mettre en pratique les connaissances acquises au cours des séances de cours et de TD de SGBD. 
+
+\newpage
+\section*{Conclusion}
+Au cours de ce projet, nous avons pu mettre en oeuvre les connaissances acquises au cours des séances de cours et de TD en vue de la création d'une base de données se voulant aussi proche de la réalité que possible. \\
+
+Ce sujet, qui à première vue semblait simple, s'est avéré plus difficile qu'il n'y paraissait -. En effet, les liens entre associations et entités semblaient être évidents, sont apparus plus compliqués, car il fallait tenir compte des redondances dans la base de données, qu'il faut éviter le plus souvent possible. La majeure partie du temps que nous avons consacré dans le projet a été dans le but d'établir la modélisation des données.  \\
+
+Outre la mise en pratique des connaissances en SGBD, ce projet nous a permis de découvrir comment réaliser une interface graphique en java. \\
+
+en somme, ce projet nous a permis de mieux comprendre la complexité qu'engendre la gestion des bases de données : ses buts, ses problèmes et ses difficultés. 
+
 
 \end{document}

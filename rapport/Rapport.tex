@@ -552,15 +552,18 @@ order by score DESC;
 L'exemple qui suit nous permet d'avoir le classement des équipes en fonctions de leurs scores durant les rencontres auxquelles elles avaient participé: \\
 
 \begin{verbatim}
-select num_equipe, nom_equipe, sum(score) as Score
+select num_equipe, nom_equipe, score
+from equipe,(
+select num_equipe, sum(score) as Score
 from(
-(select rencontre.numero_equipe1 as NUM_EQUIPE , rencontre.nom_equipe1 as NOM_EQUIPE ,rencontre.score_equipe1_rencontre as SCORE
+(select rencontre.numero_equipe1 as NUM_EQUIPE , rencontre.score_equipe1_rencontre as SCORE
 from rencontre)
 union
-(select rencontre.numero_equipe2 as NUM_EQUIPE , rencontre.nom_equipe2 as NOM_EQUIPE ,rencontre.score_equipe2_rencontre as SCORE
+(select rencontre.numero_equipe2 as NUM_EQUIPE , rencontre.score_equipe2_rencontre as SCORE
 from rencontre))
-group by NUM_EQUIPE, NOM_EQUIPE
-order by Score DESC;
+group by NUM_EQUIPE
+order by Score DESC)
+where equipe.numero_equipe = num_equipe;
 \end{verbatim}
 
 \newpage

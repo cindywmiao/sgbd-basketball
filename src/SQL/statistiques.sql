@@ -30,6 +30,8 @@ order by score DESC;
 
 -- Commande 4 --
 -- Classement des équipes --
+select num_equipe, nom_equipe, score
+from equipe,(
 select num_equipe, sum(score) as Score
 from(
 (select rencontre.numero_equipe1 as NUM_EQUIPE , rencontre.score_equipe1_rencontre as SCORE
@@ -38,4 +40,5 @@ union
 (select rencontre.numero_equipe2 as NUM_EQUIPE , rencontre.score_equipe2_rencontre as SCORE
 from rencontre))
 group by NUM_EQUIPE
-order by Score DESC;
+order by Score DESC)
+where equipe.numero_equipe = num_equipe;

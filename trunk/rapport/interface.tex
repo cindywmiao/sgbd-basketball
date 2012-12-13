@@ -1,0 +1,19 @@
+Pour établir l'interface graphique de base des données, nous avons utilisé JDBC avec les bibliothèque comme JFrame,JTable etc.Dans cet interface, il y q cinq partie principale, title, option, tableaux, statistique, et mise à jour. Chaque partie, nous avons utilisé JPanel pour organiser les postions dans l'interface.
+
+Dans le partie d'option, nous pourrons selectionner les buttons, et chaque buttons retourne un tableaux de données differentes, par example, quand nous choisissons le "Joueur", et il envoie une commande "select * from JOUEUR" et affiche les toutes informations dans joueurs.
+
+%% ajouter 1.png
+
+Pour des données statistique facilement, nous avons offert quarte méthods, et construit les quarte buttons. Quand nous appuions un button de statistique, il affiche une nouvelle frame, dans laquelle nous porrons remplir les conditions de statistique, et après si nous selectionnons le Button "Find", il peut envoie une commande et contruire un nouveau tableaux; si nous selectionnons le Button "Clear", il nettoye les chiffres que nous avons remplit; si on selections le Button "Cancel", il rentoure la frame principale, et aucune commande envoie.
+
+%% ajouter 2.png
+
+Par example, nous voulons faire le classement des meilleurs joueurs d'une journée pour une catégorie, nous devons remplir les numéro de catégorie et le date de rencontre, et après l'interface doit envoyer une commande :
+
+%% ajouter 3.png
+
+Le dernier partie est pour mettre à jour des donées. Nous pourrons ajouter, supprimer ou modifier données par appuyer les Buttons. Quand nous appuions les buttons, il affiche une nouvelle frame avec tableux au milieu. Dans ce tableau nous pourrons modifier et a la fin quand nous appuions add element ou update ou delete element, il envoie une commande aussi.
+
+%% ajouter 4.png
+
+Parce que nous ne pourrons pas ouvrir cet interface dans session oracle, et seulement dans terminal, donc chaque fois il a créé une nouvelle commande, il a ecrit dans une fichier .sql, et après nous porrons utiliser cette fichier.sql dans oracle et affiche les tableaux. 

@@ -1,0 +1,101 @@
+% \begin{tabular}{|c|c|c|c|c|c|}
+%   \hline
+%   Entité & Attribut & Type & Not Null & Index & Conditon \\
+%   \hline
+%   CLUB & Numero_Club & Integer & true & primary_key & Auto_increment \\
+%   \hline
+%   CLUB & Nom_Club & Char & true & &  \\
+%   \hline
+  
+% \end{tabular}
+\begin{center}
+\begin{tabular}{|l|c|r|c|c|c|} 
+   \hline
+    Entité & Attribut & Type & Not Null & Index & Conditon  \\
+    \hline
+    \hline
+    CLUB & NUMERO\_CLUB & Number & true & primary\_key & Auto\_increment  \\
+    \cline{2-6} 
+        & NOM\_CLUB & Char& true & &  \\
+    \hline
+    \hline
+    PERSONNE & NUMERO\_PERSONNE & Number & true & primary\_key & Auto\_increment \\
+    \cline{2-6}
+    & NOM\_PERSONNE & Char & true & & \\
+    \cline{2-6}
+    & PRENOM\_PERSONNE & Char & true & &\\
+    \cline{2-6}
+    & ADRESSE\_PERSONNE & Char & true & & \\
+    \cline{2-6}
+    & FONCTION\_PERSONNE & Char & true & & \\
+    \cline{2-6}
+    & NUMERO\_CLUB & Number & true & foreign\_key & \\
+    \hline
+    \hline
+    EQUIPE & NUMERO\_EQUIPE & Number & true & primary\_key & Auto\_increment \\
+    \cline{2-6}
+    & NOM\_EQUIPE & Char & true & & \\
+    \cline{2-6}
+    & NUMERO\_CLUB & Number & true & foreign\_key &\\
+    \cline{2-6}\cline{2-6}
+    & NUMERO\_CATEGORIE & Number & true & foreign\_key & \\
+    \hline
+    \hline
+    CATEGORIE & NUMERO\_CATEGORIE & Number & true & primary\_key & auto\_increment \\
+    \cline{2-6}
+    &NOM\_CATEGORIE & Char & true & & \\
+    \hline
+    \hline
+    ENTAINEUR & NUMERO\_ENTRAINEUR & Number & true & primary\_key & auto\_increment\\
+    \cline{2-6}
+    & NOM\_ENTRAINEUR & Char & true &  & \\
+    \cline{2-6}
+    & PRENOM\_ENTRAINEUR & Char & true & & \\
+    \cline{2-6}
+    & DATE\_ENTREE\_CLUB & Date & true & & \\
+    \hline
+    \hline
+    JOUEUR & NUMERO\_JOUEUR & Number & true & primary\_key & auto\_increment\\
+    \cline{2-6}
+    & NOM\_JOUEUR & Char & true &  & \\
+    \cline{2-6}
+    & PRENOM\_JOUEUR & Char & true & & \\
+    \cline{2-6}
+    & DATE\_DE\_NAISSANCE & Date & & & \\
+    \cline{2-6}
+    & Adresse\_JOUEUR & Char & true &  & \\
+    \cline{2-6}
+    & DATE\_ENTREE\_CLUB & Date & & & \\
+     \cline{2-6}
+    & NUMERO\_EQUIPE & Number & true & foreign\_key & \\
+    \hline
+    \hline
+    RENCONTRE & NUMERO\_RENCONTRE& Number & true & primary\_key & auto\_increment\\
+    \cline{2-6}
+    & DATE\_RENCONTRE & Date &  &  & \\
+    \cline{2-6}
+    & SCORE\_EQUIPE1 & Number &  & & \\
+    \cline{2-6}
+    & SCORE\_EQUIPE2 & Number &  & & \\
+    \cline{2-6}
+    & NUMERO\_EQUIPE1 & Number & true &  foreign\_key& \\
+    \cline{2-6}
+    & NUMERO\_EQUIPE2 & Number & true &  foreign\_key& \\
+    \hline
+    \hline
+    PARTICIPE & NUMERO\_LICENCE & Number & true & foreign\_key & \\
+    \cline{2-6}
+    & NUMERO\_RENCONTRE & Number & true & foreign\_key & \\
+    \cline{2-6}
+    & CUMUL\_POINTS\_MARQUES & Number & & & \\
+    \cline{2-6}
+    & CUMUL\_FAUTES & Number & & & \\
+    \hline
+    \hline
+    ENTRAINE & NUMERO\_EQUIPE & Number & true & foreign\_key & \\
+    \cline{2-6}
+    & NUMERO\_ENTRAINEUR & Number & true & foreign\_key & \\
+    \hline
+   
+\end{tabular} 
+\end{center}

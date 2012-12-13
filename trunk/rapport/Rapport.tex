@@ -31,10 +31,23 @@
 
 \begin{document}
 
+
+\newenvironment{narrow}[2]{%
+\begin{list}{}{%
+\setlength{\topsep}{0pt}%
+\setlength{\leftmargin}{#1}%
+\setlength{\rightmargin}{#2}%
+\setlength{\listparindent}{\parindent}%
+\setlength{\itemindent}{\parindent}%
+\setlength{\parsep}{\parskip}%
+}%
+\item[]}{\end{list}}
+
+
 \thispagestyle{empty}
-% \begin{figure}
-% \includegraphics[width=0.25\textwidth]{enseirb-matmeca.png}
-% \end{figure}
+\begin{figure}
+\includegraphics[width=0.25\textwidth]{enseirb-matmeca.jpg}
+\end{figure}
 \maketitle
 
 \newpage
@@ -173,10 +186,12 @@ Le dernier problème rencontré concernait les membres du bureau. Comme il est p
 Après différentes modifications, voici le schéma entité-association :
  
 \begin{figure}[h!]
-\centering
-\includegraphics[scale=0.35 , angle = -90]{BasketBall_EA.pdf}
+\begin{narrow}{-1.1in}{0in}
+\centering \includegraphics[scale=0.4,angle = -90]{BasketBall_EA.pdf}
 \caption{schéma entité-association de la base de données}
+\end{narrow}
 \end{figure}
+
 
 \newpage
 \subsection {Listes des opérations prévues sur la base}
@@ -281,9 +296,11 @@ FN3 respectée.
 \subsection{Schéma relationnel en $3^{eme}$ forme normale}
 
 \begin{figure}[h!]
+\begin{narrow}{-1.1in}{0in}
 \centering
-\includegraphics[scale = 0.35, angle = -90]{BasketBall_Relationnel.pdf}
+\includegraphics[scale = 0.4, angle = -90]{BasketBall_Relationnel.pdf}
 \caption{schéma relationnel en $3^{eme}$ forme normale}
+\end{narrow}
 \end{figure}
 
 \section{Implémentation de la base de données}
@@ -535,7 +552,7 @@ Dans la zone des options, il est possible de sélectionner un bouton. Chaque bou
 \begin{figure}[!h]
 \centering
 \includegraphics[scale = 0.4] {1.png}
-\caption{apercu de l'interface}
+\caption{aperçu de l'interface}
 \end{figure}
 
  \newpage

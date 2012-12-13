@@ -1,5 +1,5 @@
 -- Commande 1 --
--- Moyenne des points marquée par rencontre à une date donnée
+-- Moyenne des points marqués par rencontre à une date donnée
 -- Input : date_rencontre (type date)
 select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS
 from participe, rencontre

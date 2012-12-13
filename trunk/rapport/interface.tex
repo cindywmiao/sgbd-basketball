@@ -1,19 +1,19 @@
-Pour établir l'interface graphique de base des données, nous avons utilisé JDBC avec les bibliothèque comme JFrame,JTable etc.Dans cet interface, il y q cinq partie principale, title, option, tableaux, statistique, et mise à jour. Chaque partie, nous avons utilisé JPanel pour organiser les postions dans l'interface.
+Pour établir l'interface graphique de base des données, nous avons utilisé JDBC avec les bibliothèques JFrame, JPanel, JButton, JTable etc. L'interface s'organise en cinq zones principales: le titre, les options, le tableau, les statistiques, et la mise à jour. Pour chaque partie, nous avons utilisé un objet JPanel pour organiser les postions des différentes parties dans l'interface.
 
-Dans le partie d'option, nous pourrons selectionner les buttons, et chaque buttons retourne un tableaux de données differentes, par example, quand nous choisissons le "Joueur", et il envoie une commande "select * from JOUEUR" et affiche les toutes informations dans joueurs.
+Dans la zone des options, il est possible de sélectionner un bouton. Chaque bouton retourne un tableau de données different, par exemple, quand nous cliquons sur le bouton "Joueur", et il envoie une commande "select * from JOUEUR" et affiche les toutes informations sur les joueurs.
 
 %% ajouter 1.png
 
-Pour des données statistique facilement, nous avons offert quarte méthods, et construit les quarte buttons. Quand nous appuions un button de statistique, il affiche une nouvelle frame, dans laquelle nous porrons remplir les conditions de statistique, et après si nous selectionnons le Button "Find", il peut envoie une commande et contruire un nouveau tableaux; si nous selectionnons le Button "Clear", il nettoye les chiffres que nous avons remplit; si on selections le Button "Cancel", il rentoure la frame principale, et aucune commande envoie.
+Pour la zone des statistiques, nous avons proposé quarte méthodes, et avons consacré un bouton pour chaque méthode. Quand nous appuions sur un bouton de statistique, il affiche une nouvelle fenêtre, dans laquelle nous pourrons remplir les conditions de recherche. Pour valider la requête, il suffit de cliquer sur le bouton "Find". Cela permet d'envoyer une commande et de contruire un nouveau tableau. Quand on selectionne le Bouton "Clear", les chiffres que nous avons rentrés seront supprimés. Quand on selectionne le Bouton "Cancel", on rentoure à la fenêtre principale, et aucune commande n'est exécutée.
 
 %% ajouter 2.png
 
-Par example, nous voulons faire le classement des meilleurs joueurs d'une journée pour une catégorie, nous devons remplir les numéro de catégorie et le date de rencontre, et après l'interface doit envoyer une commande :
+Par exemple, si on veut consulter le classement des meilleurs joueurs d'une journée pour une catégorie, nous devons remplir le numéro de catégorie et la date de rencontre, et après l'interface doit envoyer une commande :
 
 %% ajouter 3.png
 
-Le dernier partie est pour mettre à jour des donées. Nous pourrons ajouter, supprimer ou modifier données par appuyer les Buttons. Quand nous appuions les buttons, il affiche une nouvelle frame avec tableux au milieu. Dans ce tableau nous pourrons modifier et a la fin quand nous appuions add element ou update ou delete element, il envoie une commande aussi.
-
+La dernière zone est dédiée pour mettre à jour des données. Nous pourrons ajouter, supprimer ou modifier des données. Quand on appuie sur l'un des boutons, une nouvelle fenêtre s'ouvre avec un tableau au milieu. Dans ce tableau, nous pourrons modifier des données et à la fin on appuie sur add element ou update ou delete element.
 %% ajouter 4.png
 
-Parce que nous ne pourrons pas ouvrir cet interface dans session oracle, et seulement dans terminal, donc chaque fois il a créé une nouvelle commande, il a ecrit dans une fichier .sql, et après nous porrons utiliser cette fichier.sql dans oracle et affiche les tableaux. 
+
+Après avoir conçu l'interface graphique, nous n'avons pas réussi à afficher la fenêtre tout en se connectant à Oracle. Nous avons quand même gardé l'interface graphique mais nous nous sommes intéressés par la suite à un affichage dans le terminal, puisqu'il n'est pas obligatoire de réaliser une interface et que le but de ce projet et de mettre en pratique les connaissances acquises au cours des séances de cours et de TD de SGBD. 

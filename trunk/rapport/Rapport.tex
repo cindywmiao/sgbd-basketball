@@ -65,7 +65,7 @@ Dans ce rapport, il sera question, en premier temps, de présenter le modèle co
 \tableofcontents
 
 \newpage
-\section{Modèle conceptuel}
+\section{Le modèle conceptuel}
 
 \subsection{Description du contexte de l'application}
 
@@ -149,23 +149,23 @@ Le dernier problème rencontré concernait les membres du bureau. Comme il est p
 
 \subsubsection*{Les cardinalités}
 \begin{itemize}
-\item Un club possède \textbf{0 ou N} membres. \\
+\item Un club possède \textbf{1 ou N} membres. \\
 
 \item Un membre appartient à \textbf{un unique} club. \\
 
-\item Un club possède \textbf{0 ou N} équipes. \\
+\item Un club possède \textbf{1 ou N} équipes. \\
 
 \item Une équipe appartient à \textbf{un unique} club. \\
 
 \item Une équipe appartient à \textbf{une unique} catégotrie. \\
 
-\item Une catégorie possède \textbf{0 ou N} équipes. \\
+\item Une catégorie possède \textbf{1 ou N} équipes. \\
 
 \item Une équipe \textbf{5 ou N} joueurs. \\
 
 \item Un joueur joue dans \textbf{une seule} équipe. \\
 
-\item Une équipe participe à \textbf{0 ou N} rencontres. \\
+\item Une équipe participe à \textbf{1 ou N} rencontres. \\
 
 \item Une rencontre réunit \textbf{2} équipes. \\
 
@@ -186,8 +186,8 @@ Le dernier problème rencontré concernait les membres du bureau. Comme il est p
 Après différentes modifications, voici le schéma entité-association :
  
 \begin{figure}[h!]
-\begin{narrow}{-1.1in}{0in}
-\centering \includegraphics[scale=0.4,angle = -90]{BasketBall_EA.pdf}
+\begin{narrow}{-0.3in}{0in}
+\includegraphics[scale=0.74]{BasketBall_EA.png}
 \caption{schéma entité-association de la base de données}
 \end{narrow}
 \end{figure}
@@ -241,7 +241,7 @@ L’application devra assurer plusieurs fonctionnalités : les opérations stand
 \end{itemize}
 
 \newpage
-\section{Modèle relationnel}
+\section{Le modèle relationnel}
 
 
 \subsection{Contraintes d'intégrité, dépendances fonctionnelles}
@@ -296,9 +296,8 @@ FN3 respectée.
 \subsection{Schéma relationnel en $3^{eme}$ forme normale}
 
 \begin{figure}[h!]
-\begin{narrow}{-1.1in}{0in}
-\centering
-\includegraphics[scale = 0.4, angle = -90]{BasketBall_Relationnel.pdf}
+\begin{narrow}{-0.4in}{0in}
+\includegraphics[scale = 0.9]{6.png}
 \caption{schéma relationnel en $3^{eme}$ forme normale}
 \end{narrow}
 \end{figure}
@@ -311,7 +310,7 @@ Il existe une multitude de SGBD disponibles pour une utilisation au niveau dont 
 \begin{itemize}
 \item Facilité de déploiement et de prise en main.
 \item Open Source.
-\item Plusieurs moteurs de stockage adaptés aux différentes problématiques, configurable au niveau table. \\
+\item Plusieurs moteurs de stockage adaptés aux différentes problématiques, configurable au niveau table. 
 \end{itemize}
 
 De plus, Oracle est un SGBD qui a été étudié en cours. Il n'y aura donc pas de problème lié à la recherche de documentation sur son fonctionnement global. De plus, cela nous permettra de mettre en pratique les connaissances que nous avons acquises au cours des séances de TD.
@@ -322,8 +321,30 @@ Lors de la création des tables, il fallu suivre un certain ordre respectant les
 une table qui existe déjà. En fait, pour la mise en place de la base, nous avons créé 3 fichiers base.sql, autoicrement.sql et donnees.sql. Le premier permet de créer les tables et de les effacer. Le deuxième permet de créer des séquences. Le dernier permet 
 le remplissage des tables avec des lignes significatives qui vont nous servir pour tester les requêtes. \\
 
-Dans le fichier autoincrement.sql, nous avons créé les séquences et les déclencheurs. Elles correspondent aux clés qui s'auto-incrémentent, puisque Oracle ne reconnaît pas le mot clé auto\_increment, contrairement à MySQL. \\
----exemple---
+Dans le fichier autoincrement.sql, nous avons créé les séquences et les déclencheurs. Elles correspondent aux clés qui s'auto-incrémentent, puisque Oracle ne reconnaît pas le mot clé auto\_increment, contrairement à MySQL. 
+
+
+\begin{verbatim}
+CREATE SEQUENCE SeqClub
+START WITH 1
+MAXVALUE 999999
+MINVALUE 1
+NOCYCLE
+NOCACHE
+NOORDER;
+
+CREATE TRIGGER MonTriggClub
+BEFORE INSERT
+ON CLUB
+FOR EACH ROW
+BEGIN
+SELECT MySeqClub.NEXTVAL
+INTO :NEW.NUMERO_CLUB
+FROM CLUB;
+END;
+/
+\end{verbatim}
+
 
 Dans le fichier base.sql, nous avons créé les tables tout en respectant les contraintes référentielles iter-tables. Voici un exemple de création de table :  \\
 
@@ -542,7 +563,7 @@ group by NUM_EQUIPE, NOM_EQUIPE
 order by Score DESC;
 \end{verbatim}
 
-
+\newpage
 \section{Environnement d'exécution}
 
 Pour établir l'interface graphique de base des données, nous avons utilisé JDBC avec les bibliothèques JFrame, JPanel, JButton, JTable etc. L'interface s'organise en cinq zones principales: le titre, les options, le tableau, les statistiques, et la mise à jour. Pour chaque partie, nous avons utilisé un objet JPanel pour organiser les postions des différentes parties dans l'interface. \\
@@ -585,7 +606,7 @@ La dernière zone est dédiée pour mettre à jour des données. Nous pourrons a
 \end{figure}
 
 
-Après avoir conçu l'interface graphique, nous n'avons pas réussi à afficher la fenêtre tout en se connectant à Oracle. Nous avons quand même gardé l'interface graphique mais nous nous sommes intéressés par la suite à un affichage dans le terminal, puisqu'il n'est pas obligatoire de réaliser une interface et que le but de ce projet et de mettre en pratique les connaissances acquises au cours des séances de cours et de TD de SGBD. 
+Après avoir conçu l'interface graphique, nous n'avons pas réussi à afficher la fenêtre tout en se connectant à Oracle. Nous avons quand même gardé l'interface graphique mais nous nous sommes intéressés par la suite à un affichage dans le terminal, puisqu'il n'est pas obligatoire de réaliser une interface et que le but de ce projet est de mettre en pratique les connaissances acquises au cours des séances de cours et de TD de SGBD. 
 
 \newpage
 \section*{Conclusion}

@@ -100,5 +100,13 @@ select DATE_RENCONTRE from RENCONTRE where NUMERO_RENCONTRE in (select NUMERO_RE
 --Rechercher le nombre de points marques par un joueur a une rencontre donnee
 --input : NOM_JOUEUR et DATE_RENCONTRE
 
+select participe.cumul_points_marques_joueur
+from rencontre,participe 
+where participe.numero_licence = 2 and participe.numero_rencontre = rencontre.numero_rencontre and rencontre.date_rencontre = '01-APR-12';
+
+
 --Rechercher le nombre de fautes commises par un joueur a une rencontre donnee
 --input : NOM_JOUEUR et DATE_RENCONTRE
+select participe.cumul_fautes_joueur
+from rencontre,participe 
+where participe.numero_licence = 2 and participe.numero_rencontre = rencontre.numero_rencontre and rencontre.date_rencontre = '01-APR-12';

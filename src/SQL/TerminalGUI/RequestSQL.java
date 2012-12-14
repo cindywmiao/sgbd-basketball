@@ -19,18 +19,25 @@ public class RequestSQL {
     }
     
     //execute la commande passee en parametre
-    ResultSet execRequest(Statement stmt) throws SQLException, ClassNotFoundException, java.io.IOException {
+    ResultSet execRequest(Statement stmt) {
 	// Execution de la requete.
-	ResultSet rset = stmt.executeQuery(requestText);
-	ResultSetMetaData data = rset.getMetaData();
+	
+	ResultSet rset = null;
+	ResultSetMetaData data = null;
 	int i;
 
-	for (i = 1; i <= data.getColumnCount(); i++)
-	    System.out.print(data.getColumnName(i) + " ");
-	System.out.print("\n");
+	try{
+	    rset = stmt.executeQuery(requestText);
+	    data = rset.getMetaData();
+	    for (i = 1; i <= data.getColumnCount(); i++)
+		System.out.print(data.getColumnName(i) + " ");
+	    System.out.print("\n");
 
-	this.affichageTerminal(rset, data);
-	return rset;
+	    this.affichageTerminal(rset, data);
+	}catch(Exception e){
+	    System.out.println("Erreur a l'execution d'une requete :" + e.getMessage());
+	}
+	    return rset;
     }
 
     void concat(String next){

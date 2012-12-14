@@ -568,7 +568,7 @@ where equipe.numero_equipe = num_equipe;
 
 \newpage
 \section{Environnement d'exécution}
-
+\subsection{Environnement graphique}
 Pour établir l'interface graphique de base des données, nous avons utilisé JDBC avec les bibliothèques JFrame, JPanel, JButton, JTable etc. L'interface s'organise en cinq zones principales: le titre, les options, le tableau, les statistiques, et la mise à jour. Pour chaque partie, nous avons utilisé un objet JPanel pour organiser les postions des différentes parties dans l'interface. \\
 
 Dans la zone des options, il est possible de sélectionner un bouton. Chaque bouton retourne un tableau de données different, par exemple, quand nous cliquons sur le bouton "Joueur", et il envoie une commande "select * from JOUEUR" et affiche les toutes informations sur les joueurs. \\
@@ -610,6 +610,16 @@ La dernière zone est dédiée pour mettre à jour des données. Nous pourrons a
 
 
 Après avoir conçu l'interface graphique, nous n'avons pas réussi à afficher la fenêtre tout en se connectant à Oracle. Nous avons quand même gardé l'interface graphique mais nous nous sommes intéressés par la suite à un affichage dans le terminal, puisqu'il n'est pas obligatoire de réaliser une interface et que le but de ce projet est de mettre en pratique les connaissances acquises au cours des séances de cours et de TD de SGBD. 
+
+\subsection{Environnement terminal}
+
+Cependant nous n'avons pas pu tester l'éxecution de ces requêtes dans oracle. Nous avons donc implémenté une deuxième interface.\\
+Celle-ci est dans le terminal et se présente sous forme d'un questionnaire à choix multiples. On peut ainsi réupérer des informations ou modifier les tables.\\
+Les premier onglets permettent de visualiser les différentes tables. Ceux-ci n'ont pas était mis dans la section ``chercher des information précise'' car on a souvent besoin de les consulter afin de vérifier par exemple l'effet d'une requête sur une table.\\
+De plus, nous avons fait un certains nombre de requêtes de consultation spéciale sur la table club(comme par exemple l'affichage de 2 colonnes seulement ou encore le ``nombre de match gagnés, perdus ou nuls'' par club. Celles-ci sont donc dans l'onglet : ``chercher une information précise'' -> club.\\
+Lorsque c'est necessaire, l'utilisateur peut choisir l'entité concerné par sa requête(comme une date ou un club).\\
+En outre, la plupart du temps une option est proposer à l'utilisateur afin de revnir en arrière dans ses choix si jamais il s'est trompé.\\
+Au final cette interface offre toutes les fonctionnalités de l'interface graphiques.
 
 \newpage
 \section*{Conclusion}

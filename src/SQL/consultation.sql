@@ -2,8 +2,8 @@
 -- Les clubs --
 -- Input : None --
 -- Output : Informations des clubs --
-select club.numero_club as NR, 
-       club.nom_club as NOM,
+select numero_club as Numero, 
+       nom_club as NOM
 from club;
 
 -- Les équipes --
@@ -24,7 +24,7 @@ where joueur.numero_equipe = equipe.numero_equipe;
 -- Input : date --
 select rencontre.score_equipe1_rencontre as Equipe1 , rencontre.score_equipe2_rencontre as Equipe2
 from rencontre
-where rencontre.date_rencontre = '21-FEB-87'; 
+where rencontre.date_rencontre = '21-FEB-12'; 
 
 -- Pour un club, on veut le nombre de matchs gagnés, perdus ou nuls --
 -- Input : numero du club --

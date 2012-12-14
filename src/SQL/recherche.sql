@@ -91,11 +91,9 @@ select * from PERSONNE where FONCTION_PERSONNE = 'TRESORIER' and NUMERO_CLUB = (
 select * from PERSONNE where FONCTION_PERSONNE = 'SECRETAIRE' and NUMERO_CLUB = (select NUMERO_CLUB from CLUB where NOM_CLUB = 'ESPERANCE');
 
 
-
-
 --Rechercher les dates des rencontres dans lesquelles a joue un joueur donne
 --input : NOM_JOUEUR
-select DATE_RENCONTRE from RENCONTRE where NUMERO_RENCONTRE in (select NUMERO_RENCONTRE from PARTICIPE where NUMERO_LICENCE = (select NUMERO_LICENCE from JOUEUR where NOM_JOUEUR = 'GARCIA'));
+select DATE_RENCONTRE from RENCONTRE where NUMERO_RENCONTRE in (select NUMERO_RENCONTRE from PARTICIPE where NUMERO_LICENCE = (select NUMERO_LICENCE from JOUEUR where NOM_JOUEUR = 'MONTAND'));
 
 --Rechercher le nombre de points marques par un joueur a une rencontre donnee
 --input : NOM_JOUEUR et DATE_RENCONTRE

@@ -31,5 +31,5 @@ update club set club.nom_club = 'MILLE' where club.numero_club = 9;
 commit;
 
 -- Modification d'un match --
-update rencontre set rencontre.score_equipe1_rencontre = 15 where rencontre.numero_equipe1 = 3;
+update rencontre set rencontre.score_equipe1_rencontre = 15 where rencontre.numero_rencontre = 3;
 commit;

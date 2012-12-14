@@ -56,9 +56,9 @@
 \section*{Introduction}
 
 
-Afin de garder les information sur ses membres et sur son fonctionnement, un club sportif peut être amener à utiliser une base de données. Ce projet consiste en l'implémentation d'une base de données pour un club de basket-ball gérant les rencontres entre les différents clubs d'une fédération. \\
+Afin de garder les informations sur ses membres et sur son fonctionnement, un club sportif peut être amené à utiliser une base de données. Ce projet consiste en l'implémentation d'une base de données pour un club de basket-ball gérant les rencontres entre les différents clubs d'une fédération. \\
 
-Dans ce rapport, il sera question, en premier temps, de présenter le modèle conceptuel utilisé pour la modélisation des données, puis le modèle relationnel en $3^{eme}$ forme normale. Ensuite, l'implémentation de la base en MySQL ainsi que la justification de notre choix. Enfin, l'environnement d'exécution avec un apercu de l'interface graphique concue pour accéder à la base. 
+Dans ce rapport, il sera question, en premier temps, de présenter le modèle conceptuel utilisé pour la modélisation des données, puis le modèle relationnel en $3^{eme}$ forme normale. Ensuite, l'implémentation de la base en MySQL ainsi que la justification de notre choix. Enfin, l'environnement d'exécution avec un aperçu de l'interface graphique concue pour accéder à la base. 
 
 
 \newpage
@@ -87,14 +87,14 @@ Pour la modélisation conceptuelle des données nous avons créé au départ 6 e
 
 
 
-Dans un premier temps, nous avons choisi de modéliser les rencontres entre par une association entre deux équipes et dans laquelle on stocke le score et la date de la rencontre. Nous nous sommes rendus compte par la suite qu une telle modélisation pose quelques problèmes : d'une part, on ne peut pas savoir quel joueur a participé à quelle rencontre. D'autre part, il nous est impossible de savoir quel joueur a marqué dans quelle rencontre ce qui pose un problème pour le calcul des cumuls des points marqués et des fautes pour chaque joueur ou même encore au niveau des statistiques notamment au niveau du classement des meilleurs joueurs d'une journée pour une catégorie. Nous avons donc créé une entité \textit{Rencontre} dans laquelle on stocke le numéro de la rencontre ainsi que le score et la date. De cette manière, un joueur peut jouer à différentes rencontres.
+Dans un premier temps, nous avons choisi de modéliser les rencontres entre par une association entre deux équipes et dans laquelle on stocke le score et la date de la rencontre. Nous nous sommes rendus compte, par la suite, qu'une telle modélisation pose quelques problèmes : d'une part, on ne peut pas savoir quel joueur a participé à quelle rencontre. D'autre part, il nous est impossible de savoir quel joueur a marqué dans quelle rencontre ce qui pose un problème pour le calcul des cumuls des points marqués et des fautes pour chaque joueur ou même encore au niveau des statistiques notamment au niveau du classement des meilleurs joueurs d'une journée pour une catégorie. Nous avons donc créé une entité \textit{Rencontre} dans laquelle on stocke le numéro de la rencontre ainsi que le score et la date. De cette manière, un joueur peut jouer à différentes rencontres.
 \\
 
 Un nouveau problème s'est posé par la suite lors de l'implémentation de la base. Le modèle choisi a entraîné une énorme duplication de données au niveau de la table des joueurs. Etant donnée que les joueurs peuvent participer à plusieurs rencontres, nous devons à chaque fois réinsérer le nom, le prénom, le numéro de licence, sa date de naissance, son adresse et sa date d'entrée dans le club pour chaque match joué rien que pour stocker le nombre de points marqués et des fautes. La solution était donc d'enlever ces deux derniers attributs et de les insérer dans l'assocation \textit{participe} qui relie le joueur et la rencontre puisqu'ils dépendent de ces deux entités. Cela nous a permis d'éviter la duplication des données.
 \\
 
 
-Le dernier problème rencontré concernait les membres du bureau. Comme il est précedemment expliqué, nous avons créé une entité \textit{Bureau} qui a pour attribut -entre autres- les noms du président, du vice-président et du trésorier. Cela nous empêchait de stocker d'autres informations concernant les membres du bureau notamment le prénom, la date de naissance ou encore le numéro identifiant. L'idée était d'ajouter une nouvelle entité \textit{Membre du bureau} permettant de stocker ces informations. L'entité \textit{Bureau} ne contenant plus que le numéro du bureau et ayant une association 1,1 des deux côtés avec le club devient alors inutile.  
+Le dernier problème rencontré concernait les membres du bureau. Comme il a été précedemment expliqué, nous avons créé une entité \textit{Bureau} qui a pour attribut -entre autres- les noms du président, du vice-président et du trésorier. Cela nous empêchait de stocker d'autres informations concernant les membres du bureau notamment le prénom, la date de naissance ou encore le numéro identifiant. L'idée était d'ajouter une nouvelle entité \textit{Membre du bureau} permettant de stocker ces informations. L'entité \textit{Bureau} ne contenant plus que le numéro du bureau et ayant une association 1,1 des deux côtés avec le club devient alors inutile.  
 
 \subsubsection*{Les règles de gestion}
 \begin{itemize}
@@ -161,7 +161,7 @@ Le dernier problème rencontré concernait les membres du bureau. Comme il est p
 
 \item Une catégorie possède \textbf{1 ou N} équipes. \\
 
-\item Une équipe \textbf{5 ou N} joueurs. \\
+\item Une équipe possède \textbf{5 ou N} joueurs. \\
 
 \item Un joueur joue dans \textbf{une seule} équipe. \\
 
@@ -208,7 +208,7 @@ L’application devra assurer plusieurs fonctionnalités : les opérations stand
 
 \item la recherche du président, du vice-président, du trésorier ou du secrétaire d'un club. \\
 
-\item les dates des rencontres auxquelles a participé un joueur donnée. \\
+\item les dates des rencontres auxquelles a participé un joueur donné. \\
 
 \item le nombre de points marqués par un joueur à une date donnée. \\
 
@@ -216,24 +216,17 @@ L’application devra assurer plusieurs fonctionnalités : les opérations stand
 
 \item les scores des matchs joués à une date donnée. \\
 
-
 \item la liste des joueurs à une date donnée. \\
-
 
 \item la feuille du match à une date donnée. \\
 
-
 \item le nombre de matchs gagnés, perdus ou nuls. \\
-
 
 \item la moyenne des points marqués à une date donnée. \\
 
-
 \item la moyenne des points marqués depuis le début de la saison. \\
 
-
 \item le classement des meilleurs joueurs d’une journée pour une catégorie. \\
-
 
 \item le classement des équipes. \\
 
@@ -265,10 +258,10 @@ numéro rencontre $\rightarrow$ date rencontre, score equipe1, score équipe2. \
 \subsection{Normalisation de la base en $3^{eme}$ forme}
 
 \textbf{Club} (\underline{numéro club}, nom club) \\
-En premier lieu, tous les attributs sont atomiques; Ici on dipose bien d'une clé unique qui est le numéro du club. Il s'agit bien de la 1ère forme normale. La 2ème forme normale est également respectée puisque la clé est simple et que l'attribut nom club dépend de la clé. On a bien dépendance de la totalité de la clé (FN2). L'attribut nom club ne depend pas d'un ou plusieurs attributs ne participant pas à la clé mais uniquement de la clé. On a bien la 3ème forme normale. \\
+En premier lieu, tous les attributs sont atomiques. Ici on dispose bien d'une clé unique qui est le numéro du club. Il s'agit bien de la 1ère forme normale. La 2ème forme normale est également respectée puisque la clé est simple et que l'attribut nom club dépend de la clé. On a bien dépendance de la totalité de la clé (FN2). L'attribut nom club ne dépend pas d'un ou plusieurs attributs ne participant pas à la clé mais uniquement de la clé. On a bien la 3ème forme normale. \\
 
 \textbf{Personne} (\underline{numéro personne}, nom, prénom, fonction, date de naissance, \#numéro club) \\
-Tous les attributs sont atomiques donc la 1ère forme normale est validée. La clé est simple et on a dépendance totale et non d'une partie de la clé pour tous les attributs. La 2ème forme normale est donc validée.  Aucun attribut ne dépend d'un attribut hors clé. On a bien la 3ème forme normale. \\
+Tous les attributs sont atomiques donc la 1ère forme normale est validée. La clé est simple et on a dépendance totale et non d'une partie de la clé et cela est valide pour tous les attributs. La 2ème forme normale est donc validée.  Aucun attribut ne dépend d'un attribut hors clé. On a bien la 3ème forme normale. \\
 
 \textbf{Equipe} (\underline{numéro équipe}, nom équipe, \#numéro club, \#numéro catégorie) \\
 Tous les attributs sont atomiques et on a dépendance totale de la clé \emph{numéro équipe}. Les attributs \emph{numéro club} et \emph{numéro catégorie} ne nous renseignent pas sur le nom de l'équipe puisqu'il existe plusieurs équipes au sein du même club et de la même catégorie. Les attributs ne dépendent donc d'aucun attribut hors clé. On a bien la 3ème forme normale. \\
@@ -317,11 +310,9 @@ De plus, Oracle est un SGBD qui a été étudié en cours. Il n'y aura donc pas 
 
 \subsubsection*{Mise en place de la base}
 Après la conception et la modélisation de la structure de la base, nous nous sommes intéressés à la création des tables de la base et des données. 
-Lors de la création des tables, il fallu suivre un certain ordre respectant les contraintes d'intégrité. Ainsi, chaque clé étrangère doit référencier 
-une table qui existe déjà. En fait, pour la mise en place de la base, nous avons créé 3 fichiers base.sql, autoicrement.sql et donnees.sql. Le premier permet de créer les tables et de les effacer. Le deuxième permet de créer des séquences. Le dernier permet 
-le remplissage des tables avec des lignes significatives qui vont nous servir pour tester les requêtes. \\
+Lors de la création des tables, il a fallu suivre un certain ordre respectant les contraintes d'intégrité. Ainsi, chaque clé étrangère doit référencier une table qui existe déjà. En fait, pour la mise en place de la base, nous avons créé 3 fichiers base.sql, autoicrement.sql et donnees.sql. Le premier permet de créer les tables et de les effacer. Le deuxième permet de créer des séquences. Le dernier permet le remplissage des tables avec des lignes significatives qui vont nous servir pour tester les requêtes. \\
 
-Dans le fichier autoincrement.sql, nous avons créé les séquences et les déclencheurs. Elles correspondent aux clés qui s'auto-incrémentent, puisque Oracle ne reconnaît pas le mot clé auto\_increment, contrairement à MySQL. 
+Dans le fichier autoincrement.sql, nous avons créé les séquences et les déclencheurs. Ils correspondent aux clés qui s'auto-incrémentent, puisque Oracle ne reconnaît pas le mot clé auto\_increment, contrairement à MySQL. 
 
 
 \begin{verbatim}
@@ -381,7 +372,7 @@ drop table PARTICIPE cascade constraints;
 drop table ENTRAINE cascade constraints;
 \end{verbatim}
 
-Dans le fichier donnees.sql, nous avons rempli les tables avec des données significatives pour le test des différentes requêtes. Cela se fait à l'aide du mot clé insert. 
+Dans le fichier donnees.sql, nous avons rempli les tables avec des données significatives pour le test des différentes requêtes. Cela se fait à l'aide du mot clé \emph{insert}. 
 Voici un exemple d'insertion de données dans une table : \\
 
 \begin{verbatim}
@@ -516,7 +507,7 @@ where equipe.numero_equipe = rencontre.numero_equipe2
 \end{verbatim}
 
 \subsubsection{Les statistiques}
-Ces requêtes se trouvent dans le fichier statistques.sql. Elle permettent de réaliser les requêtes de statistiques demandées dans l'énoncé du sujet.
+Ces requêtes se trouvent dans le fichier statistques.sql. Elle permettent de réaliser les requêtes de statistiques demandées dans l'énoncé du sujet. \\
 Pour la moyenne des points marqués à une date donnée (ici c'est 27/02/2006): \\
 
 \begin{verbatim}
@@ -551,12 +542,12 @@ order by score DESC;
 \end{verbatim}
 
 
-Comme le critère du classement des équipes n'a pas été précisé, nous avons classifié, au début, les équipes en fonction du cumul des scores obtenus dans les rencontres auxquelles ils ont participé. \\
-L'exemple qui suit nous permet d'avoir le classement des équipes en fonctions de leurs scores durant les rencontres auxquelles elles avaient participé: \\
+Comme le critère du classement des équipes n'a pas été précisé, nous avons classifié, au début, les équipes en fonction du cumul des scores obtenus dans les rencontres auxquelles elles ont participé. \\
+L'exemple qui suit nous permet d'avoir le classement des équipes de la catégorie ``benjamin'' en fonction de leurs scores durant les rencontres auxquelles elles avaient participé: \\
 
 \begin{verbatim}
 select num_equipe, nom_equipe, score
-from equipe,(
+from equipe E,(
 select num_equipe, sum(score) as Score
 from(
 (select rencontre.numero_equipe1 as NUM_EQUIPE , rencontre.score_equipe1_rencontre as SCORE
@@ -566,11 +557,12 @@ union
 from rencontre))
 group by NUM_EQUIPE
 order by Score DESC)
-where equipe.numero_equipe = num_equipe;
+where E.numero_equipe = num_equipe
+and E.numero_equipe = 1;
 \end{verbatim}
 
 Ensuite, nous avons eu l'idée de les classer en fonction du total des points, ce qui est plus compliqué. En effet, c'est le principe utilisé en football : pour un match gagné, l'équipe obtient 3 points, pour un match nul, 1 point et pour un match perdu, elle n'obtient aucun point.  \\
-Voici la commande SQL utilisée pour avoir le classement : \\
+Voici la commande SQL utilisée pour avoir le classement des équipes de la catégorie ``benjamin'': \\
 
 \begin{verbatim}
 select nom_club as club ,nom_equipe as equipe , sum(points) as total
@@ -598,6 +590,7 @@ from rencontre
 group by numero_equipe2))
 where E.numero_equipe = num_equipe
 and E.numero_club = C.numero_club
+and E.numero_categorie = 1 
 group by nom_equipe, nom_club
 order by total desc;
 \end{verbatim}
@@ -608,9 +601,9 @@ order by total desc;
 \subsection{Environnement graphique
 .}
 
-Pour établir l'interface graphique de base des données, nous avons utilisé JDBC avec les bibliothèques JFrame, JPanel, JButton, JTable etc. L'interface s'organise en cinq zones principales: le titre, les options, le tableau, les statistiques, et la mise à jour. Pour chaque partie, nous avons utilisé un objet JPanel pour organiser les postions des différentes parties dans l'interface. \\
+Pour établir l'interface graphique d'accès à la base de données, nous avons utilisé JDBC avec les bibliothèques JFrame, JPanel, JButton, JTable etc. L'interface s'organise en cinq zones principales: le titre, les options, le tableau, les statistiques, et la mise à jour. Pour chaque partie, nous avons utilisé un objet JPanel pour organiser les postions des différentes parties dans l'interface. \\
 
-Dans la zone des options, il est possible de sélectionner un bouton. Chaque bouton retourne un tableau de données different, par exemple, quand nous cliquons sur le bouton "Joueur", et il envoie une commande "select * from JOUEUR" et affiche les toutes informations sur les joueurs. \\
+Dans la zone des options, il est possible de sélectionner un bouton. Chaque bouton retourne un tableau de données different. Par exemple, si on clique sur le bouton "Joueur", une commande "select * from JOUEUR" est envoyée et la fenêtre affiche les toutes informations sur les joueurs. \\
 
 \begin{figure}[!h]
 \centering
@@ -619,7 +612,7 @@ Dans la zone des options, il est possible de sélectionner un bouton. Chaque bou
 \end{figure}
 
  \newpage
-Pour la zone des statistiques, nous avons proposé quarte méthodes, et avons consacré un bouton pour chaque méthode. Quand nous appuions sur un bouton de statistique, il affiche une nouvelle fenêtre, dans laquelle nous pourrons remplir les conditions de recherche. Pour valider la requête, il suffit de cliquer sur le bouton "Find". Cela permet d'envoyer une commande et de contruire un nouveau tableau. Quand on selectionne le Bouton "Clear", les chiffres que nous avons rentrés seront supprimés. Quand on selectionne le Bouton "Cancel", on rentoure à la fenêtre principale, et aucune commande n'est exécutée. \\
+Pour la zone des statistiques, nous avons proposé quarte méthodes, et avons consacré un bouton pour chaque méthode. Quand nous appuions sur un bouton de statistique, il affiche une nouvelle fenêtre, dans laquelle nous pourrons remplir les conditions de recherche. Pour valider la requête, il suffit de cliquer sur le bouton "Find". Cela permet d'envoyer une commande et de construire un nouveau tableau. Quand on selectionne le Bouton "Clear", les chiffres que nous avons rentrés seront supprimés. Quand on selectionne le Bouton "Cancel", on rentoure à la fenêtre principale, et aucune commande n'est exécutée. \\
  
 \begin{figure}[!h]
 \centering
@@ -638,7 +631,7 @@ Par exemple, si on veut consulter le classement des meilleurs joueurs d'une jour
 \caption{la commande qui s'affiche dans le terminal}
 \end{figure}
 
-La dernière zone est dédiée pour mettre à jour des données. Nous pourrons ajouter, supprimer ou modifier des données. Quand on appuie sur l'un des boutons, une nouvelle fenêtre s'ouvre avec un tableau au milieu. Dans ce tableau, nous pourrons modifier des données et à la fin on appuie sur add, update ou delete. \\
+La dernière zone est dédiée à la mise à jour des données. Nous pourrons ajouter, supprimer ou modifier des données. Quand on appuie sur l'un des boutons, une nouvelle fenêtre s'ouvre avec un tableau au milieu dans lequel nous pourrons modifier des données et à la fin on appuie sur add, update ou delete. \\
 
 
 \begin{figure}[!h]
@@ -653,26 +646,25 @@ Après avoir conçu l'interface graphique, nous n'avons pas réussi à afficher 
 \newpage
 \subsection{Environnement terminal}
 
-Cependant nous n'avons pas pu tester l'éxecution de ces requêtes dans oracle. Nous avons donc implémenté une deuxième interface.\\
-Celle-ci est dans le terminal et se présente sous forme d'un questionnaire à choix multiples. On peut ainsi réupérer des informations ou modifier les tables. Le schema suivant montre le menu principal.\\
+Notre deuxième interface est directement dans le terminal et se présente sous forme d'un questionnaire à choix multiples. On peut ainsi réupérer des informations ou modifier les tables. Le schéma suivant montre le menu principal :\\
 
 \begin{figure}[h!]
 \begin{narrow}{-0.3in}{0in}
 \includegraphics[scale = 0.3]{TerGUI.png}
-\caption{Capture d'ecran du menu principal}
+\caption{Capture d'écran du menu principal}
 \end{narrow}
 \end{figure}
 
 
 
-Les premier onglets permettent de visualiser les différentes tables. Ceux-ci n'ont pas était mis dans la section ``chercher des information précise'' car on a souvent besoin de les consulter afin de vérifier par exemple l'effet d'une requête sur une table.\\
+Les premiers onglets permettent de visualiser les différentes tables. Ceux-ci n'ont pas été mis dans la section ``chercher des information précise'' car on a souvent besoin de les consulter afin de vérifier par exemple l'effet d'une requête sur une table.\\
 
-De plus, nous avons fait un certains nombre de requêtes de consultation spéciale sur la table club(comme par exemple l'affichage de 2 colonnes seulement ou encore le ``nombre de match gagnés, perdus ou nuls'' par club. Celles-ci sont donc dans l'onglet : ``chercher une information précise'' -> club.\\
-Lorsque c'est necessaire, l'utilisateur peut choisir l'entité concerné par sa requête(comme une date ou un club).\\
+De plus, nous avons fait un certain nombre de requêtes de consultation spéciales sur la table club(comme par exemple l'affichage de 2 colonnes seulement ou encore le ``nombre de match gagnés, perdus ou nuls'' par club. Celles-ci sont donc dans l'onglet : ``chercher une information précise'' -> club.\\
+Lorsque c'est necessaire, l'utilisateur peut choisir l'entité concernée par sa requête(comme une date ou un club).\\
 
-En outre, la plupart du temps une option est proposer à l'utilisateur afin de revnir en arrière dans ses choix si jamais il s'est trompé.\\
+En outre, la plupart du temps une option est proposée à l'utilisateur afin de revenir en arrière dans ses choix si jamais il s'est trompé.\\
 
-Au final cette interface offre toutes les fonctionnalités de l'interface graphiques. \\
+Au final cette interface offre toutes les fonctionnalités de l'interface graphique. \\
 
 
 \section*{Conclusion}

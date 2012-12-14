@@ -22,7 +22,7 @@ and rencontre.date_rencontre < '31-DEC-07'
 select joueur.numero_licence, sum(participe.cumul_points_marques_joueur) as SCORE
 from joueur, participe, rencontre, equipe
 where equipe.numero_categorie = 1
-      and rencontre.date_rencontre = '21-FEB-87'
+      and rencontre.date_rencontre = '21-FEB-12'
       and equipe.numero_equipe = joueur.numero_equipe
       and joueur.numero_licence = participe.numero_licence
       and participe.numero_rencontre = rencontre.numero_rencontre
@@ -45,7 +45,8 @@ union
 from rencontre))
 group by NUM_EQUIPE
 order by Score DESC)
-where equipe.numero_equipe = num_equipe;
+where equipe.numero_equipe = num_equipe
+and equipe.numero_categorie = 1;
 
 --Deuxieme methode : classement pas total des points :
 -------- un match gagne --> 3 points
@@ -77,5 +78,6 @@ from rencontre
 group by numero_equipe2))
 where E.numero_equipe = num_equipe
 and E.numero_club = C.numero_club
+and E.numero_categorie = 1   
 group by nom_equipe, nom_club
 order by total desc;

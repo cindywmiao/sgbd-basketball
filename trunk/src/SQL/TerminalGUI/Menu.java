@@ -19,7 +19,7 @@ class Menu{
 	    System.out.println("Pour executer les requetes suivantes, taper le nombre correspondant : ");
 	    System.out.println("1-Club ");
 	    System.out.println("2-Joueur ");
-	    System.out.println("3-Rencontre ");
+	    System.out.println("3-Match ");
 	    System.out.println("4-Equipe ");
 	    System.out.println("5-Categorie ");
 	    System.out.println("6-Entraineur \n");
@@ -31,7 +31,11 @@ class Menu{
 	
 	    System.out.println("11-Mettre a jour\n");
 
-	    System.out.println("12-Quitter\n");
+	    System.out.println("12-Chercher une information precise dans la table\n");
+	    
+	    System.out.println("13-Utiliser une requete personnelle\n");
+
+	    System.out.println("14-Quitter\n");
 
 	    b = Menu.commande(stmt);
 	
@@ -118,7 +122,9 @@ class Menu{
 
 
 	    case(10):
-		r = new RequestSQL("select num_equipe, sum(score) as Score from( (select rencontre.numero_equipe1 as NUM_EQUIPE , rencontre.score_equipe1_rencontre as SCORE from rencontre) union (select rencontre.numero_equipe2 as NUM_EQUIPE , rencontre.score_equipe2_rencontre as SCORE from rencontre)) group by NUM_EQUIPE order by Score DESC");
+		r = new RequestSQL("select num_equipe, sum(score) as Score from( (select rencontre.num_equipe1 as NUMERO_EQUIPE , rencontre.score_equipe1_rencontre as SCORE from rencontre) union (select rencontre.num_equipe2 as NUMERO_EQUIPE , rencontre.score_equipe2_rencontre as SCORE from rencontre)) group by NUMERO_EQUIPE order by Score DESC");
+
+
 		r.execRequest(stmt);
 		break;
 
@@ -149,6 +155,14 @@ class Menu{
 		}
 		break;
 	    case(12):
+		Menu.findSth(stmt);
+		break;
+	    case(13):
+		System.out.println("Entrez votre requete sans ';'");
+		String text = sc.nextLine();
+		r = new RequestSQL(text);
+		r.execRequest(stmt);
+	    case(14):
 		return false;
 		
 	    default:
@@ -181,7 +195,9 @@ class Menu{
 
 	    switch(tab){
 	    case(1):
-		System.out.println("Quel est le numero du nouveau club?");
+		RequestSQL reqCl = new RequestSQL("select max(NUMERO_LICENCE) from joueur");
+		int maxCl = reqCl.recup(stmt);
+		System.out.println("Quel est le numero du nouveau club?(au dessus de " + maxCl +")");
 		int cNum = sc.nextInt();
 		sc.nextLine();
 		System.out.println("Dans quelle ville est le nouveau club?");
@@ -233,9 +249,9 @@ class Menu{
 		System.out.println("A quel est le nom de l'equipe2?");
 		String nom2 =sc.nextLine();
 
-		reqMatch = new RequestSQL("select NUMERO_EQUIPE from EQUIPE where NOM_EQUIPE="+nom1);
+		reqMatch = new RequestSQL("select NUMERO_EQUIPE from EQUIPE where NOM_EQUIPE='" + nom1 + "'");
 		int num1 = reqMatch.recup(stmt);
-		reqMatch = new RequestSQL("select NUMERO_EQUIPE from EQUIPE where NOM_EQUIPE="+nom2);
+		reqMatch = new RequestSQL("select NUMERO_EQUIPE from EQUIPE where NOM_EQUIPE='" + nom2 + "'");
 		int num2 = reqMatch.recup(stmt);
 		r = new RequestSQL("insert into RENCONTRE values("+ mNum + ",'" + mDate + "'," + score1 + "," + score2 + "," + num1 + "," + num2 + ")");
 		r.execUp(stmt);
@@ -334,7 +350,7 @@ class Menu{
 		System.out.println("Entrez nouveau score de l'equipe 1 :");
 		int score1 = sc.nextInt();
 		sc.nextLine();
-		r = new RequestSQL("update rencontre set rencontre.score_equipe1_rencontre = " + score1 + "5 where rencontre.numero_equipe1 = " + numMatch);
+		r = new RequestSQL("update rencontre set rencontre.score_equipe1_rencontre = " + score1 + " where rencontre.numero_equipe1 = " + numMatch);
 		r.execUp(stmt);
 		break;
 	    case(4):
@@ -345,4 +361,319 @@ class Menu{
 	    }
 
 	}
+    static void findSth(Statement stmt){
+	Scanner sc = new Scanner(System.in);
+	int choix;
+
+	System.out.println("Selectionner le theme sur lequel vous voulez trouver des information :");
+	System.out.println("1-joueur");
+	System.out.println("2-club");
+	System.out.println("3-entraineur");
+	System.out.println("4-equipe");
+	System.out.println("5-match");
+
+	choix = sc.nextInt();
+	sc.nextLine();
+
+	switch(choix){
+	case(1):
+	    Menu.findPlayer(stmt);
+	    break;
+	case(2):
+	    Menu.findClub(stmt);
+	    break;
+	case(3):
+	    Menu.findTrainer(stmt);
+	    break;
+	case(4):
+	    Menu.findTeam(stmt);
+	    break;
+	case(5):
+	    Menu.findMatch(stmt);
+
+	}
+    }
+
+    static void findPlayer(Statement stmt){
+	Scanner sc = new Scanner(System.in);
+	int choix;
+	RequestSQL r;
+
+	System.out.println("Vous voulez trouver par : ");
+	System.out.println("1-Numero de licence");
+	System.out.println("2-Nom");
+	System.out.println("3-Prenom");
+	System.out.println("4-Revenir au menu principal");
+
+	choix = sc.nextInt();
+	sc.nextLine();
+
+	switch(choix){
+	case(1):
+	    System.out.println("Entrez le numero de licence :");
+	    int numLi = sc.nextInt();
+	    sc.nextLine();
+	    r = new RequestSQL("select * from JOUEUR where NUMERO_LICENCE = " + numLi);
+	    r.execRequest(stmt);
+	    break;
+	case(2):
+	    System.out.println("Entrez le nom :");
+	    String nom = sc.nextLine();
+	    r = new RequestSQL("select * from JOUEUR where NOM_JOUEUR = '" + nom + "'");
+	    r.execRequest(stmt);
+	    break;
+	case(3):
+	    System.out.println("Entrez le prenom :");
+	    String prenom = sc.nextLine();
+	    r = new RequestSQL("select * from JOUEUR where PRENOM_JOUEUR = '" + prenom + "'");
+		r.execRequest(stmt);
+	    break;
+	case(4):
+	    break;
+	}
+    }
+
+    static void findTrainer(Statement stmt){
+	Scanner sc = new Scanner(System.in);
+	int choix;
+	RequestSQL r;
+	String var;
+
+	System.out.println("Vous voulez trouver par : ");
+	System.out.println("1-Numero d'entraineur");
+	System.out.println("2-Nom");
+	System.out.println("3-Prenom");
+	System.out.println("4-Equipe en entrainee");	
+	System.out.println("5-Revenir au menu principal");
+
+	choix = sc.nextInt();
+	sc.nextLine();
+
+	switch(choix){
+	case(1):
+	    System.out.println("Entrez le numero de licence :");
+	    int numLi = sc.nextInt();
+	    sc.nextLine();
+	    r = new RequestSQL("select * from ENTRAINEUR where NUMERO_ENTRAINEUR = " + numLi);
+		r.execRequest(stmt);
+	    break;
+	case(2):
+	    System.out.println("Entrez le nom :");
+	    var = sc.nextLine();
+	    r = new RequestSQL("select * from ENTRAINEUR where NOM_ENTRAINEUR = '" + var + "'");
+		r.execRequest(stmt);
+	    break;
+	case(3):
+	    System.out.println("Entrez le prenom :");
+	    var = sc.nextLine();
+	    r = new RequestSQL("select * from ENTRAINEUR where PRENOM_ENTRAINEUR = '" + var + "'");
+		r.execRequest(stmt);
+	    break;
+	case(4):
+	    System.out.println("Entrez l'equipe :");
+	    var = sc.nextLine();
+	    r = new RequestSQL("select * from ENTRAINEUR where NUMERO_ENTRAINEUR = (select NUMERO_ENTRAINEUR from ENTRAINE where NUMERO_EQUIPE = (select  NUMERO_EQUIPE from EQUIPE where NOM_EQUIPE = '" + var + "')); ");
+		r.execRequest(stmt);
+	    break;
+	case(5):
+	    break;
+	}
+    }
+
+    static void findClub(Statement stmt){
+	Scanner sc = new Scanner(System.in);
+	int choix;
+	RequestSQL r;
+	String var;
+
+	System.out.println("Vous voulez trouover un club par: ");
+	System.out.println("1-Numero de club");
+	System.out.println("2-Nom");
+	System.out.println("3-Personne donnee appartenant au club");
+	System.out.println("4-un membre du bureau d'un club : \n");
+	System.out.println("Ou vous souhaitez afficher : ");
+
+	System.out.println("5-Les numeros avec le club correspondant");	
+	System.out.println("6-Les equipes avec le club correspondant");
+	System.out.println("7-Les joueurs et leur club");
+	System.out.println("8-Le score des matchs joues a une date donnee");
+	System.out.println("9-Le nombre de match gagnes, perdus et nuls pour un club");
+	System.out.println("10-Revenir au menu principal");
+
+	choix = sc.nextInt();
+	sc.nextLine();
+
+	switch(choix){
+	case(1):
+	    System.out.println("Entrez le numero de club :");
+	    int numLi = sc.nextInt();
+	    sc.nextLine();
+	    r = new RequestSQL("select * from CLUB where NUMERO_CLUB = " + numLi);
+		r.execRequest(stmt);
+	    break;
+	case(2):
+	    System.out.println("Entrez le nom :");
+	    var = sc.nextLine();
+	    r = new RequestSQL("select * from CLUB where NOM_CLUB = '" + var + "'");
+		r.execRequest(stmt);
+	    break;
+	case(3):
+	    System.out.println("Entrez le prenom :");
+	    var = sc.nextLine();
+	    r = new RequestSQL("select * from CLUB where NUMERO_CLUB = (select NUMERO_CLUB from PERSONNE where NOM_PERSONNE = '" + var + "')");
+		r.execRequest(stmt);
+	    break;
+	case(4):
+	    System.out.println("Entrez le nom d'un club :");
+	    String club = sc.nextLine();
+	    System.out.println("Vous souhaitez chercher :");
+	    System.out.println("1-Le president");
+	    System.out.println("2-Le vice-president");
+	    System.out.println("3-Le tresorier");
+	    System.out.println("4-Le secretaire");
+	    System.out.println("5-Revenir au menu principal");
+	    int reponse = sc.nextInt();
+
+	    switch(reponse){
+		case(1):
+		    r = new RequestSQL("select * from PERSONNE where FONCTION_PERSONNE = 'PRESIDENT' and NUMERO_CLUB = (select NUMERO_CLUB from CLUB where NOM_CLUB = '" + club + "')");
+		r.execRequest(stmt);
+		    break;
+	    case(2):
+		r = new RequestSQL("select * from PERSONNE where FONCTION_PERSONNE = 'VICE-PRESIDENT' and NUMERO_CLUB = (select NUMERO_CLUB from CLUB where NOM_CLUB = '" + club + "')");
+		r.execRequest(stmt);
+		break;
+	    case(3):
+		r = new RequestSQL("select * from PERSONNE where FONCTION_PERSONNE = 'TRESORIER' and NUMERO_CLUB = (select NUMERO_CLUB from CLUB where NOM_CLUB = '" + club + "')");
+		r.execRequest(stmt);
+		break;
+	    case(4):
+		r = new RequestSQL("select * from PERSONNE where FONCTION_PERSONNE = 'SECRETAIRE' and NUMERO_CLUB = (select NUMERO_CLUB from CLUB where NOM_CLUB = '" + club + "')");
+		r.execRequest(stmt);
+		break;
+	    case(5):
+		break;
+	    }
+
+	case(5):
+	    r = new RequestSQL("select club.numero_club as NR, club.nom_club as NOM from club");
+		r.execRequest(stmt);
+	    break;
+	case(6):
+	    r = new RequestSQL("select equipe.numero_equipe, equipe.nom_equipe, club.nom_club, categorie.nom_categorie from equipe, club, categorie where equipe.numero_club = club.numero_club and equipe.numero_categorie = categorie.numero_categorie");
+		r.execRequest(stmt);
+	    break;
+	case(7):
+	    r = new RequestSQL("select joueur.numero_licence, joueur.nom_joueur, joueur.prenom_joueur, equipe.nom_equipe from joueur,equipe where joueur.numero_equipe = equipe.numero_equipe");
+		r.execRequest(stmt);
+	    break;
+
+	case(8):
+	    String date = sc.nextLine();
+	    r = new RequestSQL("select rencontre.score_equipe1_rencontre as Equipe1 , rencontre.score_equipe2_rencontre as Equipe2 from rencontre where rencontre.date_rencontre = '" + date+ "'");
+	    r.execRequest(stmt);
+	    break;
+
+	case(9):
+	    System.out.println();
+
+	    r = new RequestSQL("select count(*) as GAGNER from( (select * from club, equipe, rencontre where equipe.numero_equipe = rencontre.numero_equipe1       and rencontre.score_equipe1_rencontre > rencontre.score_equipe2_rencontre      and equipe.numero_club = club.numero_club      and club.numero_club = 2) union (select * from club, equipe, rencontre where equipe.numero_equipe = rencontre.numero_equipe2      and rencontre.score_equipe2_rencontre > rencontre.score_equipe1_rencontre      and equipe.numero_club = club.numero_club      and club.numero_club = 2))");
+	    System.out.println("Matchs gagner :");
+	    r.execRequest(stmt);
+
+	    r = new RequestSQL("select count(*) as PERDU from((select *from club, equipe, rencontre where equipe.numero_equipe = rencontre.numero_equipe1       and rencontre.score_equipe1_rencontre < rencontre.score_equipe2_rencontre      and equipe.numero_club = club.numero_club      and club.numero_club = 2)union(select *from club, equipe, rencontre where equipe.numero_equipe = rencontre.numero_equipe2      and rencontre.score_equipe2_rencontre < rencontre.score_equipe1_rencontre      and equipe.numero_club = club.numero_club      and club.numero_club = 2))");
+	    System.out.println("Matchs perdus :");
+	    r.execRequest(stmt);
+
+	    r = new RequestSQL("select count(*) as NULS from( (select * from club, equipe, rencontre where equipe.numero_equipe = rencontre.numero_equipe1       and rencontre.score_equipe1_rencontre = rencontre.score_equipe2_rencontre      and equipe.numero_club = club.numero_club      and club.numero_club = 2)union(select *from club, equipe, rencontre where equipe.numero_equipe = rencontre.numero_equipe2      and rencontre.score_equipe2_rencontre = rencontre.score_equipe1_rencontre      and equipe.numero_club = club.numero_club      and club.numero_club = 2) )");
+	    System.out.println("Matchs nuls :");
+	    r.execRequest(stmt);
+
+	    break;
+	}
+    }
+
+
+    static void findTeam(Statement stmt){
+	Scanner sc = new Scanner(System.in);
+	int choix;
+	RequestSQL r;
+	String var;
+
+	System.out.println("Vous voulez trouver par : ");
+	System.out.println("1-Numero d'equipe");
+	System.out.println("2-Nom");
+	System.out.println("3-Joueur donnee appartenant a l'equipe");
+	System.out.println("3-Entraineur");
+	System.out.println("5-Pour une categorie donnee");
+	System.out.println("6-Revenir au menu principal");
+
+	choix = sc.nextInt();
+	sc.nextLine();
+
+	switch(choix){
+	case(1):
+	    System.out.println("Entrez le numero de l'equipe :");
+	    int numLi = sc.nextInt();
+	    sc.nextLine();
+	    r = new RequestSQL("select * from EQUIPE where NUMERO_EQUIPE = " + numLi);
+		r.execRequest(stmt);
+	    break;
+	case(2):
+	    System.out.println("Entrez le nom :");
+	    var = sc.nextLine();
+	    r = new RequestSQL("select * from EQUIPE where NOM_EQUIPE = '" + var + "'");
+		r.execRequest(stmt);
+	    break;
+	case(3):
+	    System.out.println("Entrez le nom d'un joueur :");
+	    var = sc.nextLine();
+	    r = new RequestSQL("select * from EQUIPE where NUMERO_EQUIPE = (select NUMERO_EQUIPE from JOUEUR where NOM_JOUEUR = '" + var + "'");
+		r.execRequest(stmt);
+	    break;
+	case(4):
+	    System.out.println("Entrez le nom d'un entraineur :");
+	    var = sc.nextLine();
+	    r = new RequestSQL("select * from EQUIPE where NUMERO_EQUIPE = (select NUMERO_EQUIPE from ENTRAINE where NUMERO_ENTRAINEUR = (select NUMERO_ENTRAINEUR from ENTRAINEUR where NOM_ENTRAINEUR = '" + var + "')");
+		r.execRequest(stmt);
+	    break;
+	case(5):
+	    System.out.println("Entrez le nom d'une categorie(poussin, cadet ou junior :");
+	    var = sc.nextLine();
+	    r = new RequestSQL("select NOM_EQUIPE from EQUIPE where NUMERO_CATEGORIE = (select NUMERO_CATEGORIE from CATEGORIE where NOM_CATEGORIE = '" + var + "')");
+		r.execRequest(stmt);
+	    break;
+	case(6):
+	    break;
+	}
+    }
+
+
+    static void findMatch(Statement stmt){
+	Scanner sc = new Scanner(System.in);
+	int choix;
+	RequestSQL r;
+	String var;
+
+	System.out.println("Vous voulez trouver : ");
+	System.out.println("1-Les dates des rencontres auquelle a pris part un joueur donnee");
+	System.out.println("2-Revenir au menu principal");
+
+	choix = sc.nextInt();
+	sc.nextLine();
+
+	switch(choix){
+	case(1):
+	    System.out.println("Entrez le numero de l'equipe :");
+	    var = sc.nextLine();
+	    sc.nextLine();
+	    r = new RequestSQL("select DATE_RENCONTRE from RENCONTRE where NUMERO_RENCONTRE in (select NUMERO_RENCONTRE from PARTICIPE where NUMERO_LICENCE = (select NUMERO_LICENCE from JOUEUR where NOM_JOUEUR = '" + var + "'))");
+		r.execRequest(stmt);
+	    break;
+	case(2):
+	    break;
+	}
+    }
+
 }
+

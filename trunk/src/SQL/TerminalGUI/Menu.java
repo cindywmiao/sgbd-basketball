@@ -88,10 +88,10 @@ class Menu{
 		break;
 
 	    case(8):
-		System.out.println("Rentrez la date de debut de la saison format dd-MMM-aa(par exemple 21-FEB-87)");
-		date = sc.nextLine();
+		System.out.println("Rentrez l'annee qui vous interesse au format aa(par '87')");
+		int annee = sc.nextInt();
 
-		r = new RequestSQL("select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS from joueur, participe, rencontre where rencontre.date_rencontre > '" +date+ "' and rencontre.numero_rencontre = participe.numero_rencontre");
+		r = new RequestSQL("select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS from joueur, participe, rencontre where rencontre.date_rencontre > '01-JAN-" + annee + "' and rencontre.numero_rencontre = participe.numero_rencontre");
 		r.execRequest(stmt);
 		break;
 
@@ -268,6 +268,9 @@ class Menu{
     static void deleteInTable(Statement stmt){
 
 	RequestSQL r;
+	RequestSQL r2;
+	int max;
+
 	Scanner sc = new Scanner(System.in);
 	System.out.println("Dans quelle table souhaitez vous faire une suppression?");
 	System.out.println("1-Club ");
@@ -280,7 +283,10 @@ class Menu{
 	switch(choix){
 
 	case(1):
-	    System.out.println("Entrez le numero du club que vous voulez supprimer :");
+	    r2 = new RequestSQL("select max(NUMERO_CLUB) from club");
+	    max = r2.recup(stmt);
+
+	    System.out.println("Entrez le numero du club que vous voulez supprimer(inferieur a " + max + " :");
 	    int numclub = sc.nextInt();
 	    sc.nextLine();
 	    r = new RequestSQL("delete from CLUB where CLUB.numero_CLUB = "+ numclub);
@@ -288,14 +294,18 @@ class Menu{
 	    break;
 
 	case(2):
-	    System.out.println("Entrez le numero de licence du joueur que vous voulez supprimer :");
+	    r2 = new RequestSQL("select max(NUMERO_LICENCE) from joueur");
+	    max = r2.recup(stmt);
+	    System.out.println("Entrez le numero de licence du joueur que vous voulez supprimer(superieur a : " + max + " :");
 	    int numLi = sc.nextInt();
 	    sc.nextLine();
 	    r = new RequestSQL("delete from joueur where joueur.numero_licence = "+ numLi);
 	    r.execUp(stmt);
 	    break;
 	case(3):
-	    System.out.println("Entrez le numero du match que vous voulez supprimer :");
+		RequestSQL req = new RequestSQL("select max(NUMERO_RENCONTRE) from rencontre");
+		max = req.recup(stmt);
+	    System.out.println("Entrez le numero du match que vous voulez supprimer(inferieur a " + max + " :");
 	    int numMatch = sc.nextInt();
 	    sc.nextLine();
 	    r = new RequestSQL("delete from RENCONTRE where RENCONTRE.numero_rencontre = "+ numMatch);
@@ -312,6 +322,9 @@ class Menu{
 	static void modifyInTable(Statement stmt){
 
 	    RequestSQL r;
+	    RequestSQL r2;
+	    int max;
+
 	    Scanner sc = new Scanner(System.in);
 	    System.out.println("Dans quelle table souhaitez vous faire une modification?");
 	    System.out.println("1-Club ");
@@ -324,7 +337,9 @@ class Menu{
 	    switch(choix){
 
 	    case(1):
-		System.out.println("Entrez le numero du club que vous voulez modifier :");
+		r2 = new RequestSQL("select max(NUMERO_CLUB) from club");
+		max = r2.recup(stmt);
+		System.out.println("Entrez le numero du club que vous voulez modifier(inferieur a " + max + " :");
 		int numclub = sc.nextInt();
 		sc.nextLine();
 		System.out.println("Entrez nouveau nom du club :");
@@ -334,7 +349,10 @@ class Menu{
 		break;
 
 	    case(2):
-		System.out.println("Entrez le numero de licence du joueur que vous voulez modifier :");
+		r2 = new RequestSQL("select max(NUMERO_JOUEUR) from joueur");
+		max = r2.recup(stmt);
+		System.out.println("Entrez le numero du joueur que vous voulez modifier(inferieur a " + max + " :");
+
 		int numLi = sc.nextInt();
 		sc.nextLine();
 		System.out.println("Entrez nouveau nom du joueur :");
@@ -343,7 +361,9 @@ class Menu{
 		r.execUp(stmt);
 		break;
 	    case(3):
-		System.out.println("Entrez le numero du match que vous voulez modifier:");
+		r2 = new RequestSQL("select max(NUMERO_MATCH) from match");
+		max = r2.recup(stmt);
+		System.out.println("Entrez le numero du match que vous voulez modifier(inferieur a " + max + " :");
 		int numMatch = sc.nextInt();
 		sc.nextLine();
 		System.out.println("Entrez nouveau score de l'equipe 1 :");
@@ -485,7 +505,7 @@ class Menu{
 	RequestSQL r;
 	String var;
 
-	System.out.println("Vous voulez trouover un club par: ");
+	System.out.println("\nVous voulez trouver un club par: ");
 	System.out.println("1-Numero de club");
 	System.out.println("2-Nom");
 	System.out.println("3-Personne donnee appartenant au club");
@@ -497,7 +517,7 @@ class Menu{
 	System.out.println("7-Les joueurs et leur club");
 	System.out.println("8-Le score des matchs joues a une date donnee");
 	System.out.println("9-Le nombre de match gagnes, perdus et nuls pour un club");
-	System.out.println("10-Revenir au menu principal");
+	System.out.println("\n10-Revenir au menu principal");
 
 	choix = sc.nextInt();
 	sc.nextLine();
@@ -568,8 +588,9 @@ class Menu{
 	    break;
 
 	case(8):
+	    System.out.println("Veuillez donner la date qui vous interesse au format jj-moi-aa(par exemple 21-FEB-12) : ");
 	    String date = sc.nextLine();
-	    r = new RequestSQL("select rencontre.score_equipe1_rencontre as Equipe1 , rencontre.score_equipe2_rencontre as Equipe2 from rencontre where rencontre.date_rencontre = '" + date+ "'");
+	    r = new RequestSQL("select rencontre.score_equipe1_rencontre as Equipe1 , rencontre.score_equipe2_rencontre as Equipe2 from rencontre where rencontre.date_rencontre = '" + date + "'");
 	    r.execRequest(stmt);
 	    break;
 
@@ -637,12 +658,13 @@ class Menu{
 		r.execRequest(stmt);
 	    break;
 	case(5):
-		do{System.out.println("Entrez le nom d'une categorie(POUSSIN, CADET ou JUNIOR) :");
+		do{
+		    System.out.println("Entrez le nom d'une categorie(POUSSIN, CADET ou JUNIOR) :");
 		    var = sc.nextLine();
 		    r = new RequestSQL("select NOM_EQUIPE from EQUIPE where NUMERO_CATEGORIE = (select NUMERO_CATEGORIE from CATEGORIE where NOM_CATEGORIE = '" + var + "')");
 		    if(!(var.equals("POUSSIN") || var.equals("CADET") || var.equals("JUNIOR")))
-			System.out.println("Le nom de categorie rentre n'est pas valide. Attention a repecter la casse.")
-		} while(!(var.equals("POUSSIN") || var.equals("CADET") || var.equals("JUNIOR")));
+			System.out.println("Le nom de categorie rentre n'est pas valide. Attention a respecter la casse.");
+		}while(!(var.equals("POUSSIN") || var.equals("CADET") || var.equals("JUNIOR")));
 		    r.execRequest(stmt);
 	    break;
 	case(6):

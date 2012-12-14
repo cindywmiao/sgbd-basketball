@@ -56,7 +56,7 @@
 \section*{Introduction}
 
 
-Afin de garder les information sur ses membres et sur son foncionnement, un club sportif peut être amener à utiliser une base de données. Ce projet consite en l'implémentation d'une base de données pour un club de basket-ball gérant les rencontres entre les différents clubs d'une fédération. \\
+Afin de garder les information sur ses membres et sur son fonctionnement, un club sportif peut être amener à utiliser une base de données. Ce projet consiste en l'implémentation d'une base de données pour un club de basket-ball gérant les rencontres entre les différents clubs d'une fédération. \\
 
 Dans ce rapport, il sera question, en premier temps, de présenter le modèle conceptuel utilisé pour la modélisation des données, puis le modèle relationnel en $3^{eme}$ forme normale. Ensuite, l'implémentation de la base en MySQL ainsi que la justification de notre choix. Enfin, l'environnement d'exécution avec un apercu de l'interface graphique concue pour accéder à la base. 
 
@@ -442,12 +442,12 @@ from equipe, club, categorie
 where equipe.numero_club = club.numero_club and equipe.numero_categorie = categorie.numero_categorie;
 \end{verbatim}
 
-L'exemple qui suit permet de consulter les scores des matchs joués à une date donnée : \\
+L'exemple qui suit permet de consulter les scores des matchs joués à la date du 21 février 2012 : \\
 
 \begin{verbatim}
 select rencontre.score_equipe1_rencontre as Equipe1 , rencontre.score_equipe2_rencontre as Equipe2
 from rencontre
-where rencontre.date_rencontre = '21-FEB-87'; 
+where rencontre.date_rencontre = '21-FEB-12'; 
 \end{verbatim}
 
 L'utilisateur peut également consulter le nombre de matchs gagnés, perdus et nuls pour un club donné.
@@ -532,6 +532,7 @@ La commande suivante permet de consulter la moyenne des points marqués depuis l
 select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS
 from joueur, participe, rencontre
 where rencontre.date_rencontre > '01-JAN-01'
+and rencontre.date_rencontre < '31-DEC-01'
       and rencontre.numero_rencontre = participe.numero_rencontre;
 \end{verbatim}
 
@@ -549,6 +550,8 @@ group by joueur.numero_licence
 order by score DESC;
 \end{verbatim}
 
+
+Comme le critère du classement des équipes n'a pas été précisé, nous avons classifié, au début, les équipes en fonction du cumul des scores obtenus dans les rencontres auxquelles ils ont participé. \\
 L'exemple qui suit nous permet d'avoir le classement des équipes en fonctions de leurs scores durant les rencontres auxquelles elles avaient participé: \\
 
 \begin{verbatim}
@@ -566,9 +569,45 @@ order by Score DESC)
 where equipe.numero_equipe = num_equipe;
 \end{verbatim}
 
+Ensuite, nous avons eu l'idée de les classer en fonction du total des points, ce qui est plus compliqué. En effet, c'est le principe utilisé en football : pour un match gagné, l'équipe obtient 3 points, pour un match nul, 1 point et pour un match perdu, elle n'obtient aucun point.  \\
+Voici la commande SQL utilisée pour avoir le classement : \\
+
+\begin{verbatim}
+select nom_club as club ,nom_equipe as equipe , sum(points) as total
+from equipe E, club C,
+((select numero_equipe1 as num_equipe , sum(case
+when score_equipe1_rencontre > score_equipe2_rencontre 
+then 3
+when score_equipe1_rencontre = score_equipe2_rencontre 
+then 1
+when score_equipe1_rencontre < score_equipe2_rencontre
+then 0
+end) as points
+from rencontre
+group by numero_equipe1)
+union
+(select numero_equipe2 as num_equipe , sum(case
+when score_equipe2_rencontre > score_equipe1_rencontre 
+then 3
+when score_equipe2_rencontre = score_equipe1_rencontre 
+then 1
+when score_equipe2_rencontre < score_equipe1_rencontre
+then 0
+end) as points
+from rencontre
+group by numero_equipe2))
+where E.numero_equipe = num_equipe
+and E.numero_club = C.numero_club
+group by nom_equipe, nom_club
+order by total desc;
+\end{verbatim}
+
+
 \newpage
 \section{Environnement d'exécution}
-\subsection{Environnement graphique}
+\subsection{Environnement graphique
+.}
+
 Pour établir l'interface graphique de base des données, nous avons utilisé JDBC avec les bibliothèques JFrame, JPanel, JButton, JTable etc. L'interface s'organise en cinq zones principales: le titre, les options, le tableau, les statistiques, et la mise à jour. Pour chaque partie, nous avons utilisé un objet JPanel pour organiser les postions des différentes parties dans l'interface. \\
 
 Dans la zone des options, il est possible de sélectionner un bouton. Chaque bouton retourne un tableau de données different, par exemple, quand nous cliquons sur le bouton "Joueur", et il envoie une commande "select * from JOUEUR" et affiche les toutes informations sur les joueurs. \\
@@ -611,10 +650,12 @@ La dernière zone est dédiée pour mettre à jour des données. Nous pourrons a
 
 Après avoir conçu l'interface graphique, nous n'avons pas réussi à afficher la fenêtre tout en se connectant à Oracle. Nous avons quand même gardé l'interface graphique mais nous nous sommes intéressés par la suite à un affichage dans le terminal, puisqu'il n'est pas obligatoire de réaliser une interface et que le but de ce projet est de mettre en pratique les connaissances acquises au cours des séances de cours et de TD de SGBD. 
 
+\newpage
 \subsection{Environnement terminal}
 
 Cependant nous n'avons pas pu tester l'éxecution de ces requêtes dans oracle. Nous avons donc implémenté une deuxième interface.\\
-Celle-ci est dans le terminal et se présente sous forme d'un questionnaire à choix multiples. On peut ainsi réupérer des informations ou modifier les tables. Le schema ??? montre le menu principal.\\
+Celle-ci est dans le terminal et se présente sous forme d'un questionnaire à choix multiples. On peut ainsi réupérer des informations ou modifier les tables. Le schema suivant montre le menu principal.\\
+
 \begin{figure}[h!]
 \begin{narrow}{-0.3in}{0in}
 \includegraphics[scale = 0.3]{TerGUI.png}
@@ -631,9 +672,9 @@ Lorsque c'est necessaire, l'utilisateur peut choisir l'entité concerné par sa 
 
 En outre, la plupart du temps une option est proposer à l'utilisateur afin de revnir en arrière dans ses choix si jamais il s'est trompé.\\
 
-Au final cette interface offre toutes les fonctionnalités de l'interface graphiques.
+Au final cette interface offre toutes les fonctionnalités de l'interface graphiques. \\
 
-\newpage
+
 \section*{Conclusion}
 Au cours de ce projet, nous avons pu mettre en oeuvre les connaissances acquises au cours des séances de cours et de TD en vue de la création d'une base de données se voulant aussi proche de la réalité que possible. \\
 

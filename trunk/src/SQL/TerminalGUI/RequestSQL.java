@@ -37,6 +37,7 @@ public class RequestSQL {
 	}catch(Exception e){
 	    System.out.println("Erreur a l'execution d'une requete :" + e.getMessage());
 	}
+
 	    return rset;
     }
 
@@ -74,10 +75,15 @@ public class RequestSQL {
     }
     void execUp(Statement stmt) {
 	// Execution de la commande de modification de la table.
+	boolean error = false;
 	try{
 	    stmt.executeUpdate(requestText);
 	}catch(Exception e){
 	    System.out.println("Erreur execution d'un update : "+ e.getMessage());
+	    error = true;
+	}
+	if(error == false){
+	    System.out.println("La mise a jour s'est bien passee");
 	}
     }
 

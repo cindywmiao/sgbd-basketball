@@ -1,9 +1,9 @@
 -- Commande 1 --
 -- Moyenne des points marqués par rencontre à une date donnée
 -- Input : date_rencontre (type date)
-select avg(participe.cumul_points_marques_joueur) as moyenne des points
+select avg(participe.cumul_points_marques_joueur) as moyenne
 from participe, rencontre
-where rencontre.date_rencontre = '21-FEB-87'
+where rencontre.date_rencontre = '21-FEB-12'
       and rencontre.numero_rencontre = participe.numero_rencontre;
 
 -- Commande 2 --
@@ -11,7 +11,8 @@ where rencontre.date_rencontre = '21-FEB-87'
 -- Input : date de début de la saison
 select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS
 from joueur, participe, rencontre
-where rencontre.date_rencontre > '01-JAN-06'
+where rencontre.date_rencontre > '01-JAN-07'
+and rencontre.date_rencontre < '31-DEC-07'
       and rencontre.numero_rencontre = participe.numero_rencontre;
 
 -- Commande 3 --

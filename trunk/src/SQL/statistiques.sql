@@ -31,7 +31,7 @@ order by score DESC;
 
 -- Commande 4 --
 -- Classement des équipes --
-
+-- INPUT = Categorie --
 
 --Premiere methode : classement par cumul de score--
 select num_equipe, nom_equipe, score
@@ -47,7 +47,7 @@ group by NUM_EQUIPE
 order by Score DESC)
 where equipe.numero_equipe = num_equipe
 and equipe.numero_categorie = 1;
-
+ 
 --Deuxieme methode : classement pas total des points :
 -------- un match gagne --> 3 points
 -------- un match nul   --> 1 point

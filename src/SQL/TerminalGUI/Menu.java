@@ -24,19 +24,16 @@ class Menu{
 	    System.out.println("5-Categorie ");
 	    System.out.println("6-Entraineur \n");
 
-	    System.out.println("7-Moyenne des points marques par rencontre");
-	    System.out.println("8-Moyenne des points marques depuis le debut de la saison");
-	    System.out.println("9-Classement des meilleurs joueurs par categorie");
-	    System.out.println("10-Classement des equipes par cumul des scores");
-	    System.out.println("11-Classement des equipes par classement total des points.(1 match gagne = 3pts, un match nul = 1pts, un match perdu = 0pts)\n");
+ 	    System.out.println("7-Statistiques\n");
+
 	
-	    System.out.println("12-Mettre a jour\n");
+	    System.out.println("8-Mettre a jour\n");
 
-	    System.out.println("13-Chercher une information precise dans la table\n");
+	    System.out.println("9-Chercher une information precise dans la table\n");
 	    
-	    System.out.println("14-Utiliser une requete personnelle\n");
+	    System.out.println("10-Utiliser une requete personnelle\n");
 
-	    System.out.println("15-Quitter\n");
+	    System.out.println("11-Quitter\n");
 
 	    b = Menu.commande(stmt);
 	
@@ -48,8 +45,6 @@ class Menu{
 	Scanner sc = new Scanner(System.in);
 	String date;
 	RequestSQL r;
-	int cat = 0;
-	String categorie = "";
 
 	int reponse = sc.nextInt();
 	sc.nextLine();
@@ -80,58 +75,12 @@ class Menu{
 		r = new RequestSQL("select * from entraineur");
 		r.execRequest(stmt);
 		break;
+
 	    case(7):
-		System.out.println("Rentrez une date au format dd-MMM-aa(par exemple 21-FEB-12)");
-		date = sc.nextLine();
-		r = new RequestSQL("select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS from participe, rencontre where rencontre.date_rencontre = '" + date + "' and rencontre.numero_rencontre = participe.numero_rencontre");
-		r.execRequest(stmt);
+		Menu.statistiques(stmt);
 		break;
 
 	    case(8):
-		System.out.println("Rentrez l'annee qui vous interesse au format aa(par exemple '12' pour 2012)");
-		int annee = sc.nextInt();
-		sc.nextLine();
-		r = new RequestSQL("select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS from joueur, participe, rencontre where rencontre.date_rencontre > '01-JAN-" + annee + "' and rencontre.numero_rencontre = participe.numero_rencontre");
-		r.execRequest(stmt);
-		break;
-	    case(9):
-		while(cat == 0){
-		    System.out.println("Rentrez l'une des categorie suivante : CADET, BENJAMIN, JUNIOR");
-		    categorie = sc.nextLine();
-		    if (categorie.equals("cadet"))
-			cat = 1;
-		    else if(categorie.equalsIgnoreCase("benjamin"))
-			cat = 2;
-		    else if(categorie.equalsIgnoreCase("junior"))
-			cat = 3;
-		    else{
-			System.out.println("La categorie choisi est invalide. Si vous ne souhaitez pas choisir une categorie taper 'q' sinon tapez entree");
-			if (sc.nextLine().equalsIgnoreCase("q"))
-			    break;
-		    }
-		}
-
-		System.out.println("Rentrez la date de debut de la saison format dd-MMM-aa(par exemple 21-FEB-12)");
-		date = sc.nextLine();
-
-		r = new RequestSQL("select joueur.numero_licence, sum(participe.cumul_points_marques_joueur) as SCORE from joueur, participe, rencontre, equipe where equipe.numero_categorie = "+ cat +" and rencontre.date_rencontre = '"+ date +"' and equipe.numero_equipe = joueur.numero_equipe and joueur.numero_licence = participe.numero_licence and participe.numero_rencontre = rencontre.numero_rencontre group by joueur.numero_licence order by score DESC");
-		r.execRequest(stmt);
-		break;
-
-
-	    case(10):
-		r = new RequestSQL("select num_equipe, nom_equipe, score from equipe,(select num_equipe, sum(score) as Score from( (select rencontre.numero_equipe1 as NUM_EQUIPE , rencontre.score_equipe1_rencontre as SCORE from rencontre) union (select rencontre.numero_equipe2 as NUM_EQUIPE , rencontre.score_equipe2_rencontre as SCORE from rencontre)) group by NUM_EQUIPE order by Score DESC) where equipe.numero_equipe = num_equipe and equipe.numero_categorie = 1");
-
-		r.execRequest(stmt);
-		break;
-
-	    case(11):
-		r = new RequestSQL("select nom_club as club ,nom_equipe as equipe , sum(points) as total from equipe E, club C, ((select numero_equipe1 as num_equipe , sum(case when score_equipe1_rencontre > score_equipe2_rencontre then 3 when score_equipe1_rencontre = score_equipe2_rencontre then 1 when score_equipe1_rencontre < score_equipe2_rencontre then 0 end) as points from rencontre group by numero_equipe1) union (select numero_equipe2 as num_equipe , sum(case when score_equipe2_rencontre > score_equipe1_rencontre then 3 when score_equipe2_rencontre = score_equipe1_rencontre then 1 when score_equipe2_rencontre < score_equipe1_rencontre then 0 end) as points from rencontre group by numero_equipe2)) where E.numero_equipe = num_equipe and E.numero_club = C.numero_club and E.numero_categorie = 1 group by nom_equipe, nom_club order by total desc");
-
-		r.execRequest(stmt);
-		break;
-
-	    case(12):
 		System.out.println("Quelle operation souhaitez vous effecter?");
 		System.out.println("1-Ajout ");
 		System.out.println("2-Suppression ");
@@ -157,16 +106,16 @@ class Menu{
 		    break;
 		}
 		break;
-	    case(13):
+	    case(9):
 		Menu.findSth(stmt);
 		break;
-	    case(14):
+	    case(10):
 		System.out.println("Entrez votre requete sans ';'");
 		String text = sc.nextLine();
 		r = new RequestSQL(text);
 		r.execRequest(stmt);
 		break;
-	    case(15):
+	    case(11):
 		return false;
 		
 	    default:
@@ -181,6 +130,107 @@ class Menu{
 	}
 
 	return true;
+    }
+
+    static void statistiques(Statement stmt){
+	RequestSQL r;
+	String date;
+	Scanner sc = new Scanner(System.in);
+	int cat = 0, choix;
+	String categorie = "";
+
+	System.out.println("Sleectionnez les statistiques que vous voulez afficher : ");
+	System.out.println("1-Moyenne des points marques par rencontre");
+	System.out.println("2-Moyenne des points marques depuis le debut de la saison");
+	System.out.println("3-Classement des meilleurs joueurs par categorie");
+	System.out.println("4-Classement des equipes par cumul des scores");
+	System.out.println("5-Classement des equipes par classement total des points.(1 match gagne = 3pts, un match nul = 1pts, un match perdu = 0pts)\n");
+	System.out.println("6-Revenir au menu principal");
+
+	choix = sc.nextInt();
+	sc.nextLine();
+
+	switch(choix){
+	case(1):
+	    System.out.println("Rentrez une date au format dd-MMM-aa(par exemple 21-FEB-12)");
+	    date = sc.nextLine();
+	    r = new RequestSQL("select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS from participe, rencontre where rencontre.date_rencontre = '" + date + "' and rencontre.numero_rencontre = participe.numero_rencontre");
+	    r.execRequest(stmt);
+	    break;
+	case(2):
+	    System.out.println("Rentrez l'annee qui vous interesse au format aa(par exemple '12' pour 2012)");
+	    int annee = sc.nextInt();
+	    sc.nextLine();
+	    r = new RequestSQL("select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS from joueur, participe, rencontre where rencontre.date_rencontre > '01-JAN-" + annee + "' and rencontre.numero_rencontre = participe.numero_rencontre");
+	    r.execRequest(stmt);
+	    break;
+	case(3):
+	    while(cat == 0){
+		System.out.println("Rentrez l'une des categorie suivante : CADET, BENJAMIN, JUNIOR");
+		categorie = sc.nextLine();
+		if (categorie.equals("cadet"))
+		    cat = 1;
+		else if(categorie.equalsIgnoreCase("benjamin"))
+		    cat = 2;
+		else if(categorie.equalsIgnoreCase("junior"))
+		    cat = 3;
+		else{
+		    System.out.println("La categorie choisi est invalide. Si vous ne souhaitez pas choisir une categorie taper 'q' sinon tapez entree");
+		    if (sc.nextLine().equalsIgnoreCase("q"))
+			break;
+		}
+	    }
+	    System.out.println("Rentrez la date de debut de la saison format dd-MMM-aa(par exemple 21-FEB-12)");
+	    date = sc.nextLine();
+	    r = new RequestSQL("select joueur.numero_licence, sum(participe.cumul_points_marques_joueur) as SCORE from joueur, participe, rencontre, equipe where equipe.numero_categorie = "+ cat +" and rencontre.date_rencontre = '"+ date +"' and equipe.numero_equipe = joueur.numero_equipe and joueur.numero_licence = participe.numero_licence and participe.numero_rencontre = rencontre.numero_rencontre group by joueur.numero_licence order by score DESC");
+	    r.execRequest(stmt);
+	    break;
+
+	case(4):
+	    while(cat == 0){
+		System.out.println("Rentrez l'une des categorie suivante : CADET, BENJAMIN, JUNIOR");
+		categorie = sc.nextLine();
+		if (categorie.equals("cadet"))
+		    cat = 1;
+		else if(categorie.equalsIgnoreCase("benjamin"))
+		    cat = 2;
+		else if(categorie.equalsIgnoreCase("junior"))
+		    cat = 3;
+		else{
+		    System.out.println("La categorie choisi est invalide. Si vous ne souhaitez pas choisir une categorie taper 'q' sinon tapez entree");
+		    if (sc.nextLine().equalsIgnoreCase("q"))
+			break;
+		}
+	    }
+	    r = new RequestSQL("select num_equipe, nom_equipe, score from equipe,(select num_equipe, sum(score) as Score from( (select rencontre.numero_equipe1 as NUM_EQUIPE , rencontre.score_equipe1_rencontre as SCORE from rencontre) union (select rencontre.numero_equipe2 as NUM_EQUIPE , rencontre.score_equipe2_rencontre as SCORE from rencontre)) group by NUM_EQUIPE order by Score DESC) where equipe.numero_equipe = num_equipe and equipe.numero_categorie = "+ cat +"");
+
+	    r.execRequest(stmt);
+	    break;
+
+	case(5):
+	    while(cat == 0){
+		System.out.println("Rentrez l'une des categorie suivante : CADET, BENJAMIN, JUNIOR");
+		categorie = sc.nextLine();
+		if (categorie.equals("cadet"))
+		    cat = 1;
+		else if(categorie.equalsIgnoreCase("benjamin"))
+		    cat = 2;
+		else if(categorie.equalsIgnoreCase("junior"))
+		    cat = 3;
+		else{
+		    System.out.println("La categorie choisi est invalide. Si vous ne souhaitez pas choisir une categorie taper 'q' sinon tapez entree");
+		    if (sc.nextLine().equalsIgnoreCase("q"))
+			break;
+		}
+	    }
+	    r = new RequestSQL("select nom_club as club ,nom_equipe as equipe , sum(points) as total from equipe E, club C, ((select numero_equipe1 as num_equipe , sum(case when score_equipe1_rencontre > score_equipe2_rencontre then 3 when score_equipe1_rencontre = score_equipe2_rencontre then 1 when score_equipe1_rencontre < score_equipe2_rencontre then 0 end) as points from rencontre group by numero_equipe1) union (select numero_equipe2 as num_equipe , sum(case when score_equipe2_rencontre > score_equipe1_rencontre then 3 when score_equipe2_rencontre = score_equipe1_rencontre then 1 when score_equipe2_rencontre < score_equipe1_rencontre then 0 end) as points from rencontre group by numero_equipe2)) where E.numero_equipe = num_equipe and E.numero_club = C.numero_club and E.numero_categorie = "+ cat +" group by nom_equipe, nom_club order by total desc");
+
+	    r.execRequest(stmt);
+	    break;
+	case(6):
+	    break;
+	}
+
     }
 
     static void addInTable(Statement stmt){

@@ -612,7 +612,7 @@ Dans la zone des options, il est possible de sélectionner un bouton. Chaque bou
 \end{figure}
 
  \newpage
-Pour la zone des statistiques, nous avons proposé quarte méthodes, et avons consacré un bouton pour chaque méthode. Quand nous appuions sur un bouton de statistique, il affiche une nouvelle fenêtre, dans laquelle nous pourrons remplir les conditions de recherche. Pour valider la requête, il suffit de cliquer sur le bouton "Find". Cela permet d'envoyer une commande et de construire un nouveau tableau. Quand on selectionne le Bouton "Clear", les chiffres que nous avons rentrés seront supprimés. Quand on selectionne le Bouton "Cancel", on rentoure à la fenêtre principale, et aucune commande n'est exécutée. \\
+Pour la zone des statistiques, nous avons proposé cinq méthodes, et avons consacré un bouton pour chaque méthode. Quand nous appuyons sur un bouton de statistique, il affiche une nouvelle fenêtre, dans laquelle nous pourrons remplir les conditions de recherche. Pour valider la requête, il suffit de cliquer sur le bouton "Find". Cela permet d'envoyer une commande et de construire un nouveau tableau. Quand on selectionne le Bouton "Clear", les chiffres que nous avons rentrés seront supprimés. Quand on selectionne le Bouton "Cancel", on rentoure à la fenêtre principale, et aucune commande n'est exécutée. \\
  
 \begin{figure}[!h]
 \centering
@@ -646,35 +646,36 @@ Après avoir conçu l'interface graphique, nous n'avons pas réussi à afficher 
 \newpage
 \subsection{Environnement terminal}
 
-Notre deuxième interface est directement dans le terminal et se présente sous forme d'un questionnaire à choix multiples. On peut ainsi réupérer des informations ou modifier les tables. Le schéma suivant montre le menu principal :\\
+Notre deuxième interface s'affiche directement dans le terminal et se présente sous forme d'un questionnaire à choix multiples. On peut ainsi récupérer des informations ou modifier les tables. La figure 7 montre le menu principal.\\
 
-\begin{figure}[h!]
+\begin{figure}[h]
 \begin{narrow}{-0.3in}{0in}
-\includegraphics[scale = 0.3]{TerGUI.png}
+\includegraphics[scale = 0.7]{TerGUI.png}
 \caption{Capture d'écran du menu principal}
 \end{narrow}
 \end{figure}
 
 
 
-Les premiers onglets permettent de visualiser les différentes tables. Ceux-ci n'ont pas été mis dans la section ``chercher des information précise'' car on a souvent besoin de les consulter afin de vérifier par exemple l'effet d'une requête sur une table.\\
+Les premiers onglets permettent de visualiser les différentes tables. La commande 7 concernent les statistiques que l'on peut faire grâce à notre base de données. La 8 permet de de modifier la table et la 9 de chercher des informations en particulier sur les tables(par exemple les information sur un club en particulier). Enfin, le choix 10 permet d'exécuter sa propre requête sur les tables.\\
 
 De plus, nous avons fait un certain nombre de requêtes de consultation spéciales sur la table club(comme par exemple l'affichage de 2 colonnes seulement ou encore le ``nombre de match gagnés, perdus ou nuls'' par club. Celles-ci sont donc dans l'onglet : ``chercher une information précise'' -> club.\\
-Lorsque c'est necessaire, l'utilisateur peut choisir l'entité concernée par sa requête(comme une date ou un club).\\
+Lorsque c'est necessaire, l'utilisateur peut donner les informations que necessitées par sa requête(comme une date ou un nom de club).\\
 
-En outre, la plupart du temps une option est proposée à l'utilisateur afin de revenir en arrière dans ses choix si jamais il s'est trompé.\\
+En outre, une option est proposée à l'utilisateur afin de revenir en arrière dans ses choix si jamais il s'est trompé.\\
+Comme la précedente interface, celle-ci est codé en jdbc. Elle utilise 3 classes afin de fonctionner : \texttt{Menu, RequestSQL et Lancer}. LaNcer contient le ``main'' du programme. Il initialise une connexion avec oracle puis charge le menu principal. Ensuite, Menu s'occupe de la navigation dans les différents onglets. Enfin RequestSQL permet de charger et de lancer les différentes requêtes. La gestion d'erreur de JDBC à proprement dit est aussi contenu dans cette classe. Il suffirait d'inclure cette classe à notre environnement graphique et d'écrire le code d'une requête pour pouvoir l'executer. Cependant, sa compilation necessite l'usage d'oracle.\\
 
-Au final cette interface offre toutes les fonctionnalités de l'interface graphique. \\
+Au final cette interface offre toutes les fonctionnalités de l'interface graphique dans un terminal. \\
 
 
 \section*{Conclusion}
 Au cours de ce projet, nous avons pu mettre en oeuvre les connaissances acquises au cours des séances de cours et de TD en vue de la création d'une base de données se voulant aussi proche de la réalité que possible. \\
 
-Ce sujet, qui à première vue semblait simple, s'est avéré plus difficile qu'il n'y paraissait -. En effet, les liens entre associations et entités semblaient être évidents, sont apparus plus compliqués, car il fallait tenir compte des redondances dans la base de données, qu'il faut éviter le plus souvent possible. La majeure partie du temps que nous avons consacré dans le projet a été dans le but d'établir la modélisation des données.  \\
+Ce sujet, qui à première vue semblait simple, s'est avéré plus difficile qu'il n'y paraissait -. En effet, des liens entre associations et entités qui semblaient être évidents, sont apparus plus compliqués, car il fallait tenir compte des redondances dans la base de données, qu'il faut éviter le plus souvent possible. La majeure partie du temps que nous avons consacré dans le projet a été dans le but d'établir la modélisation des données.  \\
 
 Outre la mise en pratique des connaissances en SGBD, ce projet nous a permis de découvrir comment réaliser une interface graphique en java. \\
 
-en somme, ce projet nous a permis de mieux comprendre la complexité qu'engendre la gestion des bases de données : ses buts, ses problèmes et ses difficultés. 
+En somme, ce projet nous a permis de mieux comprendre la complexité qu'engendre la gestion des bases de données : ses buts, ses problèmes et ses difficultés. 
 
 
 \end{document}

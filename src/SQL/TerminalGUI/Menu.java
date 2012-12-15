@@ -532,8 +532,7 @@ class Menu{
 	System.out.println("6-Les numeros avec le club correspondant");	
 	System.out.println("7-Les equipes avec le club correspondant");
 	System.out.println("8-Les joueurs et leur club");
-	System.out.println("9-Le score des matchs joues a une date donnee");
-	System.out.println("10-Le nombre de match gagnes, perdus et nuls pour un club");
+	System.out.println("9-Le nombre de match gagnes, perdus et nuls pour un club");
 	System.out.println("\n11-Revenir au menu principal");
 
 	choix = sc.nextInt();
@@ -615,16 +614,9 @@ class Menu{
 	    break;
 
 	case(9):
-	    System.out.println("Veuillez donner la date qui vous interesse au format jj-moi-aa(par exemple 21-FEB-12) : ");
-	    String date = sc.nextLine();
-	    r = new RequestSQL("select rencontre.score_equipe1_rencontre as Equipe1 , rencontre.score_equipe2_rencontre as Equipe2 from rencontre where rencontre.date_rencontre = '" + date + "'");
-	    r.execRequest(stmt);
-	    break;
-
-	case(10):
 	    r2 = new RequestSQL("select max(NUMERO_CLUB) from club");
 	    max = r2.recup(stmt);
-	    System.out.println("Ecrivez le numero du club dont vous souhaitez voir les resultats(inferieur ou egale a "+ max +" : ");
+	    System.out.println("Ecrivez le numero du club dont vous souhaitez voir les resultats(inferieur ou egale a "+ max +") : ");
 	    int numCl = sc.nextInt();
 	    sc.nextLine();
 	    
@@ -641,7 +633,7 @@ class Menu{
 	    r.execRequest(stmt);
 
 	    break;
-	case(11):
+	case(10):
 	    break;
 	}
     }
@@ -773,7 +765,8 @@ class Menu{
 	System.out.println("1-Les dates des rencontres auxquelle a pris part un joueur donnee");
 	System.out.println("2-Le nombre de point marque par un joueur dans une rencontre donnee");
 	System.out.println("3-Le nombre de fautes commises par un joueur lors d'une rencontre donnee");
-	System.out.println("4-Revenir au menu principal");
+	System.out.println("4-Le score des matchs joues a une date donnee");
+	System.out.println("5-Revenir au menu principal");
 
 	choix = sc.nextInt();
 	sc.nextLine();
@@ -785,7 +778,6 @@ class Menu{
 	    r = new RequestSQL("select DATE_RENCONTRE from RENCONTRE where NUMERO_RENCONTRE in (select NUMERO_RENCONTRE from PARTICIPE where NUMERO_LICENCE = (select NUMERO_LICENCE from JOUEUR where NOM_JOUEUR = '"+ var + "'))");
 		r.execRequest(stmt);
 	    break;
-
 	case(2):
 
 	    System.out.println("Rentrez la date du match au format dd-MM-aa(par exemple 21-FEB-12)");
@@ -815,6 +807,13 @@ class Menu{
 		r.execRequest(stmt);
 	    break;
 	case(4):
+	    System.out.println("Veuillez donner la date qui vous interesse au format jj-moi-aa(par exemple 21-FEB-12) : ");
+	    date = sc.nextLine();
+	    r = new RequestSQL("select rencontre.score_equipe1_rencontre as Equipe1 , rencontre.score_equipe2_rencontre as Equipe2 from rencontre where rencontre.date_rencontre = '" + date + "'");
+	    r.execRequest(stmt);
+	    break;
+
+	case(5):
 	    break;
 	}
     }

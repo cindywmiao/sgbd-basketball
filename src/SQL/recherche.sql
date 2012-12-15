@@ -48,7 +48,7 @@ select * from CLUB where NOM_CLUB = 'AIGLES';
 --input :  nom_personne
 select * from CLUB where NUMERO_CLUB = (select NUMERO_CLUB from PERSONNE where NOM_PERSONNE = '?');
 
-
+ 
 
 --Rechercher une equipe par son numero
 --input : NUMERO_EQUIPE
@@ -96,7 +96,7 @@ select * from PERSONNE where FONCTION_PERSONNE = 'SECRETAIRE' and NUMERO_CLUB = 
 select DATE_RENCONTRE from RENCONTRE where NUMERO_RENCONTRE in (select NUMERO_RENCONTRE from PARTICIPE where NUMERO_LICENCE = (select NUMERO_LICENCE from JOUEUR where NOM_JOUEUR = 'MONTAND'));
 
 --Rechercher le nombre de points marques par un joueur a une rencontre donnee
---input : NOM_JOUEUR et DATE_RENCONTRE
+--input : NUMERO_LICENCE et DATE_RENCONTRE
 
 select participe.cumul_points_marques_joueur
 from rencontre,participe 
@@ -104,7 +104,7 @@ where participe.numero_licence = 2 and participe.numero_rencontre = rencontre.nu
 
 
 --Rechercher le nombre de fautes commises par un joueur a une rencontre donnee
---input : NOM_JOUEUR et DATE_RENCONTRE
+--input : NUMERO_LICENCE et DATE_RENCONTRE
 select participe.cumul_fautes_joueur
 from rencontre,participe 
 where participe.numero_licence = 2 and participe.numero_rencontre = rencontre.numero_rencontre and rencontre.date_rencontre = '01-APR-12';

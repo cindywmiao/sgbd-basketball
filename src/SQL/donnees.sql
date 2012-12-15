@@ -103,7 +103,6 @@ insert into ENTRAINE values ( 12 ,  12 ) ;
 insert into ENTRAINE values ( 13 ,  13 ) ;
 insert into ENTRAINE values ( 14 ,  14 ) ;
 insert into ENTRAINE values ( 15 ,  15 ) ;
-
 commit;
 
 -- RENCONTRE

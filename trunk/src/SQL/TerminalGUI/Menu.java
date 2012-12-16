@@ -190,9 +190,9 @@ class Menu{
 	    while(cat == 0){
 		System.out.println("Rentrez l'une des categorie suivante : CADET, BENJAMIN, JUNIOR");
 		categorie = sc.nextLine();
-		if (categorie.equals("cadet"))
+		if (categorie.equals("benjamin"))
 		    cat = 1;
-		else if(categorie.equalsIgnoreCase("benjamin"))
+		else if(categorie.equalsIgnoreCase("cadet"))
 		    cat = 2;
 		else if(categorie.equalsIgnoreCase("junior"))
 		    cat = 3;
@@ -202,7 +202,7 @@ class Menu{
 			break;
 		}
 	    }
-	    r = new RequestSQL("select num_equipe, nom_equipe, score from equipe,(select num_equipe, sum(score) as Score from( (select rencontre.numero_equipe1 as NUM_EQUIPE , rencontre.score_equipe1_rencontre as SCORE from rencontre) union (select rencontre.numero_equipe2 as NUM_EQUIPE , rencontre.score_equipe2_rencontre as SCORE from rencontre)) group by NUM_EQUIPE order by Score DESC) where equipe.numero_equipe = num_equipe and equipe.numero_categorie = "+ cat +"");
+	    r = new RequestSQL("select nom_equipe, score from equipe E, (select num_equipe, sum(score) as Score from( (select rencontre.numero_equipe1 as NUM_EQUIPE , rencontre.score_equipe1_rencontre as SCORE from rencontre) union (select rencontre.numero_equipe2 as NUM_EQUIPE , rencontre.score_equipe2_rencontre as SCORE from rencontre)) group by NUM_EQUIPE order by Score DESC) where E.numero_equipe = num_equipe and E.numero_categorie = "+ cat +"");
 
 	    r.execRequest(stmt);
 	    break;
@@ -211,9 +211,9 @@ class Menu{
 	    while(cat == 0){
 		System.out.println("Rentrez l'une des categorie suivante : CADET, BENJAMIN, JUNIOR");
 		categorie = sc.nextLine();
-		if (categorie.equals("cadet"))
+		if (categorie.equals("benjamin"))
 		    cat = 1;
-		else if(categorie.equalsIgnoreCase("benjamin"))
+		else if(categorie.equalsIgnoreCase("cadet"))
 		    cat = 2;
 		else if(categorie.equalsIgnoreCase("junior"))
 		    cat = 3;

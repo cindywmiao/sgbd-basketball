@@ -35,7 +35,7 @@ order by score DESC;
 
 --Premiere methode : classement par cumul de score--
 select num_equipe, nom_equipe, score
-from equipe,(
+from equipe E, categorie C,(
 select num_equipe, sum(score) as Score
 from(
 (select rencontre.numero_equipe1 as NUM_EQUIPE , rencontre.score_equipe1_rencontre as SCORE
@@ -45,8 +45,9 @@ union
 from rencontre))
 group by NUM_EQUIPE
 order by Score DESC)
-where equipe.numero_equipe = num_equipe
-and equipe.numero_categorie = 1;
+where E.numero_equipe = num_equipe
+and E.numero_categorie = C.numero_categorie
+and C.nom_categorie = 'BENJAMIN';
  
 --Deuxieme methode : classement pas total des points :
 -------- un match gagne --> 3 points
@@ -54,7 +55,7 @@ and equipe.numero_categorie = 1;
 -------- un match perdu --> 0 point
 
 select nom_club as club ,nom_equipe as equipe , sum(points) as total
-from equipe E, club C,
+from equipe E, club C, categorie CA,
 ((select numero_equipe1 as num_equipe , sum(case
 when score_equipe1_rencontre > score_equipe2_rencontre 
 then 3
@@ -78,6 +79,7 @@ from rencontre
 group by numero_equipe2))
 where E.numero_equipe = num_equipe
 and E.numero_club = C.numero_club
-and E.numero_categorie = 1   
+and E.numero_categorie = CA.numero_categorie
+and CA.nom_categorie = 'BENJAMIN'   
 group by nom_equipe, nom_club
 order by total desc;

@@ -58,7 +58,7 @@
 
 Afin de garder les informations sur ses membres et sur son fonctionnement, un club sportif peut être amené à utiliser une base de données. Ce projet consiste en l'implémentation d'une base de données pour un club de basket-ball gérant les rencontres entre les différents clubs d'une fédération. \\
 
-Dans ce rapport, il sera question, en premier temps, de présenter le modèle conceptuel utilisé pour la modélisation des données, puis le modèle relationnel en $3^{eme}$ forme normale. Ensuite, l'implémentation de la base en MySQL ainsi que la justification de notre choix. Enfin, l'environnement d'exécution avec un aperçu de l'interface graphique concue pour accéder à la base. 
+Dans ce rapport, il sera question, en premier temps, de présenter le modèle conceptuel utilisé pour la modélisation des données, puis le modèle relationnel en $3^{eme}$ forme normale. Ensuite, l'implémentation de la base en MySQL ainsi que la justification de notre choix. Enfin, l'environnement d'exécution avec un aperçu de l'interface graphique conçue pour accéder à la base. 
 
 
 \newpage
@@ -547,7 +547,7 @@ L'exemple qui suit nous permet d'avoir le classement des équipes de la catégor
 
 \begin{verbatim}
 select num_equipe, nom_equipe, score
-from equipe E,(
+from equipe E, categorie C,(
 select num_equipe, sum(score) as Score
 from(
 (select rencontre.numero_equipe1 as NUM_EQUIPE , rencontre.score_equipe1_rencontre as SCORE
@@ -558,7 +558,8 @@ from rencontre))
 group by NUM_EQUIPE
 order by Score DESC)
 where E.numero_equipe = num_equipe
-and E.numero_equipe = 1;
+and E.numero_categorie = C.numero_categorie
+and C.nom_categorie = 'BENJAMIN';
 \end{verbatim}
 
 Ensuite, nous avons eu l'idée de les classer en fonction du total des points, ce qui est plus compliqué. En effet, c'est le principe utilisé en football : pour un match gagné, l'équipe obtient 3 points, pour un match nul, 1 point et pour un match perdu, elle n'obtient aucun point.  \\
@@ -566,7 +567,7 @@ Voici la commande SQL utilisée pour avoir le classement des équipes de la cat�
 
 \begin{verbatim}
 select nom_club as club ,nom_equipe as equipe , sum(points) as total
-from equipe E, club C,
+from equipe E, club C, categorie CA,
 ((select numero_equipe1 as num_equipe , sum(case
 when score_equipe1_rencontre > score_equipe2_rencontre 
 then 3
@@ -590,7 +591,8 @@ from rencontre
 group by numero_equipe2))
 where E.numero_equipe = num_equipe
 and E.numero_club = C.numero_club
-and E.numero_categorie = 1 
+and E.numero_categorie = CA.numero_categorie
+and CA.nom_categorie = 'BENJAMIN'   
 group by nom_equipe, nom_club
 order by total desc;
 \end{verbatim}
@@ -649,7 +651,7 @@ Après avoir conçu l'interface graphique, nous n'avons pas réussi à afficher 
 Notre deuxième interface s'affiche directement dans le terminal et se présente sous forme d'un questionnaire à choix multiples. On peut ainsi récupérer des informations ou modifier les tables. La figure 7 montre le menu principal.\\
 
 \begin{figure}[h]
-\begin{narrow}{-0.3in}{0in}
+\begin{narrow}{-1.3in}{0in}
 \includegraphics[scale = 0.7]{TerGUI.png}
 \caption{Capture d'écran du menu principal}
 \end{narrow}
@@ -657,15 +659,15 @@ Notre deuxième interface s'affiche directement dans le terminal et se présente
 
 
 
-Les premiers onglets permettent de visualiser les différentes tables. La commande 7 concernent les statistiques que l'on peut faire grâce à notre base de données. La 8 permet de de modifier la table et la 9 de chercher des informations en particulier sur les tables(par exemple les information sur un club en particulier). Enfin, le choix 10 permet d'exécuter sa propre requête sur les tables.\\
+Les premiers onglets permettent de visualiser les différentes tables. La commande 7 concernent les statistiques que l'on peut faire grâce à notre base de données. La 8 permet de de modifier la table et la 9 de chercher des informations en particulier sur les tables(par exemple les informations sur un club en particulier). Enfin, le choix 10 permet d'exécuter sa propre requête sur les tables.\\
 
-De plus, nous avons fait un certain nombre de requêtes de consultation spéciales sur la table club(comme par exemple l'affichage de 2 colonnes seulement ou encore le ``nombre de match gagnés, perdus ou nuls'' par club. Celles-ci sont donc dans l'onglet : ``chercher une information précise'' -> club.\\
-Lorsque c'est necessaire, l'utilisateur peut donner les informations que necessitées par sa requête(comme une date ou un nom de club).\\
+De plus, nous avons fait un certain nombre de requêtes de consultation sur la table club(comme par exemple l'affichage de 2 colonnes seulement ou encore le ``nombre de match gagnés, perdus ou nuls'' par club. Celles-ci sont donc dans l'onglet : ``chercher une information précise'' -> club.\\
+Lorsque c'est necessaire, l'utilisateur peut donner les informations nécessaires pour l'exécution de sa requête(comme une date ou un nom de club).\\
 
 En outre, une option est proposée à l'utilisateur afin de revenir en arrière dans ses choix si jamais il s'est trompé.\\
-Comme la précedente interface, celle-ci est codé en jdbc. Elle utilise 3 classes afin de fonctionner : \texttt{Menu, RequestSQL et Lancer}. LaNcer contient le ``main'' du programme. Il initialise une connexion avec oracle puis charge le menu principal. Ensuite, Menu s'occupe de la navigation dans les différents onglets. Enfin RequestSQL permet de charger et de lancer les différentes requêtes. La gestion d'erreur de JDBC à proprement dit est aussi contenu dans cette classe. Il suffirait d'inclure cette classe à notre environnement graphique et d'écrire le code d'une requête pour pouvoir l'executer. Cependant, sa compilation necessite l'usage d'oracle.\\
+Comme la précedente interface, celle-ci est codée en jdbc. Elle utilise 3 classes afin de fonctionner : \texttt{Menu, RequestSQL et Lancer}. Lancer contient le ``main'' du programme. Il initialise une connexion avec oracle puis charge le menu principal. Ensuite, Menu s'occupe de la navigation dans les différents onglets. Enfin RequestSQL permet de charger et de lancer les différentes requêtes. La gestion d'erreur de JDBC à proprement dit est aussi contenue dans cette classe. Il suffirait d'inclure cette classe à notre environnement graphique et d'écrire le code d'une requête pour pouvoir l'exécuter. Cependant, sa compilation nécessite l'usage d'oracle.\\
 
-Au final cette interface offre toutes les fonctionnalités de l'interface graphique dans un terminal. \\
+Au final, cette interface offre toutes les fonctionnalités de l'interface graphique dans un terminal. \\
 
 
 \section*{Conclusion}

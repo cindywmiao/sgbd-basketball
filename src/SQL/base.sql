@@ -22,6 +22,20 @@ drop table PARTICIPE cascade constraints;
 
 drop table ENTRAINE cascade constraints;
 
+drop sequence SequenceEntraineur;
+
+drop sequence SequenceJoueur;
+
+drop sequence SequencePersonne;
+
+drop sequence SequenceClub;
+
+drop sequence SequenceEquipe;
+
+drop sequence SequenceRencontre;
+
+drop sequence SequenceCategorie;
+
 -- ============================================================
 --   Table : CLUB                                            
 -- ============================================================

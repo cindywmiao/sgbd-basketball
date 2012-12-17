@@ -1,13 +1,13 @@
 -- Ajout d'un joueur --
-insert into JOUEUR values(42, 'MONTAND','YVES','13-OCT-89','TALENCE', '14-JAN-01',1);
+insert into JOUEUR (NOM_JOUEUR, PRENOM_JOUEUR, DATE_de_NAISSANCE_JOUEUR, ADRESSE_JOUEUR, DATE_ENTREE_CLUB_JOUEUR, NUMERO_EQUIPE) values('MONTAND','YVES','13-OCT-89','TALENCE', '14-JAN-01',1);
 commit;
 
 -- Ajout d'un club --
-insert into CLUB values ( 11 , 'BEINEIX' ) ;
+insert into CLUB (NOM_CLUB) values ( 'BEINEIX' ) ;
 commit;
 
 -- Ajout d'un match --
-insert into RENCONTRE values ( 21 , '21-OCT-87' , 34 , 25 , 3  , 7  ) ;
+insert into RENCONTRE (DATE_RENCONTRE, SCORE_EQUIPE1_RENCONTRE, SCORE_EQUIPE2_RENCONTRE, NUMERO_EQUIPE1, NUMERO_EQUIPE2) values ( '21-OCT-87' , 34 , 25 , 3  , 7  ) ;
 commit;
 
 -- Suppression d'un joueur --

@@ -69,14 +69,14 @@ create table CATEGORIE
 );
 
 -- ============================================================
---   Table : ENTAINEUR                                            
+--   Table : ENTRAINEUR                                            
 -- ============================================================
 create table ENTRAINEUR
 (
     NUMERO_ENTRAINEUR                   NUMBER(3)              not null,
     NOM_ENTRAINEUR                      CHAR(20)               not null,
     PRENOM_ENTRAINEUR                   CHAR(20) 	       not null,
-    DATE_ENTREE_CLUB_ENTRAINTEUR        DATE                   not null,
+    DATE_ENTREE_CLUB_ENTRAINEUR        DATE                   not null,
     constraint pk_entraineur primary key (NUMERO_ENTRAINEUR)
 );
 
@@ -172,3 +172,125 @@ alter table ENTRAINE
 alter table ENTRAINE
     add constraint fk2_entraine foreign key (NUMERO_ENTRAINEUR)
        references ENTRAINEUR (NUMERO_ENTRAINEUR) on delete cascade;
+
+CREATE SEQUENCE SequenceClub
+START WITH 1
+INCREMENT BY 1;
+
+CREATE TRIGGER MonTriggClub
+BEFORE INSERT
+ON CLUB
+FOR EACH ROW
+BEGIN
+SELECT SequenceClub.NEXTVAL
+INTO :NEW.NUMERO_CLUB
+FROM DUAL;
+END;
+
+/
+
+CREATE SEQUENCE SequenceEquipe
+START WITH 1
+INCREMENT BY 1;
+
+
+CREATE TRIGGER MonTriggEquipe
+BEFORE INSERT
+ON EQUIPE
+FOR EACH ROW
+BEGIN
+SELECT SequenceEquipe.NEXTVAL
+INTO :NEW.NUMERO_EQUIPE
+FROM DUAL;
+END;
+
+/
+
+
+CREATE SEQUENCE SequencePersonne
+START WITH 1
+INCREMENT BY 1;
+
+
+CREATE TRIGGER MonTriggPersonne
+BEFORE INSERT
+ON PERSONNE
+FOR EACH ROW
+BEGIN
+SELECT SequencePersonne.NEXTVAL
+INTO :NEW.NUMERO_PERSONNE
+FROM DUAL;
+END;
+
+/
+
+
+CREATE SEQUENCE SequenceEntraineur
+START WITH 1
+INCREMENT BY 1;
+
+
+CREATE TRIGGER MonTriggEntraineur
+BEFORE INSERT
+ON ENTRAINEUR
+FOR EACH ROW
+BEGIN
+SELECT SequenceEntraineur.NEXTVAL
+INTO :NEW.NUMERO_ENTRAINEUR
+FROM DUAL;
+END;
+
+/
+
+
+CREATE SEQUENCE SequenceJoueur
+START WITH 1
+INCREMENT BY 1;
+
+
+CREATE TRIGGER MonTriggJoueur
+BEFORE INSERT
+ON JOUEUR
+FOR EACH ROW
+BEGIN
+SELECT SequenceJoueur.NEXTVAL
+INTO :NEW.NUMERO_LICENCE
+FROM DUAL;
+END;
+
+/
+
+
+CREATE SEQUENCE SequenceRencontre
+START WITH 1
+INCREMENT BY 1;
+
+
+CREATE TRIGGER MonTriggRencontre
+BEFORE INSERT
+ON RENCONTRE
+FOR EACH ROW
+BEGIN
+SELECT SequenceRencontre.NEXTVAL
+INTO :NEW.NUMERO_RENCONTRE
+FROM DUAL;
+END;
+
+/
+
+CREATE SEQUENCE SequenceCategorie
+START WITH 1
+INCREMENT BY 1;
+
+
+CREATE TRIGGER MonTriggCategorie
+BEFORE INSERT
+ON CATEGORIE
+FOR EACH ROW
+BEGIN
+SELECT SequenceCategorie.NEXTVAL
+INTO :NEW.NUMERO_CATEGORIE
+FROM DUAL;
+END;
+
+/

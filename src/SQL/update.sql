@@ -1,5 +1,5 @@
 -- Ajout d'un joueur --
-insert into JOUEUR values(42,'MONTAND','YVES','13-OCT-89','TALENCE', '14-JAN-01',1);
+insert into JOUEUR values(42, 'MONTAND','YVES','13-OCT-89','TALENCE', '14-JAN-01',1);
 commit;
 
 -- Ajout d'un club --

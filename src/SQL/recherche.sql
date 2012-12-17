@@ -108,3 +108,24 @@ where participe.numero_licence = 2 and participe.numero_rencontre = rencontre.nu
 select participe.cumul_fautes_joueur
 from rencontre,participe 
 where participe.numero_licence = 2 and participe.numero_rencontre = rencontre.numero_rencontre and rencontre.date_rencontre = '01-APR-12';
+
+-- La feuille du match à une date donnée --
+-- Input : date --
+-- Exemple date : 21-feb-87 --
+
+(select distinct NOM_EQUIPE as EQUIPE , SCORE_EQUIPE1_RENCONTRE as SCORE_EQUIPE  from EQUIPE E, RENCONTRE R, PARTICIPE P where E.NUMERO_EQUIPE = R.NUMERO_EQUIPE1 and R.NUMERO_RENCONTRE = P.NUMERO_RENCONTRE and R.DATE_RENCONTRE = '21-feb-12' )
+union
+(select distinct NOM_EQUIPE as EQUIPE , SCORE_EQUIPE2_RENCONTRE as SCORE_EQUIPE from EQUIPE E, RENCONTRE R, PARTICIPE P where E.NUMERO_EQUIPE = R.NUMERO_EQUIPE2 and R.NUMERO_RENCONTRE = P.NUMERO_RENCONTRE and R.DATE_RENCONTRE = '21-feb-12');
+
+-- La liste des joueurs à une date donnée --
+-- input : date --
+-- Exemple date = 13-OCT-81 --
+
+select NOM_JOUEUR from JOUEUR J, PARTICIPE P, RENCONTRE R where J.NUMERO_LICENCE = P.NUMERO_LICENCE and P.NUMERO_RENCONTRE = R.NUMERO_RENCONTRE and R.DATE_RENCONTRE = '28-JUN-08' ;
+
+-- Les scores des matchs joués à une date donnée --
+-- Exemple de date : '24-FEB-87' --
+-- Input : date --
+select rencontre.score_equipe1_rencontre as Equipe1 , rencontre.score_equipe2_rencontre as Equipe2
+from rencontre
+where rencontre.date_rencontre = '13-OCT-12'; 

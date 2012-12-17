@@ -45,9 +45,9 @@ commit;
 
 -- CATEGORIES
 
-insert into CATEGORIE values (  1 , 'BENJAMIN' );
-insert into CATEGORIE values (  2 , 'CADET' );
-insert into CATEGORIE values (  3 , 'JUNIOR' );
+insert into CATEGORIE values ( 1, 'BENJAMIN' );
+insert into CATEGORIE values ( 2, 'CADET' );
+insert into CATEGORIE values ( 3,'JUNIOR' );
 
 commit;
 
@@ -260,7 +260,7 @@ commit;
 insert into PERSONNE values ( 1  ,'MALLE' ,'ROBAT', 'TALENCE' , 'PRESIDENT',      1);
 insert into PERSONNE values ( 2  ,'PONTUS','RAPHAEL', 'TALENCE' , 'VICE-PRESIDENT', 1);
 insert into PERSONNE values ( 3  ,'MOLLAT' ,'JEAN', 'TALENCE' , 'TRESORIER',     1);
-insert into PERSONNE values ( 4  ,'JEAN' ,'PIERRE', 'TALENCE' , 'SECRETAIRE',  1);
+insert into PERSONNE values ( 4  ,'MOUTON' ,'PIERRE', 'TALENCE' , 'SECRETAIRE',  1);
 insert into PERSONNE values ( 5  ,'POIREAU' ,'FLORENT', 'TALENCE' , 'PRESIDENT',      2);
 insert into PERSONNE values ( 6  ,'LEVEQUE' ,'FLORIAN', 'TALENCE' , 'VICE-PRESIDENT', 2);
 insert into PERSONNE values ( 7  ,'SYLVAIN' ,'NATHAN', 'TALENCE' , 'TRESORIER',     2);
@@ -285,18 +285,18 @@ insert into PERSONNE values ( 25 ,'LEBLANC' ,'EMMANUEL', 'TALENCE' , 'PRESIDENT'
 insert into PERSONNE values ( 26 ,'RASTRERO' ,'EDDY', 'TALENCE' , 'VICE-PRESIDENT', 7);
 insert into PERSONNE values ( 27 ,'NAVAS' ,'DANIEL', 'TALENCE' , 'TRESORIER',     7);
 insert into PERSONNE values ( 28 ,'BIENVENU' ,'DANNY', 'TALENCE' , 'SECRETAIRE',  7);
-insert into PERSONNE values ( 29 ,'MALLE' ,'SIMON', 'TALENCE' , 'PRESIDENT',      8);
-insert into PERSONNE values ( 30 ,'MALLE' ,'THOMAS', 'TALENCE' , 'VICE-PRESIDENT', 8);
-insert into PERSONNE values ( 31 ,'MALLE' ,'JULIEN', 'TALENCE' , 'TRESORIER',     8);
-insert into PERSONNE values ( 32 ,'MALLE' ,'FRED', 'TALENCE' , 'SECRETAIRE',  8);
-insert into PERSONNE values ( 33 ,'MALLE' ,'PHILIPPE', 'TALENCE' , 'PRESIDENT',      9);
-insert into PERSONNE values ( 34 ,'MALLE' ,'JEAN', 'TALENCE' , 'VICE-PRESIDENT', 9);
-insert into PERSONNE values ( 35 ,'MALLE' ,'ROBAT', 'TALENCE' , 'TRESORIER',     9);
-insert into PERSONNE values ( 36 ,'MALLE' ,'NICOLAS', 'TALENCE' , 'SECRETAIRE',  9);
-insert into PERSONNE values ( 37 ,'MALLE' ,'HERVE', 'TALENCE' , 'PRESIDENT',      10);
-insert into PERSONNE values ( 38 ,'MALLE' ,'JOHN', 'TALENCE' , 'VICE-PRESIDENT', 10);
-insert into PERSONNE values ( 39 ,'MALLE' ,'PATRICK', 'TALENCE' , 'TRESORIER',     10);
-insert into PERSONNE values ( 40 ,'MALLE' ,'ARNAUD', 'TALENCE' , 'SECRETAIRE',  10);
+insert into PERSONNE values ( 29 ,'DUBERNET' ,'SIMON', 'TALENCE' , 'PRESIDENT',      8);
+insert into PERSONNE values ( 30 ,'COLAF' ,'THOMAS', 'TALENCE' , 'VICE-PRESIDENT', 8);
+insert into PERSONNE values ( 31 ,'GABIN' ,'JULIEN', 'TALENCE' , 'TRESORIER',     8);
+insert into PERSONNE values ( 32 ,'POQUET' ,'FRED', 'TALENCE' , 'SECRETAIRE',  8);
+insert into PERSONNE values ( 33 ,'LECLERC' ,'PHILIPPE', 'TALENCE' , 'PRESIDENT',      9);
+insert into PERSONNE values ( 34 ,'FONTIN' ,'JEAN', 'TALENCE' , 'VICE-PRESIDENT', 9);
+insert into PERSONNE values ( 35 ,'MEUNIER' ,'ROBAT', 'TALENCE' , 'TRESORIER',     9);
+insert into PERSONNE values ( 36 ,'HENRI' ,'NICOLAS', 'TALENCE' , 'SECRETAIRE',  9);
+insert into PERSONNE values ( 37 ,'GALERON' ,'HERVE', 'TALENCE' , 'PRESIDENT',      10);
+insert into PERSONNE values ( 38 ,'RENARD' ,'JOHN', 'TALENCE' , 'VICE-PRESIDENT', 10);
+insert into PERSONNE values ( 39 ,'DUSSAUT' ,'PATRICK', 'TALENCE' , 'TRESORIER',     10);
+insert into PERSONNE values ( 40 ,'LEMAIRE' ,'ARNAUD', 'TALENCE' , 'SECRETAIRE',  10);
 
 commit;
 

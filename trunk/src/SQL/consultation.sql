@@ -28,6 +28,8 @@ where rencontre.date_rencontre = '21-FEB-12';
 
 -- Pour un club, on veut le nombre de matchs gagnés, perdus ou nuls --
 -- Input : numero du club --
+
+---matchs gagnes
 select count(*) as GAGNER
 from(
 (select *
@@ -45,6 +47,8 @@ where equipe.numero_equipe = rencontre.numero_equipe2
       and club.numero_club = 2)
 );
 
+
+--matchs perdus
 select count(*) as PERDU
 from(
 (select *
@@ -62,6 +66,8 @@ where equipe.numero_equipe = rencontre.numero_equipe2
       and club.numero_club = 2)
 );
 
+
+--matchs nuls
 select count(*) as NULS
 from(
 (select *

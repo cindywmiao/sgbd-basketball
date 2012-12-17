@@ -11,8 +11,8 @@ where rencontre.date_rencontre = '21-FEB-12'
 -- Input : date de début de la saison
 select avg(participe.cumul_points_marques_joueur) as MOYENNE_POINTS
 from joueur, participe, rencontre
-where rencontre.date_rencontre > '01-JAN-07'
-and rencontre.date_rencontre < '31-DEC-07'
+where rencontre.date_rencontre > '01-JAN-10'
+and rencontre.date_rencontre < '31-DEC-10'
       and rencontre.numero_rencontre = participe.numero_rencontre;
 
 -- Commande 3 --

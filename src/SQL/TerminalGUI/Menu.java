@@ -241,6 +241,7 @@ class Menu{
 	System.out.println("3-Match ");
 	System.out.println("4-Retour au menu principal ");
 
+	String nom;
 	Scanner sc = new Scanner(System.in);
 	int tab = sc.nextInt();
 	sc.nextLine();
@@ -249,25 +250,15 @@ class Menu{
 
 	    switch(tab){
 	    case(1):
-		RequestSQL reqCl = new RequestSQL("select max(NUMERO_CLUB) from club");
-		int maxCl = reqCl.recup(stmt);
-		System.out.println("Quel est le numero du nouveau club?(au dessus de " + maxCl +")");
-		int cNum = sc.nextInt();
-		sc.nextLine();
 		System.out.println("Quel est le nom du nouveau club?");
-		String cTown = sc.nextLine();
-		r = new RequestSQL("insert into CLUB values("+cNum + ",'" + cTown + "')");
+		String Nom = sc.nextLine();
+		r = new RequestSQL("insert into CLUB ( NOM_CLUB) values ('" + Nom+ "')");
 		r.execUp(stmt);
 		break;
 
 	    case(2):	
-		RequestSQL reqLi = new RequestSQL("select max(NUMERO_LICENCE) from joueur");
-		int maxLi = reqLi.recup(stmt);
-		System.out.println("Quel est le numero de licence du nouveau joueur(superieur a " + maxLi + ")?");
-		int numLi = sc.nextInt();
-		sc.nextLine();
 		System.out.println("Quel est le nom du nouveau joueur?");
-		String name = sc.nextLine();
+		String nom = sc.nextLine();
 		System.out.println("Quel est le prenom du nouveau joueur?");
 		String firstName = sc.nextLine();
 		System.out.println("Quel est la date de naissance du nouveau joueur?");
@@ -279,17 +270,11 @@ class Menu{
 		System.out.println("Quel est le numero de l'equipe du nouveau joueur (entre 1 et 15)?");
 		int numTeam = sc.nextInt();
 		sc.nextLine();
-		r = new RequestSQL("insert into JOUEUR values("+numLi+",'" + name + "','" + firstName + "','" + birthday + "','" + town + "', '" + dateEnt + "'," + numTeam + ")");
+		r = new RequestSQL("insert into JOUEUR  (NOM_JOUEUR, PRENOM_JOUEUR, DATE_de_NAISSANCE_JOUEUR, ADRESSE_JOUEUR, DATE_ENTREE_CLUB_JOUEUR, NUMERO_EQUIPE) values ('" + name + "','" + firstName + "','" + birthday + "','" + town + "', '" + dateEnt + "'," + numTeam + ")");
 		r.execUp(stmt);
 		break;
 
 	    case(3):
-		RequestSQL reqMatch = new RequestSQL("select max(NUMERO_RENCONTRE) from RENCONTRE");
-		int maxMatch = reqMatch.recup(stmt);
-
-		System.out.println("Quel est le numero du nouveau match(superieur a " + maxMatch + ")?");
-		int mNum = sc.nextInt();
-		sc.nextLine();
 		System.out.println("A quelle date du nouveau match a-t-il lieu?");
 		String mDate = sc.nextLine();
 		System.out.println("A quel est le score de l'equipe1?");
@@ -307,7 +292,7 @@ class Menu{
 		int num1 = reqMatch.recup(stmt);
 		reqMatch = new RequestSQL("select NUMERO_EQUIPE from EQUIPE where NOM_EQUIPE='" + nom2 + "'");
 		int num2 = reqMatch.recup(stmt);
-		r = new RequestSQL("insert into RENCONTRE values("+ mNum + ",'" + mDate + "'," + score1 + "," + score2 + "," + num1 + "," + num2 + ")");
+		r = new RequestSQL("insert into RENCONTRE  (DATE_RENCONTRE, SCORE_EQUIPE1_RENCONTRE, SCORE_EQUIPE2_RENCONTRE, NUMERO_EQUIPE1, NUMERO_EQUIPE2) values('"+ mDate + "'," + score1 + "," + score2 + "," + num1 + "," + num2 + ")");
 		r.execUp(stmt);
 	    case 4:
 		break;

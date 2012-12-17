@@ -245,20 +245,20 @@ class Menu{
 	Scanner sc = new Scanner(System.in);
 	int tab = sc.nextInt();
 	sc.nextLine();
-	RequestSQL r;
+	RequestSQL r, r2;
 	try{
 
 	    switch(tab){
 	    case(1):
 		System.out.println("Quel est le nom du nouveau club?");
-		String Nom = sc.nextLine();
-		r = new RequestSQL("insert into CLUB ( NOM_CLUB) values ('" + Nom+ "')");
+		nom = sc.nextLine();
+		r = new RequestSQL("insert into CLUB ( NOM_CLUB) values ('" + nom+ "')");
 		r.execUp(stmt);
 		break;
 
 	    case(2):	
 		System.out.println("Quel est le nom du nouveau joueur?");
-		String nom = sc.nextLine();
+		nom = sc.nextLine();
 		System.out.println("Quel est le prenom du nouveau joueur?");
 		String firstName = sc.nextLine();
 		System.out.println("Quel est la date de naissance du nouveau joueur?");
@@ -270,7 +270,7 @@ class Menu{
 		System.out.println("Quel est le numero de l'equipe du nouveau joueur (entre 1 et 15)?");
 		int numTeam = sc.nextInt();
 		sc.nextLine();
-		r = new RequestSQL("insert into JOUEUR  (NOM_JOUEUR, PRENOM_JOUEUR, DATE_de_NAISSANCE_JOUEUR, ADRESSE_JOUEUR, DATE_ENTREE_CLUB_JOUEUR, NUMERO_EQUIPE) values ('" + name + "','" + firstName + "','" + birthday + "','" + town + "', '" + dateEnt + "'," + numTeam + ")");
+		r = new RequestSQL("insert into JOUEUR  (NOM_JOUEUR, PRENOM_JOUEUR, DATE_de_NAISSANCE_JOUEUR, ADRESSE_JOUEUR, DATE_ENTREE_CLUB_JOUEUR, NUMERO_EQUIPE) values ('" + nom + "','" + firstName + "','" + birthday + "','" + town + "', '" + dateEnt + "'," + numTeam + ")");
 		r.execUp(stmt);
 		break;
 
@@ -288,10 +288,10 @@ class Menu{
 		System.out.println("A quel est le nom de l'equipe2?");
 		String nom2 =sc.nextLine();
 
-		reqMatch = new RequestSQL("select NUMERO_EQUIPE from EQUIPE where NOM_EQUIPE='" + nom1 + "'");
-		int num1 = reqMatch.recup(stmt);
-		reqMatch = new RequestSQL("select NUMERO_EQUIPE from EQUIPE where NOM_EQUIPE='" + nom2 + "'");
-		int num2 = reqMatch.recup(stmt);
+		r2 = new RequestSQL("select NUMERO_EQUIPE from EQUIPE where NOM_EQUIPE='" + nom1 + "'");
+		int num1 = r2.recup(stmt);
+		r2 = new RequestSQL("select NUMERO_EQUIPE from EQUIPE where NOM_EQUIPE='" + nom2 + "'");
+		int num2 = r2.recup(stmt);
 		r = new RequestSQL("insert into RENCONTRE  (DATE_RENCONTRE, SCORE_EQUIPE1_RENCONTRE, SCORE_EQUIPE2_RENCONTRE, NUMERO_EQUIPE1, NUMERO_EQUIPE2) values('"+ mDate + "'," + score1 + "," + score2 + "," + num1 + "," + num2 + ")");
 		r.execUp(stmt);
 	    case 4:
